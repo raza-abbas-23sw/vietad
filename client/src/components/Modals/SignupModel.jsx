@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const SignupModal = ({ onClose, open }) => {
+const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
   const {
     register,
     handleSubmit,
@@ -194,7 +194,13 @@ const SignupModal = ({ onClose, open }) => {
 
           <p className="text-center mt-4 text-sm text-gray-600">
             Already have an account?{" "}
-            <button className="text-blue-600 hover:underline">Login</button>
+            <button
+              className="text-blue-600 hover:underline"
+              type="button"
+              onClick={onSwitchToSignin}
+            >
+              Login
+            </button>
           </p>
         </div>
       </div>

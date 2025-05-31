@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const SignInModal = ({ onClose, open }) => {
+const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
   const {
     register,
     handleSubmit,
@@ -44,12 +44,15 @@ const SignInModal = ({ onClose, open }) => {
         </div>
 
         <p className="text-sm text-gray-600 mb-4">
-          Enter your username and password to sign in to your Square Signs account.
+          Enter your username and password to sign in to your Square Signs
+          account.
         </p>
 
         <p className="text-sm text-gray-600 mb-4">
           Don't have an account? Click the link below to create an account.
-          <button className="text-blue-600 hover:underline ml-1">Sign up</button>
+          <button className="text-blue-600 hover:underline ml-1">
+            Sign up
+          </button>
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -135,7 +138,13 @@ const SignInModal = ({ onClose, open }) => {
         </div>
 
         <p className="text-center mt-4 text-sm text-gray-600">
-          Forgot password? <button className="text-blue-600 hover:underline">Sign up</button>
+          Forgot password
+          <button
+            className="text-blue-600 hover:underline"
+            onClick={onSwitchToSignup}
+          >
+            Sign up
+          </button>
         </p>
       </div>
     </div>
