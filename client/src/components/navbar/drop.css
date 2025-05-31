@@ -1,10 +1,19 @@
-/* Hides scrollbar but keeps scrolling functionality */
-.hide-horizontal-scroll {
-  overflow-x: scroll;
-  -ms-overflow-style: none;  
-  scrollbar-width: none; 
+/* Hidden scrollbar for mobile/tablet */
+.mobile-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-.hide-horizontal-scroll::-webkit-scrollbar {
-  display: none;
+.mobile-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* On large screens, disable scrolling and show all items */
+@media (min-width: 1024px) {
+  .mobile-scrollbar {
+    overflow-x: visible;
+  }
+  .min-w-max {
+    min-width: auto;
+  }
 }
