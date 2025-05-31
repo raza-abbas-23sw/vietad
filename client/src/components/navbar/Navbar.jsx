@@ -6,7 +6,7 @@ import SignInModal from "../Modals/SigninModel";
 
 import logo from "../../assets/logos/nav_logo.svg";
 import smLogo from "../../assets/logos/sm_nav_logo.svg";
-
+import DropdownContainer from './DropdownContainer';
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
@@ -101,6 +101,7 @@ const Navbar = () => {
       {showSigninModal && (
         <SignInModal open={showSigninModal} onClose={() => setShowSigninModal(false)} />
       )}
+      <DropdownContainer />
 
     </div>
   );
