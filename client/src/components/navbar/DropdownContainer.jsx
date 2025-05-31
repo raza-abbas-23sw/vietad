@@ -71,7 +71,7 @@ const DropdownContainer = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative z-50 font-sans antialiased" onMouseLeave={handleMouseLeave}>
+    <div ref={containerRef} className="relative z-40 font-sans antialiased" onMouseLeave={handleMouseLeave}>
       {/* Navigation Bar */}
       <nav className="bg-white sticky top-0 border-b border-gray-200 w-full">
         <div className="container mx-auto px-4">

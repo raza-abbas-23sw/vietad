@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage'; 
-import CategoryPage from './pages/CategoryPage';
-import ProductDetailPage from './pages/ProductDetailPage';
+import ProductsPage from './pages/Productpages/ProductsPage'; 
+import CategoryPage from './pages/Productpages/CategoryPage';
+import ProductDetailPage from './pages/Productpages/ProductDetailPage';
 function App() {
   return (
     <>
@@ -17,5 +17,4 @@ function App() {
     </>
   );
 }
-
 export default App;

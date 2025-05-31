@@ -14,7 +14,7 @@ const Navbar = () => {
   const [showSigninModal, setShowSigninModal] = useState(false);
 
   return (
-    <div className="w-full shadow-md f bg-white">
+    <div className="w-full shadow-md  bg-white z-50 ">
       {/* Top Bar */}
       <div className="flex  items-center justify-between px-4 py-5 border-b">
         {/* Logos  */}
