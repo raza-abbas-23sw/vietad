@@ -3,6 +3,7 @@ import HeroSection from "./HeroSection"; // Make sure the path is correct based 
 import CustomSignSection from "./CustomSignSection";
 import TrendySlider from "./TrendySlider";
 import CommercialSignsSection from "./CommercialSignsSection";
+import TestimonialSlider from "./TestimonialSlider";
 const Home = () => {
   return (
     <div>
@@ -10,6 +11,7 @@ const Home = () => {
       <CustomSignSection />
       <TrendySlider />
       <CommercialSignsSection/>
+      <TestimonialSlider/>
     </div>
   );
 };
