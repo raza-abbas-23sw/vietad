@@ -4,6 +4,7 @@ import CustomSignSection from "./CustomSignSection";
 import TrendySlider from "./TrendySlider";
 import CommercialSignsSection from "./CommercialSignsSection";
 import TestimonialSlider from "./TestimonialSlider";
+import DesignSteps from "./DesignSteps";
 const Home = () => {
   return (
     <div>
@@ -12,6 +13,7 @@ const Home = () => {
       <TrendySlider />
       <CommercialSignsSection/>
       <TestimonialSlider/>
+      <DesignSteps/>
     </div>
   );
 };
