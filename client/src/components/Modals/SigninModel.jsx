@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { Mail, Lock } from "lucide-react"; 
+import { FaFacebook } from "react-icons/fa"; 
+import { FcGoogle } from "react-icons/fc"; 
 
 const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
   const {
@@ -10,7 +13,6 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
 
   const onSubmit = (data) => {
     console.log(data);
-    // Handle form submission here (e.g., API call)
     if (onClose) onClose();
   };
 
@@ -31,13 +33,13 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 z-50  bg-opacity-50">
-      <div className="rounded-lg p-6 w-full max-w-md shadow-2xl bg-gray-100 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center p-4 z-50 bg-opacity-50">
+      <div className="rounded-lg p-6 w-full max-w-md shadow-2xl bg-gray-100 max-h-[90vh] overflow-y-auto border-l-4 border-green-400">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Sign In</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 cursor-pointer hover:text-green-500"
+            className="text-black font-bold transition-all cursor-pointer bg-white p-1 rounded-full w-8 h-8  flex items-center justify-center hover:text-green-500 hover:rotate-90"
           >
             ✕
           </button>
@@ -49,28 +51,33 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
         </p>
 
         <p className="text-sm text-gray-600 mb-4">
-          Don't have an account? Click the link below to create an account.
-          <button className="text-blue-600 hover:underline ml-1">
+          Don't have an account? 
+          <button
+            className="text-blue-600 px-2 cursor-pointer hover:font-bold"
+            onClick={onSwitchToSignup}
+          >
             Sign up
           </button>
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email address",
-                },
-              })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
+            
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <input
+                type="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address",
+                  },
+                })}
+                placeholder="Email"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
             {errors.email && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.email.message}
@@ -79,16 +86,18 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              {...register("password", {
-                required: "Password is required",
-              })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
+          
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <input
+                type="password"
+                {...register("password", {
+                  required: "Password is required",
+                })}
+                placeholder="Password"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.password.message}
@@ -114,7 +123,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
 
             <button
               type="button"
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-green-600 cursor-pointer hover:underline"
             >
               Forgot password?
             </button>
@@ -122,25 +131,33 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded"
+            className="w-full cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded"
           >
             Log in
           </button>
         </form>
 
-        <div className="mt-6 space-y-4">
-          <button className="w-full flex items-center justify-center gap-2 bg-[#3b5998] text-white py-2 px-4 rounded">
-            <span>Continue with Facebook</span>
-          </button>
-          <button className="w-full flex items-center justify-center gap-2 bg-[#4285F4] text-white py-2 px-4 rounded">
-            <span>Continue with Google</span>
-          </button>
-        </div>
+        <div className="flex items-center justify-center my-4">
+            <span className="relative text-gray-700 text-sm px-2 before:content-[''] before:block before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-16 before:h-px before:bg-gray-400 before:-translate-x-full after:content-[''] after:block after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:w-16 after:h-px after:bg-gray-400 after:translate-x-full sm:before:w-24 sm:after:w-24">
+              Or continue with
+            </span>
+          </div>
+
+        <div className="mt-6 space-y-4 ">
+                    <button className="text-blue-600 w-full flex items-center justify-center gap-2 bg-blue-100 border-blue-400 border-1 font-bold cursor-pointer py-2 px-4 rounded">
+                      <FaFacebook className="w-6 h-6" />
+                      <span>Sign up with Facebook</span>
+                    </button>
+                    <button className="w-full flex items-center justify-center gap-2 bg-transparent border-1 border-blue-400 text-black font-bold cursor-pointer py-2 px-4 rounded">
+                      <FcGoogle className="w-6 h-6" />
+                      <span>Sign up with Google</span>
+                    </button>
+                  </div>
 
         <p className="text-center mt-4 text-sm text-gray-600">
-          Forgot password
+          Need an account? 
           <button
-            className="text-blue-600 hover:underline"
+            className="text-blue-600 px-2 cursor-pointer hover:font-bold"
             onClick={onSwitchToSignup}
           >
             Sign up
