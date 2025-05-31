@@ -13,7 +13,7 @@ const DesignSteps = () => {
           <h2 className="text-2xl font-bold  mb-4">
             3-Step Design & Order Process
           </h2>
-          <p className="text-sm px-30 max-w-3xl mx-auto ">
+          <p className="text-sm px:10 lg:px-30 max-w-3xl mx-auto ">
             We've made the sign design and ordering process as easy as possible.
             Follow these simple steps to design your very own sign.
           </p>
