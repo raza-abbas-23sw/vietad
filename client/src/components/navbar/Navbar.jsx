@@ -96,10 +96,24 @@ const Navbar = () => {
 
       {/* Render modals if state is true */}
       {showSignupModal && (
-        <SignupModal open={showSignupModal} onClose={() => setShowSignupModal(false)} />
+        <SignupModal
+          open={showSignupModal}
+          onClose={() => setShowSignupModal(false)}
+          onSwitchToSignin={() => {
+            setShowSignupModal(false);
+            setShowSigninModal(true);
+          }}
+        />
       )}
       {showSigninModal && (
-        <SignInModal open={showSigninModal} onClose={() => setShowSigninModal(false)} />
+        <SignInModal
+          open={showSigninModal}
+          onClose={() => setShowSigninModal(false)}
+          onSwitchToSignup={()=>{
+            setShowSigninModal(false);
+            setShowSignupModal(true);
+          }}
+        />
       )}
       <DropdownContainer />
 
