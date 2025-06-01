@@ -1,10 +1,11 @@
-import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DropdownBar from './DropdownBar';
-import { navData } from './data/dropdownData';
+import { AppContext } from '../../context/AppContext';
 import './drop.css';
 
 const DropdownContainer = () => {
+  const { navData } = useContext(AppContext);
   const [activeIndex, setActiveIndex] = useState(null);
   const dropdownTimeoutRef = useRef(null);
   const containerRef = useRef(null);
@@ -12,7 +13,7 @@ const DropdownContainer = () => {
 
   const activeCategory = useMemo(() => (
     activeIndex !== null && activeIndex !== 0 ? navData[activeIndex] : null
-  ), [activeIndex]);
+  ), [activeIndex, navData]);
 
   const clearHoverTimeout = useCallback(() => {
     if (dropdownTimeoutRef.current) {
@@ -41,7 +42,7 @@ const DropdownContainer = () => {
       return;
     }
     setActiveIndex(prev => prev === index ? null : index);
-  }, [navigate]);
+  }, [navigate, navData]);
 
   const handleProductClick = useCallback((category, product) => {
     const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
@@ -70,7 +71,7 @@ const DropdownContainer = () => {
     <div ref={containerRef} className="relative z-40 font-sans antialiased" onMouseLeave={handleMouseLeave}>
       <nav className="bg-white sticky  top-0  border-gray-200 w-full">
         <div className="container ">
-          <div className="flex items-start justify-start  w-full hide-horizontal-scroll">
+          <div className="flex items-start justify-start px-4  w-full hide-horizontal-scroll">
             {navData.map((item, index) => (
               <div
                 key={`nav-${item.title}`}

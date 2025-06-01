@@ -10,7 +10,6 @@ import { sectionData } from "../../assets/teamslider/sectionData";
 import ImageTextScroller from './ImageTextScroller/ImageTextScroller';
 import TrustedBy from './TrustedBy'
 import GetStartedSection from './GetStarted/GetStartedSection'
-
 const Home = () => {
   return (
     <div>
@@ -23,7 +22,6 @@ const Home = () => {
       <TrustedBy/>
       <ImageTextScroller />
       <GetStartedSection />
-
     </div>
   );
 };
