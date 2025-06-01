@@ -10,7 +10,6 @@ import metalPhotoPrintsImg from "./metal-photo-prints.jpg";
 import acrylicPhotoPrintsImg from "./acrylic-photo-prints.jpg";
 import pvcSignsImg from "./pvc-signs.jpg";
 import wallDecalsImg from "./wall-decals.jpg";
-
 export const commercialSignsData = {
   categories: [
     {

@@ -1,9 +1,12 @@
 import React from 'react'
-
+import ProductHero from './hero/ProductHero'
+import Products from './Products'
 const ProductsPage = () => {
   return (
     <div>
-      <h1>Thissi the product page</h1>
+      <ProductHero/>
+      <Products/>
+      
     </div>
   )
 }

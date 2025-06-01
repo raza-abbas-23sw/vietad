@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Search, ChevronDown, ShoppingCart, User, Menu } from "lucide-react";
+import { AppContext } from "../../context/AppContext";
 
 import SignupModal from "../Modals/SignupModel";
 import SignInModal from "../Modals/SigninModel";
@@ -14,6 +15,13 @@ const Navbar = () => {
   const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showSigninModal, setShowSigninModal] = useState(false);
+  const { searchQuery, setSearchQuery, handleSearch, searchResults, isSearching } = useContext(AppContext);
+
+  const onSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    handleSearch(value);
+  };
 
   return (
     <>
@@ -33,15 +41,45 @@ const Navbar = () => {
             <img src={smLogo} alt="Logo" className=" lg:hidden h-12" />
           </div>
           {/* Search bar  */}
-          <div className="hidden md:flex items-center md:border border-gray-300 rounded-full px-2 w-fit md:w-[35rem] lg:w-[20rem] xl:w-[35rem] focus-within:outline focus-within:outline-1 focus-within:outline-blue-300">
+          <div className="hidden md:flex items-center md:border border-gray-300 rounded-full px-2 w-fit md:w-[35rem] lg:w-[20rem] xl:w-[35rem] focus-within:outline focus-within:outline-1 focus-within:outline-blue-300 relative">
             <input
               type="text"
               placeholder="Search for products or templates"
-              className="hidden md:block flex-grow px-2 py-2 text-sm outline-none rounded-full  "
+              className="hidden md:block flex-grow px-2 py-2 text-sm outline-none rounded-full"
+              value={searchQuery}
+              onChange={onSearchChange}
+              onFocus={() => {
+                if (searchQuery.length >= 2) {
+                  handleSearch(searchQuery);
+                }
+              }}
             />
-            <button type="submit" className="p-2  text-gray-800">
+            <button type="submit" className="p-2 text-gray-800">
               <Search className="w-4 h-4" />
             </button>
+            
+            {isSearching && searchQuery.length >= 2 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-45">
+                Searching...
+              </div>
+            )}
+            
+            {searchResults.length > 0 && !isSearching && searchQuery.length >= 2 && document.activeElement.tagName !== 'INPUT' && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-[400px] overflow-y-auto z-45">
+                {searchResults.map((result, index) => (
+                  <div key={index} className="p-2 border-b last:border-b-0">
+                    <h4 className="font-medium text-sm text-gray-700">{result.category}</h4>
+                    <ul className="mt-1">
+                      {result.products.map((product, pIndex) => (
+                        <li key={pIndex} className="text-sm text-gray-600 hover:text-blue-500 cursor-pointer py-1">
+                          {product.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <div className="flex items-center gap-6">
             {/* design tool button */}
@@ -96,7 +134,6 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-
 
         {/* Render modals if state is true */}
         {showSignupModal && (
