@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Mail, User, Lock, Phone } from "lucide-react"; 
-import { FaFacebook } from "react-icons/fa"; 
-import { FcGoogle } from "react-icons/fc"; 
+import { Mail, User, Lock, Phone } from "lucide-react";
+import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
+import { auth } from "../../config/firebase";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast"
 
 const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
   const {
@@ -12,10 +16,103 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle form submission here (e.g., API call)
-    if (onClose) onClose();
+  const onSubmit = async (data) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+
+      const user = userCredential.user;
+
+      await updateProfile(user, {
+        displayName: `${data.firstName} ${data.lastName}`,
+      });
+
+      // Get Firebase ID token
+      const token = await user.getIdToken();
+
+      const userData = await axios.post("http://localhost:8000/users/signup", {
+        token,
+        phone: data.phone,
+        fullName: `${data.firstName} ${data.lastName}`,
+        authProvider: "email"
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      console.log(userData)
+      toast.success("Signup Successfull")
+
+
+      setTimeout(() => {
+        if (onClose) onClose();
+      }, 1300);
+    } catch (error) {
+      let message = "Signup failed";
+
+      // Firebase-specific errors
+      if (error.code === "auth/email-already-in-use") {
+        message = "This email is already registered.";
+      } else if (error.code === "auth/weak-password") {
+        message = "Password should be at least 6 characters.";
+      } else if (error.response?.data?.message) {
+        message = error.response.data.message;
+      } else {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    let user, token;
+
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      user = result.user;
+      token = await user.getIdToken();
+
+      //throws error if google signins first time.
+      const response = await axios.post("http://localhost:8000/users/signin", {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      console.log(response?.data)
+      toast.success("Google sign-in successful!");
+      setTimeout(() => {
+        onClose();
+      }, 1300);
+    } catch (error) {
+      if (error.response?.data?.message === 'User not found in DB') {
+        const fullName = user?.displayName || "Google User";
+        const email = user?.email;
+
+        //automatically fills in the user data in database, when user signs up through google popup
+        const response = await axios.post("http://localhost:8000/users/signup", {
+          fullName,
+          email,
+          authProvider: "google",
+          phoneNumber: ""
+        }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        console.log(response?.data)
+
+        toast.success("Signed up via Google!");
+        setTimeout(() => {
+          onClose();
+        }, 1300);
+      } else {
+        toast.error(`Google sign-in failed`);
+      }
+    }
   };
 
   const password = watch("password");
@@ -40,15 +137,16 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
     <div>
       {/* Modal */}
       <div className="fixed inset-0  bg-opacity-10 flex items-center justify-center p-4 z-50">
+        <Toaster />
         <div className="bg-gray-100 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto border-l-4 border-green-400">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">Create Your Account</h2>
             <button
-            onClick={onClose}
-            className="text-black font-bold transition-all cursor-pointer bg-white p-1 rounded-full w-8 h-8  flex items-center justify-center hover:text-green-500 hover:rotate-90"
-          >
-            ✕
-          </button>
+              onClick={onClose}
+              className="text-black font-bold transition-all cursor-pointer bg-white p-1 rounded-full w-8 h-8  flex items-center justify-center hover:text-green-500 hover:rotate-90"
+            >
+              ✕
+            </button>
           </div>
 
           <p className="text-sm text-gray-600 mb-4">
@@ -202,7 +300,9 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
               <FaFacebook className="w-6 h-6" />
               <span>Sign up with Facebook</span>
             </button>
-            <button className="w-full flex items-center justify-center gap-2 bg-transparent border-1 border-blue-400 text-black font-bold cursor-pointer py-2 px-4 rounded">
+            <button
+              onClick={signInWithGoogle}
+              className="w-full flex items-center justify-center gap-2 bg-transparent border-1 border-blue-400 text-black font-bold cursor-pointer py-2 px-4 rounded">
               <FcGoogle className="w-6 h-6" />
               <span>Sign up with Google</span>
             </button>
