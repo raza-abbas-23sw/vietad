@@ -17,13 +17,23 @@ const categoryIcons = {
 const Sidebar = ({ open, onClose }) => {
   const { navData } = useContext(AppContext);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
+    setSelectedSubcategory(null);
+  };
+
+  const handleSubcategoryClick = (subcategory) => {
+    setSelectedSubcategory(subcategory);
   };
 
   const handleBack = () => {
-    setSelectedCategory(null);
+    if (selectedSubcategory) {
+      setSelectedSubcategory(null);
+    } else {
+      setSelectedCategory(null);
+    }
   };
 
   return (
@@ -44,66 +54,109 @@ const Sidebar = ({ open, onClose }) => {
         >
           &times;
         </button>
-        <div className="p-6 pt-14">
-          {!selectedCategory ? (
-            <nav>
-              <h2 className="text-xl font-bold mb-6">Categories</h2>
-              <ul className="space-y-4">
-                {/* All Products at the top */}
-                <li key={navData[0].title}>
-                  <a
-                    href={navData[0].link}
-                    className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-blue-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors"
-                    onClick={onClose}
-                  >
-                    <Layers className="w-6 h-6 text-blue-500" />
-                    {navData[0].title}
-                  </a>
-                </li>
-                {navData.slice(1).map((item) => {
-                  const Icon = categoryIcons[item.title] || Layers;
-                  return (
-                    <li key={item.title}>
+        {/* Scrollable container */}
+        <div className="h-full flex flex-col">
+          <div className="p-6 pt-14 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            {/* Hide scrollbar for WebKit browsers */}
+            <style dangerouslySetInnerHTML={{ __html: `::-webkit-scrollbar { display: none; }` }} />
+            
+            {!selectedCategory ? (
+              <nav>
+                <h2 className="text-xl font-bold mb-6">Categories</h2>
+                <ul className="space-y-4">
+                  {/* All Products at the top */}
+                  <li key={navData[0].title}>
+                    <a
+                      href={navData[0].link}
+                      className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-blue-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors"
+                      onClick={onClose}
+                    >
+                      <Layers className="w-6 h-6 text-blue-500" />
+                      {navData[0].title}
+                    </a>
+                  </li>
+                  {navData.slice(1).map((item) => {
+                    const Icon = categoryIcons[item.title] || Layers;
+                    return (
+                      <li key={item.title}>
+                        <button
+                          className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-blue-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors justify-between"
+                          onClick={() => handleCategoryClick(item)}
+                        >
+                          <span className="flex items-center gap-3">
+                            <Icon className="w-6 h-6 text-blue-500" />
+                            {item.title}
+                          </span>
+                          {(item.categories || item.items) && <ChevronRight className="w-5 h-5 text-gray-400" />}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            ) : !selectedSubcategory ? (
+              <div>
+                <button
+                  className="flex items-center gap-2 mb-4 text-gray-600 hover:text-blue-600 text-base font-medium"
+                  onClick={handleBack}
+                >
+                  <ArrowLeft className="w-5 h-5" /> Back
+                </button>
+                <h3 className="text-lg font-bold mb-4">{selectedCategory.title}</h3>
+                <ul className="space-y-2">
+                  {selectedCategory.categories?.map((subcategory) => (
+                    <li key={subcategory.title}>
                       <button
-                        className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-blue-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors justify-between"
-                        onClick={() => item.items ? handleCategoryClick(item) : null}
-                        disabled={!item.items}
+                        className="flex items-center justify-between w-full text-left text-gray-700 text-base py-2 px-2 rounded hover:bg-gray-100"
+                        onClick={() => handleSubcategoryClick(subcategory)}
                       >
-                        <span className="flex items-center gap-3">
-                          <Icon className="w-6 h-6 text-blue-500" />
-                          {item.title}
-                        </span>
-                        {item.items && <ChevronRight className="w-5 h-5 text-gray-400" />}
+                        <span>{subcategory.title}</span>
+                        <ChevronRight className="w-5 h-5 text-gray-400" />
                       </button>
                     </li>
-                  );
-                })}
-              </ul>
-            </nav>
-          ) : (
-            <div>
-              <button
-                className="flex items-center gap-2 mb-4 text-gray-600 hover:text-blue-600 text-base font-medium"
-                onClick={handleBack}
-              >
-                <ArrowLeft className="w-5 h-5" /> Back
-              </button>
-              <h3 className="text-lg font-bold mb-4">{selectedCategory.title}</h3>
-              <ul className="space-y-2">
-                {selectedCategory.items && selectedCategory.items.map((sub, idx) => (
-                  <li key={idx}>
-                    <span className="block text-gray-700 text-base py-1 px-2 rounded hover:bg-gray-100 cursor-pointer">
-                      {sub}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+                  ))}
+                  {selectedCategory.items?.map((item, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={`/products/${selectedCategory.title.toLowerCase().replace(/\s+/g, '-')}/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="block text-gray-700 text-base py-2 px-2 rounded hover:bg-gray-100"
+                        onClick={onClose}
+                      >
+                        {item}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div>
+                <button
+                  className="flex items-center gap-2 mb-4 text-gray-600 hover:text-blue-600 text-base font-medium"
+                  onClick={handleBack}
+                >
+                  <ArrowLeft className="w-5 h-5" /> Back
+                </button>
+                <h3 className="text-lg font-bold mb-2">{selectedSubcategory.title}</h3>
+                <ul className="space-y-1">
+                  {selectedSubcategory.products?.map((product, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={`/products/${selectedCategory.title.toLowerCase().replace(/\s+/g, '-')}/${product.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="block text-gray-700 text-sm py-1.5 px-2 rounded hover:bg-gray-100"
+                        onClick={onClose}
+                      >
+                        {product}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-export default Sidebar; 
+export default Sidebar;
