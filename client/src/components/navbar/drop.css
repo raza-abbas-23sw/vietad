@@ -1,19 +1,17 @@
-/* Hidden scrollbar for mobile/tablet */
-.mobile-scrollbar {
+/* Hide horizontal scrollbar while keeping scroll functionality */
+.hide-horizontal-scroll {
   -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  scrollbar-width: none !important;  /* Firefox with !important */
+  overflow-x: auto;
 }
 
-.mobile-scrollbar::-webkit-scrollbar {
+.hide-horizontal-scroll::-webkit-scrollbar {
   display: none;  /* Chrome, Safari, Opera */
 }
 
 /* On large screens, disable scrolling and show all items */
-@media (min-width: 1024px) {
-  .mobile-scrollbar {
+@media (min-width: 1124px) {
+  .hide-horizontal-scroll {
     overflow-x: visible;
-  }
-  .min-w-max {
-    min-width: auto;
   }
 }

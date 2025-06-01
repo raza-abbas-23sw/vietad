@@ -1,3 +1,212 @@
 .slide-transition {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+/* Custom animation styles */
+.active {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.get-started-section {
+  padding: 80px 24px;
+  background: linear-gradient(145deg, #e6f4f8 0%, #e0f2f1 100%);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.get-started-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.get-started-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.get-started-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #1a365d;
+  margin-top: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.get-started-title span {
+  color: #2c7be5;
+  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.accent-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+}
+
+/* Feature Cards */
+.feature-card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px 28px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  height: 100%;
+  border: 1px solid rgba(44, 123, 229, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px rgba(44, 123, 229, 0.15);
+  border-color: rgba(44, 123, 229, 0.2);
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-icon {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: linear-gradient(135deg, #2c7be5 0%, #00c9a7 100%);
+  border-radius: 18px;
+  color: white;
+  font-size: 32px;
+}
+
+.feature-card:hover .feature-icon {
+  transform: rotate(5deg) scale(1.1);
+  box-shadow: 0 10px 15px rgba(44, 123, 229, 0.3);
+}
+
+.feature-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #1a365d;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-title {
+  color: #2c7be5;
+  transform: translateY(-2px);
+}
+
+.feature-description {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: #4a5568;
+  margin: 0;
+  flex-grow: 1;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-description {
+  color: #2d3748;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .get-started-title {
+    font-size: 2.25rem;
+  }
+  
+  .feature-card {
+    padding: 32px 24px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .get-started-section {
+    padding: 60px 16px;
+  }
+  
+  .get-started-title {
+    font-size: 2rem;
+  }
+  
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    border-radius: 16px;
+  }
+  
+  .feature-title {
+    font-size: 1.25rem;
+  }
+  
+  .feature-description {
+    font-size: 1rem;
+  }
+}
+
+/* Animation for icons */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+.feature-card:hover .feature-icon {
+  animation: float 1.5s ease-in-out infinite;
+}

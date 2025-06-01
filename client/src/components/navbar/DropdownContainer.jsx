@@ -10,7 +10,6 @@ const DropdownContainer = () => {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
-  // Memoize active category data (skip index 0 - "All Products")
   const activeCategory = useMemo(() => (
     activeIndex !== null && activeIndex !== 0 ? navData[activeIndex] : null
   ), [activeIndex]);
@@ -23,7 +22,7 @@ const DropdownContainer = () => {
   }, []);
 
   const handleMouseEnter = useCallback((index) => {
-    if (index === 0) return; // Skip hover for "All Products"
+    if (index === 0) return;
     clearHoverTimeout();
     setActiveIndex(index);
   }, [clearHoverTimeout]);
@@ -37,29 +36,26 @@ const DropdownContainer = () => {
 
   const handleBarClick = useCallback((index) => {
     if (index === 0) {
-      setActiveIndex(null); // Close dropdowns
-      navigate(navData[0].link); // Navigate to "/products"
+      setActiveIndex(null);
+      navigate(navData[0].link);
       return;
     }
     setActiveIndex(prev => prev === index ? null : index);
   }, [navigate]);
 
-  // Handle product click - navigate to product detail page
   const handleProductClick = useCallback((category, product) => {
     const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
     const productSlug = product.toLowerCase().replace(/\s+/g, '-');
     navigate(`/products/${categorySlug}/${productSlug}`);
-    setActiveIndex(null); // Close dropdown
+    setActiveIndex(null);
   }, [navigate]);
 
-  // Handle "View all" click - navigate to category page
   const handleViewAll = useCallback((category) => {
     const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
     navigate(`/products/${categorySlug}`);
-    setActiveIndex(null); // Close dropdown
+    setActiveIndex(null);
   }, [navigate]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -72,14 +68,13 @@ const DropdownContainer = () => {
 
   return (
     <div ref={containerRef} className="relative z-40 font-sans antialiased" onMouseLeave={handleMouseLeave}>
-      {/* Navigation Bar */}
-      <nav className="bg-white sticky top-0 border-b border-gray-200 w-full">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between md:justify-start w-full overflow-x-auto hide-horizontal-scroll">
+      <nav className="bg-white sticky  top-0  border-gray-200 w-full">
+        <div className="container ">
+          <div className="flex items-start justify-start  w-full hide-horizontal-scroll">
             {navData.map((item, index) => (
               <div
                 key={`nav-${item.title}`}
-                className="relative px-2 py-3 flex-shrink-0"
+                className="relative py-3 flex-shrink-0"
                 onMouseEnter={() => handleMouseEnter(index)}
               >
                 {index === 0 ? (
@@ -118,7 +113,6 @@ const DropdownContainer = () => {
         </div>
       </nav>
 
-      {/* Dropdown Panel */}
       {activeCategory && (
         <div
           className="absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-200"
