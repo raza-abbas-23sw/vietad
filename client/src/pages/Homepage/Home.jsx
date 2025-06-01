@@ -10,6 +10,7 @@ import { sectionData } from "../../assets/teamslider/sectionData";
 import ImageTextScroller from './ImageTextScroller/ImageTextScroller';
 import TrustedBy from './TrustedBy'
 import GetStartedSection from './GetStarted/GetStartedSection'
+import Footer from "../../components/Footer/Footer";
 const Home = () => {
   return (
     <div>

@@ -286,7 +286,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
             onClick={signInWithGoogle}
             className="w-full flex items-center justify-center gap-2 bg-transparent border-1 border-blue-400 text-black font-bold cursor-pointer py-2 px-4 rounded">
             <FcGoogle className="w-6 h-6" />
-            <span>Sign up with Google</span>
+            <span>Sign in with Google</span>
           </button>
         </div>
 
