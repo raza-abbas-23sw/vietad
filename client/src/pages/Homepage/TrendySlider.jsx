@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import productsData from '../../assets/allData/homePagaData/trendproduct';
+import { productsData } from '../../assets/Products/productsData';
 import './home.css';
 
 const TrendySlider = () => {
@@ -83,8 +83,8 @@ const TrendySlider = () => {
                       visibleCount === 2 ? '380px' : '420px';
 
   return (
-    <section className="py-12 px-4 bg-gray-50 my-8">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">What's New & Trendy</h2>
+    <section className="py-12 px-4 bg-gradient-to-r from-cyan-50 to-red-50 my-8">
+      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Featured Products</h2>
       
       <div className="relative max-w-6xl mx-auto">
         {/* Navigation Arrows - only show if there are more products than visible */}
@@ -131,22 +131,24 @@ const TrendySlider = () => {
               >
                 <div className="h-48 overflow-hidden cursor-pointer">
                   <img 
-                    src={product.image} 
+                    src={product.img} 
                     alt={product.title}
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2 text-gray-800">{product.title}</h3>
-                  <p className={`text-sm font-bold mb-3 ${
-                    product.category === 'new' ? 'text-blue-600' : 'text-red-600'
-                  }`}>
-                    {product.category === 'new' ? 'NEW ARRIVAL' : 'TRENDING NOW'}
+                  <p className="text-sm font-bold mb-3 text-cyan-600">
+                    {product.tags.includes('Best Seller') ? 'BEST SELLER' : 'FEATURED'}
                   </p>
                   <div className="text-gray-600 text-sm">
-                    {product.content.split('\n').map((line, i) => (
-                      <p key={i} className="my-1">{line}</p>
-                    ))}
+                    <p className="my-1">{product.description}</p>
+                    <div className="mt-3 flex items-center justify-between">
+                      <span className="text-cyan-600 font-bold">${product.price}</span>
+                      {product.originalPrice && (
+                        <span className="text-gray-400 line-through">${product.originalPrice}</span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

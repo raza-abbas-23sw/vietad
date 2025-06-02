@@ -1,9 +1,9 @@
 // Data for the image-text scroller component
-import img1 from '../../allMedia/prodctPageMedia/imgSlider/Make-a-custom-sign-with-Square-Signs.jpg'
-import img2 from '../../allMedia/prodctPageMedia/imgSlider/Design-print-custom-signs-online.jpg'
-import img3 from '../../allMedia/prodctPageMedia/imgSlider/Personalized-signs-print-with-Square-Signs.jpg'
-import img4 from '../../allMedia/prodctPageMedia/imgSlider/Customize-your-sign-with-Square-Signs.jpg'
-import img5 from '../../allMedia/prodctPageMedia/imgSlider/Custom-signs-shipped-in-US.jpg'
+import img1 from './Make-a-custom-sign-with-Square-Signs.jpg'
+import img2 from './Design-print-custom-signs-online.jpg'
+import img3 from './Personalized-signs-print-with-Square-Signs.jpg'
+import img4 from './Customize-your-sign-with-Square-Signs.jpg'
+import img5 from './Custom-signs-shipped-in-US.jpg'
 export const scrollerData = [
   {
     id: 1,

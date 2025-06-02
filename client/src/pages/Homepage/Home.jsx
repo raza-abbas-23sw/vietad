@@ -1,14 +1,16 @@
 import React from "react";
-import HeroSection from "./HeroSection"; 
+import HeroSection from "./HeroSection"; // Make sure the path is correct based on your folder structure
 import CustomSignSection from "./CustomSignSection";
 import TrendySlider from "./TrendySlider";
 import CommercialSignsSection from "./CommercialSignsSection";
 import TestimonialSlider from "./TestimonialSlider";
 import DesignSteps from "./DesignSteps";
+import { sectionData } from "../../assets/teamslider/sectionData";
+import ScrollSection from "./ScrollSection"; // update path if different
+import ImageTextScroller from "./ImageTextScroller/ImageTextScroller";
 import TrustedBy from "./TrustedBy";
 import GetStartedSection from "./GetStarted/GetStartedSection";
-import ImageTextScroller from "../../components/imgTextSlider/ImageTextScroller";
-import {scrollerData} from "../../assets/allData/homePagaData/imgTextSliderData"
+import Footer from "../../components/Footer/Footer";
 const Home = () => {
   return (
     <div>
@@ -19,7 +21,7 @@ const Home = () => {
       <TestimonialSlider />
       <DesignSteps />
       <TrustedBy />
-      <ImageTextScroller scrollerData={scrollerData} />
+      <ImageTextScroller />
       <GetStartedSection />
     </div>
   );

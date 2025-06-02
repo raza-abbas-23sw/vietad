@@ -1,11 +1,11 @@
 import React from 'react';
 import { ChevronRight, ArrowRight } from 'lucide-react';
 
-import img1 from '../../assets/allMedia/prodctPageMedia/heroSection/pexels-photo-102693.jpeg'
-import img2 from '../../assets/allMedia/prodctPageMedia/heroSection/pexels-photo-6476776.jpeg'
-import img3 from '../../assets/allMedia/prodctPageMedia/heroSection/pexels-photo-3153204.jpeg'
-import img4 from '../../assets/allMedia/prodctPageMedia/heroSection/pexels-photo-7598019.jpeg'
 import { Link } from 'react-router-dom';
+import img1 from './pexels-photo-102693.jpeg'
+import img2 from './pexels-photo-6476776.jpeg'
+import img3 from './pexels-photo-3153204.jpeg'
+import img4 from './pexels-photo-7598019.jpeg'
 
 const ProductHero = () => {
   return (
@@ -13,7 +13,8 @@ const ProductHero = () => {
       {/* Animated background circles */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -right-10 -top-10 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute -left-20 top-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute -left-20 top-40 w-80 h-80 bg-cyan-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute -right-20 bottom-40 w-80 h-80 bg-red-400/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 py-2 relative">
@@ -42,7 +43,7 @@ const ProductHero = () => {
               Elevate your brand with eye-catching displays that leave a lasting impression.
             </p>
             <div className="flex items-center gap-4">
-              <button className="bg-white text-blue-900 px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-cyan-100 transition-colors">
+              <button className="bg-white text-cyan-900 px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-cyan-100 transition-colors">
                 Get Started
                 <ArrowRight size={18} />
               </button>

@@ -26,7 +26,7 @@ const CommercialSignsSection = () => {
                   <Link
                     key={item.id}
                     to={`/products/${productSlug}`}
-                    className="block hover:bg-blue-400 text-gray-800 hover:text-white transition-all rounded-lg shadow-md overflow-hidden hover:shadow-xl  duration-500 cursor-pointer"
+                    className="block hover:bg-cyan-400 text-gray-800 hover:text-white transition-all rounded-lg shadow-md overflow-hidden hover:shadow-xl  duration-500 cursor-pointer"
                   >
                     <div className="">
                       <img

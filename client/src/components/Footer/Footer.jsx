@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
-import logo from "../../assets/logos/sm_nav_logo.svg";
+import logoPng from "../../assets/logos/logo.png";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="lg:col-span-1 lg:flex flex-col items-center justify-center">
             <Link to="/">
               <div className="flex items-center gap-4 mb-4 cursor-pointer">
-                <img src={logo} alt="logo" className="w-10" />
+                <img src={logoPng} alt="logo" className="w-10" />
                 <h1 className="text-xl font-bold text-white">
                   SQUARE <br /> SIGNS
                 </h1>

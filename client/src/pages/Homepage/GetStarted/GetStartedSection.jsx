@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import '../home';
-import vietAdSignsLogo from '../../../assets/logos/sm_nav_logo.svg'; // Adjust path as needed
+// import { useState } from 'react';
+import '../Home'; // Corrected casing for Home.jsx import
+import logoPng from '../../../assets/logos/logo.png'; // Import the new logo
+// import vietAdSignsLogo from '../../../assets/logos/sm_nav_logo.svg'; 
 
 const GetStartedSection = () => {
   // Icons as inline SVG components
@@ -30,20 +31,6 @@ const GetStartedSection = () => {
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
-  );
-
-  // VietAdSigns logo as an image component
-  const VietAdSignsLogo = () => (
-    <img 
-      src={vietAdSignsLogo} 
-      alt="VietAdSigns Logo"
-      style={{ 
-        width: '120px', 
-        height: '80px', 
-        marginBottom: '24px',
-        objectFit: 'contain' // Ensures logo maintains aspect ratio
-      }}
-    />
   );
 
   // FeatureCard component
@@ -86,7 +73,16 @@ const GetStartedSection = () => {
     <section className="get-started-section">
       <div className="get-started-container">
         <div className="get-started-header">
-          <VietAdSignsLogo />
+          <img 
+            src={logoPng} 
+            alt="VietAdSigns Logo"
+            style={{
+              width: '120px',
+              height: '80px',
+              marginBottom: '24px',
+              objectFit: 'contain'
+            }}
+          />
           <h2 className="get-started-title">
             Get Started With <span>VietAdSigns</span>
           </h2>

@@ -1,3 +1,4 @@
+// First import all your images at the top
 import bannerImg from '../../New Trend/banners-printing-online-at-square-signs-feb2025.jpg';
 import templateImg from '../../New Trend/bespoke-templates-for-online-sign-printing-july2025.jpg';
 import businessCardImg from '../../New Trend/business-cards-printing-online-square-signs-feb2025.jpg';
@@ -7,10 +8,10 @@ import postcardImg from '../../New Trend/postcard-printing-online-at-square-sign
 
 const trendProduct = [
   {
-    image: bannerImg,  
+    image: bannerImg,  // Use the imported image directly
     title: "Banners Printing",
     content: "InnovateFusion\nBridging Ideas.\nBuilding Futures.",
-    category: "trending"  
+    category: "trending"  // Added category for styling
   },
   {
     image: templateImg,

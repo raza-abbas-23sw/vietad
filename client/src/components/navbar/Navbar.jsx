@@ -7,8 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 import SignupModal from "../Modals/SignupModel";
 import SignInModal from "../Modals/SigninModel";
 
-import logo from "../../assets/logos/nav_logo.svg";
-import smLogo from "../../assets/logos/sm_nav_logo.svg";
+import logoPng from "../../assets/logos/logo.png";
 import DropdownContainer from './DropdownContainer';
 import Sidebar from './Sidebar';
 
@@ -30,10 +29,8 @@ const Navbar = () => {
   return (
     <>
       <Sidebar open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
-      <div className="w-full shadow-md  bg-white z-50 ">
-        {/* Top Bar */}
-        <div className="flex  items-center justify-between px-4 py-5 border-b">
-          {/* Logos  */}
+      <div className="w-full shadow-md bg-cyan-50 z-50 ">
+        <div className="flex items-center justify-between px-4 py-5 border-b border-cyan-200">
           <div className="flex gap-4">
             <button
               className="md:hidden"
@@ -41,11 +38,10 @@ const Navbar = () => {
             >
               <Menu />
             </button>
-            <img src={logo} alt="Logo" className="hidden lg:block h-12" />
-            <img src={smLogo} alt="Logo" className=" lg:hidden h-12" />
+            <img src={logoPng} alt="Logo" className="hidden lg:block h-12" />
+            <img src={logoPng} alt="Logo" className=" lg:hidden h-12" />
           </div>
-          {/* Search bar  */}
-          <div className="hidden md:flex items-center md:border border-gray-300 rounded-full px-2 w-fit md:w-[35rem] lg:w-[20rem] xl:w-[35rem] focus-within:outline focus-within:outline-1 focus-within:outline-blue-300 relative">
+          <div className="hidden md:flex items-center md:border border-cyan-300 rounded-full px-2 w-fit md:w-[35rem] lg:w-[20rem] xl:w-[35rem] focus-within:outline focus-within:outline-1 focus-within:outline-cyan-300 relative">
             <input
               type="text"
               placeholder="Search for products or templates"
@@ -58,7 +54,7 @@ const Navbar = () => {
                 }
               }}
             />
-            <button type="submit" className="p-2 text-gray-800">
+            <button type="submit" className="p-2 text-cyan-800">
               <Search className="w-4 h-4" />
             </button>
 
@@ -75,7 +71,7 @@ const Navbar = () => {
                     <h4 className="font-medium text-sm text-gray-700">{result.category}</h4>
                     <ul className="mt-1">
                       {result.products.map((product, pIndex) => (
-                        <li key={pIndex} className="text-sm text-gray-600 hover:text-blue-500 cursor-pointer py-1">
+                        <li key={pIndex} className="text-sm text-gray-600 hover:text-cyan-500 cursor-pointer py-1">
                           {product.name}
                         </li>
                       ))}
@@ -86,19 +82,16 @@ const Navbar = () => {
             )}
           </div>
           <div className="flex items-center gap-6">
-            {/* design tool button */}
-            <button className="hidden lg:block border border-green-500 text-green-500 px-3 py-2 font-semibold cursor-pointer hover:bg-green-50 transition-colors rounded-full text-sm">
+            <button className="hidden lg:block border border-red-500 text-red-500 px-3 py-2 font-semibold cursor-pointer hover:bg-red-50 transition-colors rounded-full text-sm">
               Design Tool
             </button>
-            {/* Mobile search icon */}
             <button className="block md:hidden p-2 text-gray-800">
               <Search className="w-5 h-5" />
             </button>
-            {/* cart button   */}
-            <Link to="/cart" className="flex gap-1 hover:text-blue-400 cursor-pointer">
+            <Link to="/cart" className="flex gap-1 hover:text-cyan-400 cursor-pointer">
               <div className="relative w-7 h-7 flex items-center ">
                 <ShoppingCart className="w-5 h-5" />
-                <div className="absolute text-xs text-center text-white top-0 right-0 w-4 h-4 rounded-full bg-blue-400">
+                <div className="absolute text-xs text-center text-white top-0 right-0 w-4 h-4 rounded-full bg-red-400">
                   0
                 </div>
               </div>
@@ -113,7 +106,7 @@ const Navbar = () => {
               onMouseEnter={() => setAccountDropdownOpen(true)}
               onMouseLeave={() => setAccountDropdownOpen(false)}
             >
-              <div className="flex gap-1 items-center hover:text-blue-400 cursor-pointer">
+              <div className="flex gap-1 items-center hover:text-cyan-400 cursor-pointer">
                 <User className="w-5 h-5" />
                 <div className="hidden lg:block">{currentUser ? currentUser.fullName || `My Profile` : `My Account`}</div>
                 <ChevronDown className={accountDropdownOpen && "rotate-180"} />
@@ -143,7 +136,7 @@ const Navbar = () => {
                   )}
                   <div className="flex items-center gap-2  px-4 py-2 hover:bg-gray-100 cursor-pointer">
                     <div>My Designs</div>
-                    <div className=" text-xs text-center text-white top right-0 w-4 h-4 rounded-full bg-blue-400">
+                    <div className=" text-xs text-center text-white top right-0 w-4 h-4 rounded-full bg-red-400">
                       0
                     </div>
                   </div>
@@ -179,7 +172,6 @@ const Navbar = () => {
       <div className="hidden md:block">
         <DropdownContainer />
       </div>
-
     </>
   );
 };
