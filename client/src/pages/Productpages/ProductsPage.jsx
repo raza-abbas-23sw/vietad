@@ -12,7 +12,7 @@ const ProductsPage = () => {
       <ProductHero/>
       <Products/>
       <ImageTextScroller scrollerData={scrollerData} />
-      <Faq faqs={faqsData}/>
+      <Faq faqs={faqsData }/>
       
     </div>
   )
