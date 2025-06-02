@@ -1,8 +1,30 @@
 import React, { useState } from 'react';
 import RelatedProducts from './RelatedProducts';
+import Faq from '../../../components/Faq/Faq.jsx';
+
+
 
 const ProductTabs = ({ product, relatedProducts }) => {
   const [activeTab, setActiveTab] = useState('overview');
+
+  const faqsData = [
+  {
+    id: 1,
+    question: `What are ${product.title.toLowerCase()}?`,
+    answer: `${product.title} are large promotional units with a fabric face on which you can feature text or graphics you can imagine. Easy to transport, ${product.title.toLowerCase()} are available in a variety of different sizes making them truly versatile.`
+  },
+  {
+    id: 2,
+    question: `How do I care for my ${product.title.toLowerCase()}?`,
+    answer: `The fabric portion of the ${product.title.toLowerCase()} is attached to the frame with Velcro, making it easy to fold and bring it back with a soft, damp cloth before storage. After cleaning, allow the fabric to dry completely before folding. The fabric is machine washable with cold water.`
+  },
+  {
+    id: 3,
+    question: `How much does a ${product.title.toLowerCase()} weigh and is it difficult to move around?`,
+    answer: `On average, a ${product.title.toLowerCase()} weighs between 20-30 lbs. The 8' x 8' ${product.title.toLowerCase()} only weigh 27 lbs while the 10x8' frame weighs 37 lbs, with the print spans more included. ${product.title} can be moved around with ease when packed into the carrying cases they come in.`
+  },
+  
+];
 
   return (
     <div>
@@ -158,32 +180,8 @@ const ProductTabs = ({ product, relatedProducts }) => {
         )}
 
         {activeTab === 'faq' && (
-          <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-4">{product.title} FAQ</h3>
-
-            <div className="space-y-6">
-              <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">What are {product.title.toLowerCase()}?</h4>
-                <p className="text-gray-600">
-                  {product.title} are large promotional units with a fabric face on which you can feature text or graphics you can imagine. Easy to transport, {product.title.toLowerCase()} are available in a variety of different sizes making them truly versatile.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">How do I care for my {product.title.toLowerCase()}?</h4>
-                <p className="text-gray-600">
-                  The fabric portion of the {product.title.toLowerCase()} is attached to the frame with Velcro, making it easy to fold and bring it back with a soft, damp cloth before storage. After cleaning, allow the fabric to dry completely before folding. The fabric is machine washable with cold water.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">How much does a {product.title.toLowerCase()} weigh and is it difficult to move around?</h4>
-                <p className="text-gray-600">
-                  On average, a {product.title.toLowerCase()} weighs between 20-30 lbs. The 8' x 8' {product.title.toLowerCase()} only weigh 27 lbs while the 10x8' frame weighs 37 lbs, with the print spans more included. {product.title} can be moved around with ease when packed into the carrying cases they come in.
-                </p>
-              </div>
-            </div>
-          </div>
+          <Faq faqs={faqsData}/>
+          
         )}
       </div>
     </div>

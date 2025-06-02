@@ -1,5 +1,5 @@
 import React from "react";
-import { commercialSignsData } from "../../assets/commercialSignsSection/commercialSignsData";
+import { commercialSignsData } from "../../assets/allData/homePagaData/commercialSignsData";
 const CommercialSignsSection = () => {
   return (
     <section className="py-16  bg-gray-50">

@@ -1,9 +1,9 @@
 // components/FAQSection.jsx
 import React, { useState } from 'react';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
-import { faqs } from './faqData.js';
 
-const Faq = () => {
+
+const Faq = ({faqs}) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleFAQ = (index) => {

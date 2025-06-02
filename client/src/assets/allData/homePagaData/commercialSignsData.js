@@ -1,15 +1,15 @@
-import aluminumImg from "./aluminum-signs.jpg";
-import yardSignsImg from "./yard-signs-main.jpg";
-import foamBoardSignsImg from "./foam-board-signs.jpg";
-import trackDecalsImg from "./truck-decals.jpg";
-import tabletopRetractableBannersImg from "./table-top-banner-stands.jpg";
-import acrylicSignsImg from "./acrylic-signs.jpg";
-import vinylBannersImg from "./vinyl-banner.jpg";
-import retractableBannersImg from "./retractable-banners.jpg";
-import metalPhotoPrintsImg from "./metal-photo-prints.jpg";
-import acrylicPhotoPrintsImg from "./acrylic-photo-prints.jpg";
-import pvcSignsImg from "./pvc-signs.jpg";
-import wallDecalsImg from "./wall-decals.jpg";
+import aluminumImg from "../../commercialSignsSection/aluminum-signs.jpg";
+import yardSignsImg from "../../commercialSignsSection/yard-signs-main.jpg";
+import foamBoardSignsImg from "../../commercialSignsSection/foam-board-signs.jpg";
+import trackDecalsImg from "../../commercialSignsSection/truck-decals.jpg";
+import tabletopRetractableBannersImg from "../../commercialSignsSection/table-top-banner-stands.jpg";
+import acrylicSignsImg from "../../commercialSignsSection/acrylic-signs.jpg";
+import vinylBannersImg from "../../commercialSignsSection/vinyl-banner.jpg";
+import retractableBannersImg from "../../commercialSignsSection/retractable-banners.jpg";
+import metalPhotoPrintsImg from "../../commercialSignsSection/metal-photo-prints.jpg";
+import acrylicPhotoPrintsImg from "../../commercialSignsSection/acrylic-photo-prints.jpg";
+import pvcSignsImg from "../../commercialSignsSection/pvc-signs.jpg";
+import wallDecalsImg from "../../commercialSignsSection/wall-decals.jpg";
 export const commercialSignsData = {
   categories: [
     {

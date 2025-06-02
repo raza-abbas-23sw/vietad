@@ -1,5 +1,5 @@
 // data/faqData.js
-export const faqs = [
+export const faqsData = [
   {
     id: 1,
     question: "Why do I need custom signs instead of standard signs?",
