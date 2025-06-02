@@ -1,9 +1,11 @@
 import React from 'react';
 import { ChevronRight, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import img1 from './pexels-photo-102693.jpeg'
 import img2 from './pexels-photo-6476776.jpeg'
 import img3 from './pexels-photo-3153204.jpeg'
 import img4 from './pexels-photo-7598019.jpeg'
+
 const ProductHero = () => {
   return (
     <section className="relative bg-gradient-to-br from-indigo-900 via-blue-600 to-cyan-500 overflow-hidden">
@@ -15,10 +17,17 @@ const ProductHero = () => {
 
       <div className="container mx-auto px-4 py-2 relative">
         {/* Breadcrumb */}
-        <div className="flex items-center text-white/80 text-sm mb-8">
-          <a href="/" className="hover:text-white transition-colors">Home</a>
-          <ChevronRight size={16} className="mx-2" />
-          <span className="font-medium">Products</span>
+        <div className="flex items-center space-x-2 text-sm mb-8">
+          <Link 
+            to="/" 
+            className="text-white/80 hover:text-white transition-colors duration-200 font-medium"
+          >
+            Home
+          </Link>
+          <ChevronRight className="w-4 h-4 text-white/60" />
+          <span className="text-white font-semibold bg-white/10 px-3 py-1 rounded-full">
+            Products
+          </span>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
