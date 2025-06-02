@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { CheckCircle, Minus, Plus, ShoppingCart } from 'lucide-react';
+import { useCart } from '../../../context/CartContext';
+import { toast } from 'react-hot-toast';
 import '../Product.css'; // Import the new CSS file
 
 const ProductInfo = ({ product }) => {
+  const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || { width: 12, height: 12 });
   const [selectedMaterial, setSelectedMaterial] = useState(product.materials?.[0] || { id: 'standard', name: 'Standard' });
@@ -17,13 +20,42 @@ const ProductInfo = ({ product }) => {
   const [unit, setUnit] = useState('inch');
 
   const incrementQuantity = () => {
-    setQuantity(prev => prev + 1);
+    if (quantity < product.availableStock) {
+      setQuantity(prev => prev + 1);
+    }
   };
 
   const decrementQuantity = () => {
     if (quantity > 1) {
       setQuantity(prev => prev - 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      ...product,
+      price: Number(product.price) || 0,
+      quantity: Number(quantity) || 0,
+      selectedSize,
+      selectedMaterial,
+      selectedFrame,
+      selectedThickness,
+      selectedColor,
+      selectedShape,
+      selectedPrintSides,
+      selectedDrilledHoles,
+    };
+    addToCart(cartItem);
+    toast.success('Item added to cart!', {
+      duration: 2000,
+      position: 'top-center',
+      style: {
+        background: '#10B981',
+        color: '#fff',
+        padding: '16px',
+        borderRadius: '8px',
+      },
+    });
   };
 
   // Placeholder options - replace with actual data fetching/props if available
@@ -258,7 +290,10 @@ const ProductInfo = ({ product }) => {
         </div>
 
         {/* Add to Cart Button */}
-        <button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-6 rounded-md transition duration-300 flex items-center justify-center gap-2">
+        <button 
+          onClick={handleAddToCart}
+          className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-6 rounded-md transition duration-300 flex items-center justify-center gap-2"
+        >
           <ShoppingCart className="w-5 h-5" />
           Add to Cart
         </button>

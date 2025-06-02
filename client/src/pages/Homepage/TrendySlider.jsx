@@ -74,8 +74,8 @@ const TrendySlider = () => {
   const visibleProducts = getVisibleProducts();
 
   const handleProductClick = (product) => {
-    const category = product.category === 'new' ? 'new-arrivals' : 'trending';
-    navigate(`/products/${category}`);
+    // Navigate to the product detail page using the product's slug
+    navigate(`/products/${product.slug}`);
   };
 
   // Calculate dynamic height based on number of products
@@ -148,9 +148,6 @@ const TrendySlider = () => {
                       <p key={i} className="my-1">{line}</p>
                     ))}
                   </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                  <span className="text-white font-medium">View Category →</span>
                 </div>
               </div>
             );

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Search, ChevronDown, ShoppingCart, User, Menu } from "lucide-react";
 import { AppContext } from "../../context/AppContext";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 import SignupModal from "../Modals/SignupModel";
@@ -94,7 +95,7 @@ const Navbar = () => {
               <Search className="w-5 h-5" />
             </button>
             {/* cart button   */}
-            <div className="flex gap-1 hover:text-blue-400 cursor-pointer">
+            <Link to="/cart" className="flex gap-1 hover:text-blue-400 cursor-pointer">
               <div className="relative w-7 h-7 flex items-center ">
                 <ShoppingCart className="w-5 h-5" />
                 <div className="absolute text-xs text-center text-white top-0 right-0 w-4 h-4 rounded-full bg-blue-400">
@@ -102,6 +103,7 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="hidden lg:block">Cart</div>
+              </Link>
             </div>
             {loading ?
               (<p>loading ... </p>)

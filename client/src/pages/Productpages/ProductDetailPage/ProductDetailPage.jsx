@@ -29,62 +29,80 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-gradient-to-b from-white to-gray-50 min-h-screen transition-all duration-300 ease-in-out">
       {/* Breadcrumb Navigation */}
-      <div className="bg-gray-50 border-b border-gray-200">
-        <div className="container mx-auto px-4 max-w-7xl py-3">
-          <nav className="flex items-center text-sm">
-            <Link to="/" className="text-gray-500 hover:text-gray-700">
+      <div className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50 backdrop-blur-sm bg-opacity-90">
+        <div className="container mx-auto px-4 max-w-7xl py-4">
+          <nav className="flex items-center space-x-2 text-sm">
+            <Link 
+              to="/" 
+              className="text-gray-500 hover:text-blue-600 transition-colors duration-200 font-medium"
+            >
               Home
             </Link>
-            <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
-            <Link to="/products" className="text-gray-500 hover:text-gray-700">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <Link 
+              to="/products" 
+              className="text-gray-500 hover:text-blue-600 transition-colors duration-200 font-medium"
+            >
               Products
             </Link>
-            <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
-            <span className="text-gray-900 font-medium">{productData.title}</span>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <span className="text-gray-900 font-semibold bg-gray-100 px-3 py-1 rounded-full">
+              {productData.title}
+            </span>
           </nav>
         </div>
       </div>
 
       {/* Product Detail Section */}
-      <div className="container mx-auto px-4 max-w-7xl py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="container mx-auto px-4 max-w-7xl py-12">
+        <div className="flex flex-col lg:flex-row gap-12">
           {/* Product Gallery - Left Column - Sticky */}
-          <div className="lg:w-1/2 lg:sticky lg:top-8 lg:self-start">
-            <ProductGallery images={productData.gallery} title={productData.title} />
+          <div className="lg:w-1/2 lg:sticky lg:top-24 lg:self-start transform transition-all duration-300 hover:scale-[1.02]">
+            <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <ProductGallery images={productData.gallery} title={productData.title} />
+            </div>
           </div>
           
           {/* Product Info - Right Column */}
           <div className="lg:w-1/2">
-            <ProductInfo product={productData} />
+            <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <ProductInfo product={productData} />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Product Tabs */}
-      <div className="border-t border-gray-200">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <ProductTabs product={productData} relatedProducts={relatedProducts} />
+      <div className="border-t border-gray-200 bg-white">
+        <div className="container mx-auto px-4 max-w-7xl py-12">
+          <div className="bg-white rounded-2xl shadow-md p-6">
+            <ProductTabs product={productData} relatedProducts={relatedProducts} />
+          </div>
         </div>
       </div>
 
       {/* Templates Section */}
       {
         templates.length > 0 && (
-          <div className="container mx-auto px-4 max-w-7xl py-12">
-            <h2 className="text-2xl font-bold text-gray-800 mb-8">Top Templates</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="container mx-auto px-4 max-w-7xl py-16 bg-gradient-to-b from-white to-gray-50">
+            <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center relative">
+              <span className="relative z-10">Top Templates</span>
+              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-500 rounded-full"></span>
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {templates.slice(0, 4).map((template) => (
-                <div key={template.id} className="group cursor-pointer">
-                  <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-100">
+                <div key={template.id} className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
+                  <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300">
                     <img
                       src={template.img}
                       alt={template.title}
-                      className="h-full w-full object-cover object-center group-hover:opacity-75"
+                      className="h-full w-full object-cover object-center transition-all duration-300 group-hover:opacity-80 group-hover:scale-110"
+                      loading="lazy"
                     />
                   </div>
-                  <h3 className="mt-4 text-sm text-gray-700">{template.title}</h3>
+                  <h3 className="mt-4 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-200">{template.title}</h3>
                 </div>
               ))}
             </div>
@@ -93,9 +111,14 @@ const ProductDetailPage = () => {
       }
 
       {/* Reviews Section */}
-      <div className="container mx-auto px-4 max-w-7xl py-12 border-t border-gray-200">
-        <h2 className="text-2xl font-bold text-gray-800 mb-8">Customer Reviews</h2>
-        <ProductReviews reviews={productData.reviews || []} rating={productData.rating} />
+      <div className="container mx-auto px-4 max-w-7xl py-16 border-t border-gray-200 bg-white">
+        <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center relative">
+          <span className="relative z-10">Customer Reviews</span>
+          <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-500 rounded-full"></span>
+        </h2>
+        <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+          <ProductReviews reviews={productData.reviews || []} rating={productData.rating} />
+        </div>
       </div>
     </div>
   );
