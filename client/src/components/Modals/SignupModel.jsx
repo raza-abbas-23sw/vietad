@@ -33,7 +33,7 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
       // Get Firebase ID token
       const token = await user.getIdToken();
 
-      const userData = await axios.post("http://localhost:8000/users/signup", {
+      const userData = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/users/signup", {
         token,
         phone: data.phone,
         fullName: `${data.firstName} ${data.lastName}`,
@@ -79,7 +79,7 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
       token = await user.getIdToken();
 
       //throws error if google signins first time.
-      const response = await axios.post("http://localhost:8000/users/signin", {}, {
+      const response = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/users/signin", {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

@@ -39,7 +39,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
 
       // Authenticate with backend
       const response = await axios.post(
-        "http://localhost:8000/users/signin",
+        import.meta.env.VITE_SERVER_DOMAIN + "/users/signin",
         {}, // Empty body as required by your backend
         {
           headers: {
@@ -109,7 +109,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
       token = await user.getIdToken();
 
       //throws error if google signins first time.
-      const response = await axios.post("http://localhost:8000/users/signin", {}, {
+      const response = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/users/signin", {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -124,7 +124,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
         const email = user?.email;
 
         //automatically fills in the user data in database, when user signs up through google popup
-        const response = await axios.post("http://localhost:8000/users/signup", {
+        const response = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/users/signup", {
           fullName,
           email,
           authProvider: "google",

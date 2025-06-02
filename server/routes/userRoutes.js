@@ -57,24 +57,34 @@ router.post('/signup',authMiddleware , async (req, res) => {
 
 // In /users/signin route
 router.post('/signin', authMiddleware, async (req, res) => {
-    console.log("hello")
+  console.log("hello")
   const { uid, email } = req.user;
 
   try {
     let user = await User.findOne({ firebaseUid: uid });
-    
+
     // Auto-create user if Google login and not found
     if (!user && req.user.authProvider === 'google') {
       user = new User({
         firebaseUid: uid,
         email,
-        fullName: req.user.name,
+        fullName: req.user.name || "",
         authProvider: "google"
       });
       await user.save();
     }
 
-    if (!user ) {
+    if (!user && req.user.authProvider === 'password') {
+      user = new User({
+        firebaseUid: uid,
+        email,
+        fullName: "", // or get from form
+        authProvider: "email"
+      });
+      await user.save();
+    }
+
+    if (!user) {
       return res.status(404).json({ message: 'User not found in DB' });
     }
 
