@@ -1,11 +1,18 @@
 import React from 'react';
 import { ChevronRight, ArrowRight } from 'lucide-react';
+<<<<<<< HEAD:client/src/pages/Productpages/hero/ProductHero.jsx
 import { Link } from 'react-router-dom';
 import img1 from './pexels-photo-102693.jpeg'
 import img2 from './pexels-photo-6476776.jpeg'
 import img3 from './pexels-photo-3153204.jpeg'
 import img4 from './pexels-photo-7598019.jpeg'
 
+=======
+import img1 from '../../assets/allMedia/prodctPageMedia/heroSection/pexels-photo-102693.jpeg'
+import img2 from '../../assets/allMedia/prodctPageMedia/heroSection/pexels-photo-6476776.jpeg'
+import img3 from '../../assets/allMedia/prodctPageMedia/heroSection/pexels-photo-3153204.jpeg'
+import img4 from '../../assets/allMedia/prodctPageMedia/heroSection/pexels-photo-7598019.jpeg'
+>>>>>>> 30d1bd44035e68c269eda6015ff64114e1404c8b:client/src/pages/Productpages/ProductHero.jsx
 const ProductHero = () => {
   return (
     <section className="relative bg-gradient-to-br from-indigo-900 via-blue-600 to-cyan-500 overflow-hidden">

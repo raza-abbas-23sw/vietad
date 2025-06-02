@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
-import { scrollerData } from '../../../assets/teamslider/data';
 
-const ImageTextScroller = () => {
+const ImageTextScroller = ({scrollerData}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRefs = useRef([]);
   const mobileImageRef = useRef(null);
