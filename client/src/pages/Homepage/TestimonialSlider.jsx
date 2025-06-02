@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FaQuoteLeft, FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { testimonials } from "./testimonialData";
+import { testimonials } from "../../assets/allData/homePagaData/testimonialData.js";
 
 // Import Swiper styles
 import "swiper/css";

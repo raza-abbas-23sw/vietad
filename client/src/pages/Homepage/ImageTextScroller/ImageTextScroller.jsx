@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { scrollerData } from '../../../assets/teamslider/data';
+import { scrollerData } from '../../../assets/allData/homePagaData/imgTextSliderData';
 
 const ImageTextScroller = () => {
   const [activeIndex, setActiveIndex] = useState(0);

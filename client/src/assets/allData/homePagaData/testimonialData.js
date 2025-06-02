@@ -1,10 +1,3 @@
-// Shared rating info (constant for all testimonials)
-export const RATING_INFO = {
-  text: "Excellent",
-  reviews: "2,473 reviews on ▼ Trustpilot"
-};
-
-// Testimonial content (only unique fields)
 export const testimonials = [
   {
     id: 1,
