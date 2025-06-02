@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FaQuoteLeft, FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { testimonials } from "../../assets/allData/homePagaData/testimonialData.js";
+import { testimonials } from "./testimonialData";
 
 // Import Swiper styles
 import "swiper/css";
@@ -31,7 +31,7 @@ const TestimonialSlider = () => {
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id} className="py-8">
               <div className="max-w-4xl mx-auto h-full p-8 rounded-lg relative ">
-                <FaQuoteLeft className="text-2xl mx-auto text-green-500" />
+                <FaQuoteLeft className="text-2xl mx-auto text-cyan-500" />
                 <h1 className="text-md md:text-xl text-center py-4 font-bold">
                   {testimonial.summary}
                 </h1>
@@ -47,7 +47,7 @@ const TestimonialSlider = () => {
                 <div className="flex justify-center">
                   <div className="flex items-center space-x-2 bg-gray-100 p-2 rounded-md">
                     <span className="text-sm font-semibold">Excellent</span>
-                    <div className="flex text-green-600">
+                    <div className="flex text-cyan-600">
                       <FaStar />
                       <FaStar />
                       <FaStar />
@@ -57,8 +57,8 @@ const TestimonialSlider = () => {
                     <span className="text-sm text-gray-700 hidden sm:inline">
                       2,473 reviews on
                     </span>
-                    <span className="flex items-center font-semibold text-green-600 hidden sm:flex">
-                      <FaStar className="text-green-600 mr-1" />
+                    <span className="flex items-center font-semibold text-cyan-600 hidden sm:flex">
+                      <FaStar className="text-cyan-600 mr-1" />
                       Trustpilot
                     </span>
                   </div>

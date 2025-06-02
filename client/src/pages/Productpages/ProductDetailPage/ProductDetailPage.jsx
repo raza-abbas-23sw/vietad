@@ -89,7 +89,7 @@ const ProductDetailPage = () => {
           <div className="container mx-auto px-4 max-w-7xl py-16 bg-gradient-to-b from-white to-gray-50">
             <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center relative">
               <span className="relative z-10">Top Templates</span>
-              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-500 rounded-full"></span>
+              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-cyan-500 rounded-full"></span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {templates.slice(0, 4).map((template) => (
@@ -114,7 +114,7 @@ const ProductDetailPage = () => {
       <div className="container mx-auto px-4 max-w-7xl py-16 border-t border-gray-200 bg-white">
         <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center relative">
           <span className="relative z-10">Customer Reviews</span>
-          <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-500 rounded-full"></span>
+          <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-cyan-500 rounded-full"></span>
         </h2>
         <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
           <ProductReviews reviews={productData.reviews || []} rating={productData.rating} />

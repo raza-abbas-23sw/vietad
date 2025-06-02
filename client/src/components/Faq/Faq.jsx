@@ -32,9 +32,9 @@ const Faq = ({faqs}) => {
               >
                 <h2 className="text-xl font-semibold text-gray-800">{faq.question}</h2>
                 {activeIndex === index ? (
-                  <FiChevronUp className="w-5 h-5 text-blue-600" />
+                  <FiChevronUp className="w-5 h-5 text-cyan-600" />
                 ) : (
-                  <FiChevronDown className="w-5 h-5 text-blue-600" />
+                  <FiChevronDown className="w-5 h-5 text-cyan-600" />
                 )}
               </button>
               
@@ -50,7 +50,7 @@ const Faq = ({faqs}) => {
 
         <div className="mt-12 text-center">
           <p className="text-gray-600 mb-4">Still have questions?</p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors">
+          <button className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-6 rounded-lg transition-colors">
             Contact Support
           </button>
         </div>

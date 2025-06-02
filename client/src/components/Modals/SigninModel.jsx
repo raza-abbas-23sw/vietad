@@ -165,14 +165,16 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center p-4 z-50 bg-opacity-50">
       <Toaster />
-      <div className="rounded-lg p-6 w-full max-w-md shadow-2xl bg-gray-100 max-h-[90vh] overflow-y-auto border-l-4 border-green-400">
+      <div className="rounded-lg p-6 w-full max-w-md shadow-2xl bg-gray-100 max-h-[90vh] overflow-y-auto border-l-4 border-cyan-400">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Sign In</h2>
           <button
             onClick={onClose}
-            className="text-black font-bold transition-all cursor-pointer bg-white p-1 rounded-full w-8 h-8  flex items-center justify-center hover:text-green-500 hover:rotate-90"
+            className="text-gray-600 hover:text-red-500 hover:rotate-90 transition-transform"
           >
-            ✕
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
         </div>
 
@@ -184,7 +186,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
         <p className="text-sm text-gray-600 mb-4">
           Don't have an account?
           <button
-            className="text-blue-600 px-2 cursor-pointer hover:font-bold"
+            className="text-cyan-600 px-2 cursor-pointer hover:font-bold"
             onClick={onSwitchToSignup}
           >
             Sign up
@@ -248,7 +250,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
                 id="remember-me"
                 type="checkbox"
                 {...register("rememberMe")}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
               />
               <label
                 htmlFor="remember-me"
@@ -260,7 +262,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
 
             <button
               type="button"
-              className="text-sm text-green-600 cursor-pointer hover:underline"
+              className="text-sm text-cyan-600 cursor-pointer hover:underline"
             >
               Forgot password?
             </button>
@@ -268,7 +270,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded disabled:opacity-50"
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded disabled:opacity-50"
             disabled={loading}
           >
             {loading ? "Signing in..." : "Sign in"}
@@ -284,7 +286,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
         <div className="mt-6 space-y-4 ">
           <button
             onClick={signInWithGoogle}
-            className="w-full flex items-center justify-center gap-2 bg-transparent border-1 border-blue-400 text-black font-bold cursor-pointer py-2 px-4 rounded">
+            className="w-full flex items-center justify-center gap-2 bg-transparent border-1 border-cyan-400 text-black font-bold cursor-pointer py-2 px-4 rounded">
             <FcGoogle className="w-6 h-6" />
             <span>Sign in with Google</span>
           </button>
@@ -293,7 +295,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
         <p className="text-center mt-4 text-sm text-gray-600">
           Need an account?
           <button
-            className="text-blue-600 px-2 cursor-pointer hover:font-bold"
+            className="text-cyan-600 px-2 cursor-pointer hover:font-bold"
             onClick={onSwitchToSignup}
           >
             Sign up

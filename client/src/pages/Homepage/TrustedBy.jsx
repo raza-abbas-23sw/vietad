@@ -7,7 +7,7 @@ const TrustedBy = () => {
       <div className="max-w-7xl mx-auto px-6 text-center">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4">
-            Trusted by <span className="text-blue-600">Industry Professionals</span>
+            Trusted by <span className="text-cyan-600">Industry Professionals</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Partnered with leading organizations and experts worldwide

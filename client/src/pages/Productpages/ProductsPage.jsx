@@ -1,18 +1,18 @@
 import React from 'react'
-import ProductHero from './ProductHero'
+import ProductHero from './hero/ProductHero'
 import Products from './Products'
-import {scrollerData} from "../../assets/allData/productPageData/imgSliderData.js"
+import ImgSlider from './imgSlider/ImgSlider'
 import Faq from '../../components/Faq/Faq'
 import {faqsData} from "../../assets/allData/faqData/ProductPageFaq.js" 
-import ImageTextScroller from '../../components/imgTextSlider/ImageTextScroller.jsx'
-
 const ProductsPage = () => {
   return (
     <div>
+  {console.log(typeof(faqs))
+  }      
       <ProductHero/>
       <Products/>
-      <ImageTextScroller scrollerData={scrollerData} />
-      <Faq faqs={faqsData }/>
+      <ImgSlider/>
+      <Faq faqs={faqsData}/>
       
     </div>
   )

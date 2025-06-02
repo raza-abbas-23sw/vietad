@@ -1,10 +1,10 @@
 // Data for the image-text scroller component
-import img1 from '../../teamslider/corporate-offers-for-sign-printing.jpg'
-import img2 from '../../teamslider/Customer-service-to-make-a-sign-online.jpg'
-import img3 from '../../teamslider/customizable-sizes-for-sign-printing-online.jpg'
-import img4 from '../../teamslider/free-design-tool-from-sign-maker-online.jpg'
-import img5 from '../../teamslider/large-selection-of-sign-printing-types.jpg'
-import img6 from '../../teamslider/signage-templates-from-square-signs-online.jpg'
+import img1 from './corporate-offers-for-sign-printing.jpg'
+import img2 from './Customer-service-to-make-a-sign-online.jpg'
+import img3 from './customizable-sizes-for-sign-printing-online.jpg'
+import img4 from './free-design-tool-from-sign-maker-online.jpg'
+import img5 from './large-selection-of-sign-printing-types.jpg'
+import img6 from './signage-templates-from-square-signs-online.jpg'
 export const scrollerData = [
   {
     id: 1,

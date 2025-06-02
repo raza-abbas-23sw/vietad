@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import DesignPopup from './DesignPopup'; // Make sure this path is correct
+import logoPng from '../../assets/logos/logo.png'; // Corrected import path
 
 const CustomSignSection = () => {
   const [showDesignPopup, setShowDesignPopup] = useState(false);
 
   return (
-    <div className="w-full bg-gradient-to-r from-blue-50 to-indigo-50 py-12 px-4 border-t border-b border-gray-200">
+    <div className="w-full bg-gradient-to-r from-cyan-100 to-red-100 py-12 px-4 border-t border-b border-gray-200">
       <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="flex flex-col md:flex-row items-center justify-between p-8 md:p-10">
           {/* Left Column - Logo and Text */}
           <div className="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
-            <div className="bg-blue-100 p-4 rounded-xl">
+            <div className="bg-cyan-200 p-4 rounded-xl">
               <img
-                src="/src/assets/logos/sm_nav_logo.svg"
-                alt="SquareSigns Logo"
+                src={logoPng}
+                alt="VietAdSigns Logo"
                 className="w-16 h-16 object-contain"
               />
             </div>
@@ -46,7 +47,7 @@ const CustomSignSection = () => {
           <div className="w-full md:w-auto">
             <button
               onClick={() => setShowDesignPopup(true)}
-              className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md"
+              className="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md"
             >
               Design Your Sign Now
             </button>

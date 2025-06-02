@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { Layers, Image, Tag, Briefcase, Building2, Home, Camera, Heart, ArrowLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Map category titles to icons
 const categoryIcons = {
@@ -36,6 +37,11 @@ const Sidebar = ({ open, onClose }) => {
     }
   };
 
+  // Function to generate product category link
+  const getCategoryLink = (categoryTitle) => {
+    return `/products/${categoryTitle.toLowerCase().replace(/\s+/g, '-')}`;
+  };
+
   return (
     <>
       {/* Overlay */}
@@ -62,33 +68,51 @@ const Sidebar = ({ open, onClose }) => {
             
             {!selectedCategory ? (
               <nav>
-                <h2 className="text-xl font-bold mb-6">Categories</h2>
+                <h2 className="text-xl font-bold mb-6">Product Categories</h2>
                 <ul className="space-y-4">
-                  {/* All Products at the top */}
-                  <li key={navData[0].title}>
-                    <a
-                      href={navData[0].link}
-                      className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-blue-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors"
-                      onClick={onClose}
-                    >
-                      <Layers className="w-6 h-6 text-blue-500" />
-                      {navData[0].title}
-                    </a>
-                  </li>
+                  {/* Explicitly handle the first item as a direct link to products page */}
+                  {navData.length > 0 && (
+                    <li key={navData[0].title}>
+                      <Link
+                        to="/products"
+                        className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-cyan-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors"
+                        onClick={onClose} // Close sidebar on click
+                      >
+                        {/* You might want to use a specific icon for All Products if available, otherwise Layers is fine */}
+                        <Layers className="w-6 h-6 text-cyan-500" />
+                        {navData[0].title} {/* Use the actual title from navData */}
+                      </Link>
+                    </li>
+                  )}
+
+                  {/* Iterate over the rest of navData items for other categories */}
                   {navData.slice(1).map((item) => {
                     const Icon = categoryIcons[item.title] || Layers;
+                    const hasNested = (item.categories && item.categories.length > 0) || (item.items && item.items.length > 0);
+                    
                     return (
                       <li key={item.title}>
-                        <button
-                          className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-blue-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors justify-between"
-                          onClick={() => handleCategoryClick(item)}
-                        >
-                          <span className="flex items-center gap-3">
-                            <Icon className="w-6 h-6 text-blue-500" />
+                        {hasNested ? (
+                          <button
+                            className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-cyan-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors justify-between"
+                            onClick={() => handleCategoryClick(item)}
+                          >
+                            <span className="flex items-center gap-3">
+                              <Icon className="w-6 h-6 text-cyan-500" />
+                              {item.title}
+                            </span>
+                            <ChevronRight className="w-5 h-5 text-gray-400" />
+                          </button>
+                        ) : (
+                          <Link
+                            to={getCategoryLink(item.title)}
+                            className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-cyan-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors"
+                            onClick={onClose}
+                          >
+                            <Icon className="w-6 h-6 text-cyan-500" />
                             {item.title}
-                          </span>
-                          {(item.categories || item.items) && <ChevronRight className="w-5 h-5 text-gray-400" />}
-                        </button>
+                          </Link>
+                        )}
                       </li>
                     );
                   })}
@@ -97,7 +121,7 @@ const Sidebar = ({ open, onClose }) => {
             ) : !selectedSubcategory ? (
               <div>
                 <button
-                  className="flex items-center gap-2 mb-4 text-gray-600 hover:text-blue-600 text-base font-medium"
+                  className="flex items-center gap-2 mb-4 text-gray-600 hover:text-cyan-600 text-base font-medium"
                   onClick={handleBack}
                 >
                   <ArrowLeft className="w-5 h-5" /> Back
@@ -117,13 +141,13 @@ const Sidebar = ({ open, onClose }) => {
                   ))}
                   {selectedCategory.items?.map((item, idx) => (
                     <li key={idx}>
-                      <a
-                        href={`/products/${selectedCategory.title.toLowerCase().replace(/\s+/g, '-')}/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                      <Link // Changed from a to Link
+                        to={`/products/${selectedCategory.title.toLowerCase().replace(/\s+/g, '-')}/${item.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block text-gray-700 text-base py-2 px-2 rounded hover:bg-gray-100"
                         onClick={onClose}
                       >
                         {item}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -131,7 +155,7 @@ const Sidebar = ({ open, onClose }) => {
             ) : (
               <div>
                 <button
-                  className="flex items-center gap-2 mb-4 text-gray-600 hover:text-blue-600 text-base font-medium"
+                  className="flex items-center gap-2 mb-4 text-gray-600 hover:text-cyan-600 text-base font-medium"
                   onClick={handleBack}
                 >
                   <ArrowLeft className="w-5 h-5" /> Back
@@ -140,13 +164,13 @@ const Sidebar = ({ open, onClose }) => {
                 <ul className="space-y-1">
                   {selectedSubcategory.products?.map((product, idx) => (
                     <li key={idx}>
-                      <a
-                        href={`/products/${selectedCategory.title.toLowerCase().replace(/\s+/g, '-')}/${product.toLowerCase().replace(/\s+/g, '-')}`}
+                      <Link // Changed from a to Link
+                        to={`/products/${selectedCategory.title.toLowerCase().replace(/\s+/g, '-')}/${product.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block text-gray-700 text-sm py-1.5 px-2 rounded hover:bg-gray-100"
                         onClick={onClose}
                       >
                         {product}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

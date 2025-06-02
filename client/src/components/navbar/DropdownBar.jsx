@@ -1,15 +1,19 @@
 // DropdownBar.jsx
-const DropdownBar = ({ title, isOpen }) => {
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const DropdownBar = ({ title, isActive, link }) => {
   return (
-    <button
-      className={`px-4 py-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all ${
-        isOpen 
-          ? 'bg-blue-600 text-white shadow-inner' 
-          : 'bg-gray-50 hover:bg-gray-100 text-gray-800 hover:shadow-sm'
+    <Link 
+      to={link || '#'} 
+      className={`text-sm font-medium px-3 py-1 rounded transition-colors ${
+        isActive 
+          ? 'text-cyan-600'
+          : 'text-gray-700 hover:text-cyan-600'
       }`}
     >
       {title}
-    </button>
+    </Link>
   );
 };
 

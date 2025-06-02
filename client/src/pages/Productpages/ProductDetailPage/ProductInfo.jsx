@@ -325,7 +325,11 @@ const ProductInfo = ({ product }) => {
         </div>
         <div className="flex items-center text-sm text-gray-600">
           <span className="font-medium mr-2">Availability:</span>
-          <span className="text-green-600">In Stock</span>
+          {product.availableStock > 0 ? (
+            <span className="text-red-600">In Stock</span>
+          ) : (
+            <span className="text-red-600">Out of Stock</span>
+          )}
         </div>
       </div>
     </div>
