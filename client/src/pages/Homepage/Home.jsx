@@ -5,9 +5,10 @@ import TrendySlider from "./TrendySlider";
 import CommercialSignsSection from "./CommercialSignsSection";
 import TestimonialSlider from "./TestimonialSlider";
 import DesignSteps from "./DesignSteps";
-import ImageTextScroller from "./ImageTextScroller/ImageTextScroller";
 import TrustedBy from "./TrustedBy";
 import GetStartedSection from "./GetStarted/GetStartedSection";
+import ImageTextScroller from "../../components/imgTextSlider/ImageTextScroller";
+import {scrollerData} from "../../assets/allData/homePagaData/imgTextSliderData"
 const Home = () => {
   return (
     <div>
@@ -18,7 +19,7 @@ const Home = () => {
       <TestimonialSlider />
       <DesignSteps />
       <TrustedBy />
-      <ImageTextScroller />
+      <ImageTextScroller scrollerData={scrollerData} />
       <GetStartedSection />
     </div>
   );
