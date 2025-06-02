@@ -103,83 +103,83 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="hidden lg:block">Cart</div>
-              </Link>
-            </div>
-            {loading ?
-              (<p>loading ... </p>)
-              :
-              (<div
-                className="relative"
-                onMouseEnter={() => setAccountDropdownOpen(true)}
-                onMouseLeave={() => setAccountDropdownOpen(false)}
-              >
-                <div className="flex gap-1 items-center hover:text-blue-400 cursor-pointer">
-                  <User className="w-5 h-5" />
-                  <div className="hidden lg:block">{currentUser ? currentUser.fullName || `My Profile` : `My Account`}</div>
-                  <ChevronDown className={accountDropdownOpen && "rotate-180"} />
-                </div>
+            </Link>
+          </div>
+          {loading ?
+            (<p>loading ... </p>)
+            :
+            (<div
+              className="relative"
+              onMouseEnter={() => setAccountDropdownOpen(true)}
+              onMouseLeave={() => setAccountDropdownOpen(false)}
+            >
+              <div className="flex gap-1 items-center hover:text-blue-400 cursor-pointer">
+                <User className="w-5 h-5" />
+                <div className="hidden lg:block">{currentUser ? currentUser.fullName || `My Profile` : `My Account`}</div>
+                <ChevronDown className={accountDropdownOpen && "rotate-180"} />
+              </div>
 
-                {accountDropdownOpen && (
-                  <div className="absolute right-0 top-full text-start  w-40 bg-white rounded shadow-lg z-50">
-                    {currentUser ? (
-                      <>
-                        <button onClick={logout}
-                          className="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer text-red-500"
-                        >Log Out</button>
-                      </>
-                    ) : (
-                      <>
-                        <div
-                          onClick={() => setShowSignupModal(true)}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                          Sign Up
-                        </div>
-                        <div
-                          onClick={() => setShowSigninModal(true)}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                          Sign In
-                        </div>
-                      </>
-                    )}
-                    <div className="flex items-center gap-2  px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <div>My Designs</div>
-                      <div className=" text-xs text-center text-white top right-0 w-4 h-4 rounded-full bg-blue-400">
-                        0
+              {accountDropdownOpen && (
+                <div className="absolute right-0 top-full text-start  w-40 bg-white rounded shadow-lg z-50">
+                  {currentUser ? (
+                    <>
+                      <button onClick={logout}
+                        className="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer text-red-500"
+                      >Log Out</button>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        onClick={() => setShowSignupModal(true)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        Sign Up
                       </div>
+                      <div
+                        onClick={() => setShowSigninModal(true)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        Sign In
+                      </div>
+                    </>
+                  )}
+                  <div className="flex items-center gap-2  px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    <div>My Designs</div>
+                    <div className=" text-xs text-center text-white top right-0 w-4 h-4 rounded-full bg-blue-400">
+                      0
                     </div>
                   </div>
-                )}
-              </div>)
-            }
-          </div>
-        </div>
-
-        {/* Render modals if state is true */}
-        {showSignupModal && (
-          <SignupModal
-            open={showSignupModal}
-            onClose={() => setShowSignupModal(false)}
-            onSwitchToSignin={() => {
-              setShowSignupModal(false);
-              setShowSigninModal(true);
-            }}
-          />
-        )}
-        {showSigninModal && (
-          <SignInModal
-            open={showSigninModal}
-            onClose={() => setShowSigninModal(false)}
-            onSwitchToSignup={() => {
-              setShowSigninModal(false);
-              setShowSignupModal(true);
-            }}
-          />
-        )}
-        {/* Only show DropdownContainer on desktop */}
-        <div className="hidden md:block">
-          <DropdownContainer />
+                </div>
+              )}
+            </div>)
+          }
         </div>
       </div>
+
+      {/* Render modals if state is true */}
+      {showSignupModal && (
+        <SignupModal
+          open={showSignupModal}
+          onClose={() => setShowSignupModal(false)}
+          onSwitchToSignin={() => {
+            setShowSignupModal(false);
+            setShowSigninModal(true);
+          }}
+        />
+      )}
+      {showSigninModal && (
+        <SignInModal
+          open={showSigninModal}
+          onClose={() => setShowSigninModal(false)}
+          onSwitchToSignup={() => {
+            setShowSigninModal(false);
+            setShowSignupModal(true);
+          }}
+        />
+      )}
+      {/* Only show DropdownContainer on desktop */}
+      <div className="hidden md:block">
+        <DropdownContainer />
+      </div>
+
     </>
   );
 };
