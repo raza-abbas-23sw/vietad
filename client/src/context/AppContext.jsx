@@ -1,5 +1,6 @@
 import React, { createContext, useState, useCallback, useMemo } from 'react';
 import { navData } from '../components/navbar/data/dropdownData';
+import { productsData } from '../assets/Products/productsData';
 
 export const AppContext = createContext();
 
@@ -23,42 +24,47 @@ export const AppProvider = ({ children }) => {
       
       // Add a small delay to prevent too frequent updates
       setTimeout(() => {
-        // Search through categories and products
-        const results = navData.flatMap(category => {
-          const categoryMatch = category.name.toLowerCase().includes(query.toLowerCase());
-          const productMatches = category.products.filter(product =>
-            product.name.toLowerCase().includes(query.toLowerCase())
-          );
+        // Search through productsData directly
+        const results = productsData.filter(product =>
+          product.title.toLowerCase().includes(query.toLowerCase()) ||
+          product.description.toLowerCase().includes(query.toLowerCase()) ||
+          product.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+        );
 
-          if (categoryMatch || productMatches.length > 0) {
-            return [{
-              category: category.name,
-              products: productMatches
-            }];
+        // Group results by category (optional, but might be useful)
+        const groupedResults = results.reduce((acc, product) => {
+          const categoryName = product.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+          const existingCategory = acc.find(item => item.category === categoryName);
+
+          if (existingCategory) {
+            existingCategory.products.push(product);
+          } else {
+            acc.push({ category: categoryName, products: [product] });
           }
-          return [];
-        });
+          return acc;
+        }, []);
 
-        setSearchResults(results);
+        setSearchResults(groupedResults);
         setIsSearching(false);
       }, 300); // 300ms delay
     } else {
       setSearchResults([]);
       setIsSearching(false);
     }
-  }, []);
+  }, []); // Add productsData to the dependency array if it can change
 
   // Memoize the context value to prevent unnecessary re-renders
   const contextValue = useMemo(() => ({
     user,
     setUser,
     navData,
+    productsData, // Add productsData here
     searchQuery,
     setSearchQuery,
     searchResults,
     isSearching,
     handleSearch
-  }), [user, searchQuery, searchResults, isSearching, handleSearch]);
+  }), [user, navData, productsData, searchQuery, searchResults, isSearching, handleSearch]);
 
   return (
     <AppContext.Provider value={contextValue}>
