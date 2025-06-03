@@ -1,6 +1,6 @@
 import React, { createContext, useState, useCallback, useMemo } from 'react';
 import { navData } from '../components/navbar/data/dropdownData';
-import { productsData } from '../assets/Products/productsData';
+import { productsData } from '../assets/allData/productPageData/productsData.js';
 
 export const AppContext = createContext();
 

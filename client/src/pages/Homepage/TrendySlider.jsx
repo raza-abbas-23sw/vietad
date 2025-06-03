@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { productsData } from '../../assets/Products/productsData';
+import { productsData } from '../../assets/allData/productPageData/productsData';
 import './home.css';
 
 const TrendySlider = () => {

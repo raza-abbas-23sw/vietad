@@ -1,5 +1,5 @@
 import React from 'react';
-import logos from '../../assets/profesiional/Data';
+import logos from '../../assets/allData/homePagaData/profesionalSectionData';
 
 const TrustedBy = () => {
   return (

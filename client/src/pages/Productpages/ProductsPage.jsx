@@ -1,9 +1,10 @@
 import React from 'react'
-import ProductHero from './hero/ProductHero'
+import ProductHero from './ProductHero.jsx'
 import Products from './Products'
-import ImgSlider from './imgSlider/ImgSlider'
+import ImageTextScroller from '../../components/imgTextSlider/ImageTextScroller.jsx'
+import {scrollerData} from "../../assets/allData/productPageData/imgTextSlider.js"
 import Faq from '../../components/Faq/Faq'
-import {faqsData} from "../../assets/allData/faqData/ProductPageFaq.js" 
+import {faqsData} from "../../components/Faq/ProductPageFaq.js" 
 const ProductsPage = () => {
   return (
     <div>
@@ -11,7 +12,7 @@ const ProductsPage = () => {
   }      
       <ProductHero/>
       <Products/>
-      <ImgSlider/>
+      <ImageTextScroller scrollerData={scrollerData}/>
       <Faq faqs={faqsData}/>
       
     </div>

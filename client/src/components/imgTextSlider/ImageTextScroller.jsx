@@ -1,7 +1,6 @@
-import { useRef, useEffect, useState } from 'react';
-import { scrollerData } from '../../../assets/teamslider/data';
+import { useRef, useEffect, useState } from "react";
 
-const ImageTextScroller = () => {
+const ImageTextScroller = ({scrollerData}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRefs = useRef([]);
   const mobileImageRef = useRef(null);
@@ -11,9 +10,9 @@ const ImageTextScroller = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const newIndex = Number(entry.target.getAttribute('data-index'));
+            const newIndex = Number(entry.target.getAttribute("data-index"));
             setActiveIndex(newIndex);
-            
+
             if (mobileImageRef.current) {
               mobileImageRef.current.style.opacity = 0;
               setTimeout(() => {
@@ -25,7 +24,7 @@ const ImageTextScroller = () => {
           }
         });
       },
-      { threshold: 0.5, rootMargin: '-50px 0px -50px 0px' }
+      { threshold: 0.5, rootMargin: "-50px 0px -50px 0px" }
     );
 
     sectionRefs.current.forEach((section) => {
@@ -44,7 +43,7 @@ const ImageTextScroller = () => {
       {/* Mobile Layout */}
       <div className="md:hidden">
         {scrollerData.map((item, index) => (
-          <section 
+          <section
             key={`mobile-section-${item.id}`}
             className="relative min-h-screen flex flex-col"
           >
@@ -58,11 +57,13 @@ const ImageTextScroller = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent rounded-2xl"></div>
                 <div className="absolute bottom-4 left-4 right-4 p-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm">
-                  <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {item.title}
+                  </h3>
                 </div>
               </div>
             </div>
-            
+
             {/* Text Content */}
             <div className="flex-1 flex items-center justify-center bg-white px-6 py-8">
               <div className="max-w-md w-full space-y-6 text-center">
@@ -93,7 +94,7 @@ const ImageTextScroller = () => {
                 <div
                   key={`image-${item.id}`}
                   className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                    index === activeIndex ? 'opacity-100' : 'opacity-0'
+                    index === activeIndex ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   <img
@@ -103,7 +104,9 @@ const ImageTextScroller = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent"></div>
                   <div className="absolute bottom-6 left-6 right-6 p-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg">
-                    <h3 className="text-xl font-bold text-gray-900">{item.title}</h3>
+                    <h3 className="text-xl font-bold text-gray-900">
+                      {item.title}
+                    </h3>
                   </div>
                 </div>
               ))}
@@ -120,9 +123,11 @@ const ImageTextScroller = () => {
                   data-index={index}
                   className="scroll-mt-20"
                 >
-                  <div className={`space-y-6 transition-opacity duration-300 ${
-                    index === activeIndex ? 'opacity-100' : 'opacity-70'
-                  }`}>
+                  <div
+                    className={`space-y-6 transition-opacity duration-300 ${
+                      index === activeIndex ? "opacity-100" : "opacity-70"
+                    }`}
+                  >
                     <h2 className="text-3xl font-bold text-gray-900">
                       {item.title}
                     </h2>

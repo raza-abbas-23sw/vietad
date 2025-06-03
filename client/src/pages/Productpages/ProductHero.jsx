@@ -2,10 +2,10 @@ import React from 'react';
 import { ChevronRight, ArrowRight } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
-import img1 from './pexels-photo-102693.jpeg'
-import img2 from './pexels-photo-6476776.jpeg'
-import img3 from './pexels-photo-3153204.jpeg'
-import img4 from './pexels-photo-7598019.jpeg'
+import img1 from '../../assets/allMedia/productPage/hero/pexels-photo-102693.jpeg'
+import img2 from '../../assets/allMedia/productPage/hero/pexels-photo-6476776.jpeg'
+import img3 from '../../assets/allMedia/productPage/hero/pexels-photo-3153204.jpeg'
+import img4 from '../../assets/allMedia/productPage/hero/pexels-photo-7598019.jpeg'
 
 const ProductHero = () => {
   return (

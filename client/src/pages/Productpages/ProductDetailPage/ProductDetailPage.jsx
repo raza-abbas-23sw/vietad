@@ -6,7 +6,7 @@ import ProductInfo from './ProductInfo';
 import ProductTabs from './ProductTabs';
 import RelatedProducts from './RelatedProducts';
 import ProductReviews from './ProductReviews';
-import { productsData, templates } from '../../../assets/Products/productsData';
+import { productsData, templates } from '../../../assets/allData/productPageData/productsData.js';
 
 const ProductDetailPage = () => {
   const { product } = useParams();

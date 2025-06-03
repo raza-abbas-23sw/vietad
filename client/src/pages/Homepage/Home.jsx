@@ -5,12 +5,10 @@ import TrendySlider from "./TrendySlider";
 import CommercialSignsSection from "./CommercialSignsSection";
 import TestimonialSlider from "./TestimonialSlider";
 import DesignSteps from "./DesignSteps";
-import { sectionData } from "../../assets/teamslider/sectionData";
-import ScrollSection from "./ScrollSection"; // update path if different
-import ImageTextScroller from "./ImageTextScroller/ImageTextScroller";
+import ImageTextScroller from "../../components/imgTextSlider/ImageTextScroller";
+import {scrollerData} from "../../assets/allData/homePagaData/imgTextSliderData.js"
 import TrustedBy from "./TrustedBy";
 import GetStartedSection from "./GetStarted/GetStartedSection";
-import Footer from "../../components/Footer/Footer";
 const Home = () => {
   return (
     <div>
@@ -21,7 +19,7 @@ const Home = () => {
       <TestimonialSlider />
       <DesignSteps />
       <TrustedBy />
-      <ImageTextScroller />
+      <ImageTextScroller scrollerData={scrollerData} />
       <GetStartedSection />
     </div>
   );
