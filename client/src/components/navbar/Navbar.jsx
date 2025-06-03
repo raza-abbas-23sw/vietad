@@ -53,7 +53,7 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <div className="hidden md:flex items-center md:border border-cyan-300 rounded-full px-2 w-fit md:w-[35rem] lg:w-[20rem] xl:w-[35rem] focus-within:outline focus-within:outline-1 focus-within:outline-cyan-300 relative">
+            <div className="hidden md:flex items-center md:border border-cyan-300 rounded-full px-2 w-fit md:w-[35rem] lg:w-[25rem] xl:w-[35rem] focus-within:outline focus-within:outline-1 focus-within:outline-cyan-300 relative">
               <input
                 type="text"
                 placeholder="Search for products or templates"
