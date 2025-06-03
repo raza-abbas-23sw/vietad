@@ -38,9 +38,9 @@ const Navbar = () => {
       
       {/* Main Navbar */}
       <div className="w-full shadow-md bg-cyan-50 z-50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 bg-red-00">
           <div className="flex items-center justify-between py-4 border-b border-cyan-200">
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-1 items-center bg-green-00">
               <button
                 className="md:hidden"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -48,8 +48,8 @@ const Navbar = () => {
                 <Menu />
               </button>
               <Link to="/">
-                <img src={logoPng} alt="Logo" className="hidden lg:block h-12" />
-                <img src={logoPng} alt="Logo" className="lg:hidden h-12" />
+                <img src={logoPng} alt="Logo" className="hidden lg:block h-12 " />
+                <img src={logoPng} alt="Logo" className="lg:hidden h-10" />
               </Link>
             </div>
 
@@ -66,7 +66,7 @@ const Navbar = () => {
                   }
                 }}
               />
-              <button type="submit" className="p-2 text-cyan-800">
+              <button type="submit" className="p-2 cursor-pointer text-cyan-400">
                 <Search className="w-4 h-4" />
               </button>
 
@@ -94,7 +94,7 @@ const Navbar = () => {
               )}
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2 sm:gap-6 bg-blue-40">
               <button className="hidden lg:block border border-red-500 text-red-500 px-3 py-2 font-semibold cursor-pointer hover:bg-red-50 transition-colors rounded-full text-sm">
                 Design Tool
               </button>
@@ -127,13 +127,13 @@ const Navbar = () => {
                 </div>
                 <div className="hidden lg:block">Cart</div>
               </Link>
-            </div>
 
+              
             {loading ? (
               <p>loading ... </p>
             ) : (
               <div
-                className="relative"
+                className="relative bg-red-00"
                 onMouseEnter={() => setAccountDropdownOpen(true)}
                 onMouseLeave={() => setAccountDropdownOpen(false)}
               >
@@ -183,6 +183,8 @@ const Navbar = () => {
                 )}
               </div>
             )}
+            </div>
+
           </div>
         </div>
       </div>
