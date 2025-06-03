@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import ProductGallery from './ProductGallery';
@@ -11,6 +11,11 @@ import { productsData, templates } from '../../../assets/Products/productsData';
 const ProductDetailPage = () => {
   const { product } = useParams();
   const navigate = useNavigate();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Find the product based on product slug
   const productData = productsData.find(
