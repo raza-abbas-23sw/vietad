@@ -20,19 +20,18 @@ const TrustedBy = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 mt-16">
+        <div className="grid  grid-cols-2 sm:grid-cols-3  gap-2 mt-16">
           {logos.map((logo) => (
             <div 
               key={logo.name} 
               className="group relative flex justify-center items-center h-20 px-4"
             >
-              <div className="absolute inset-0 bg-gray-50 rounded-xl shadow-sm transform group-hover:scale-105 transition-all duration-300 ease-in-out"></div>
+              <div className="absolute inset-0 bg-transparent "></div>
               <img
                 src={logo.src}
                 alt={logo.alt}
                 className="relative h-12 sm:h-14 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
               />
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           ))}
         </div>
