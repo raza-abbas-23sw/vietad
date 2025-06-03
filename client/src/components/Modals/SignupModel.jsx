@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { Mail, User, Lock, Phone } from "lucide-react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile, browserLocalPersistence, setPersistence } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast"
+import { useAuth } from "../../context/AuthContext";
 
 const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
   const {
@@ -15,9 +16,13 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
     watch,
     formState: { errors },
   } = useForm();
+  const { refreshCurrentUser } = useAuth()
 
   const onSubmit = async (data) => {
     try {
+
+      await setPersistence(auth, browserLocalPersistence);
+
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.email,
@@ -46,6 +51,7 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
 
       console.log(userData)
       toast.success("Signup Successfull")
+      refreshCurrentUser();
 
 
       setTimeout(() => {
@@ -64,7 +70,7 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
       } else {
         message = error.message;
       }
-
+      console.log(error)
       toast.error(message);
     }
   };
@@ -73,6 +79,8 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
     let user, token;
 
     try {
+      await setPersistence(auth, browserLocalPersistence);
+
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       user = result.user;
@@ -92,6 +100,9 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
       if (error.response?.data?.message === 'User not found in DB') {
         const fullName = user?.displayName || "Google User";
         const email = user?.email;
+
+        const auth = getAuth();
+        await setPersistence(auth, browserLocalPersistence);
 
         //automatically fills in the user data in database, when user signs up through google popup
         const response = await axios.post("http://localhost:8000/users/signup", {
@@ -296,10 +307,6 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
           </div>
 
           <div className="mt-6 space-y-4 ">
-            <button className="text-blue-600 w-full flex items-center justify-center gap-2 bg-blue-100 border-blue-400 border-1 font-bold cursor-pointer py-2 px-4 rounded">
-              <FaFacebook className="w-6 h-6" />
-              <span>Sign up with Facebook</span>
-            </button>
             <button
               onClick={signInWithGoogle}
               className="w-full flex items-center justify-center gap-2 bg-transparent border-1 border-blue-400 text-black font-bold cursor-pointer py-2 px-4 rounded">

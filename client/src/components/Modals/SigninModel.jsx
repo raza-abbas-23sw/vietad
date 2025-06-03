@@ -5,9 +5,10 @@ import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { toast, Toaster } from "react-hot-toast"
-import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, browserLocalPersistence, setPersistence, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { auth } from "../../config/firebase";
+import { useAuth } from "../../context/AuthContext";
 
 const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
   const [loading, setLoading] = useState(false);
@@ -18,14 +19,17 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
     formState: { errors },
   } = useForm();
 
+  const { refreshCurrentUser } = useAuth();
+
+
   const onSubmit = async (data) => {
     setLoading(true);
     const toastId = toast.loading("Signing in...");
-
-
     try {
       // Initialize Firebase Auth
       const auth = getAuth();
+
+      await setPersistence(auth, browserLocalPersistence);
 
       // Sign in with Firebase
       const userCredential = await signInWithEmailAndPassword(
@@ -37,18 +41,43 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
       // Get Firebase ID token
       const token = await userCredential.user.getIdToken();
 
-      // Authenticate with backend
-      const response = await axios.post(
-        import.meta.env.VITE_SERVER_DOMAIN + "/users/signin",
-        {}, // Empty body as required by your backend
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
+      try {
+        // First attempt to authenticate with backend
+        const response = await axios.post(
+          import.meta.env.VITE_SERVER_DOMAIN + "/users/signin",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        }
-      );
+        );
+      } catch (err) {
+        // Handle 404 - User not found in MongoDB
+        if (err.response?.status === 404) {
+          // Create user in MongoDB using signup endpoint
+          await axios.post(
+            import.meta.env.VITE_SERVER_DOMAIN + "/users/signup",
+            {
+              fullName: userCredential.user.displayName || userCredential.user.email.split('@')[0] || "",
+              phoneNumber: "",
+              authProvider: "email"
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          );
 
-      console.log(response.data)
+          // Refresh AuthContext to load new user data
+          await refreshCurrentUser();
+        } else {
+          throw err;
+        }
+      }
+
+      console.log("Sign in successful");
       toast.success("Sign in successful!", { id: toastId });
       setTimeout(() => {
         if (onClose) onClose();
@@ -58,43 +87,39 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
       let message = "Sign in failed.";
 
       // Firebase errors
-       if (err.code) {
-    switch (err.code) {
-      case "auth/user-not-found":
-        message = "No account found with this email.";
-        break;
-      case "auth/wrong-password":
-        message = "Incorrect password.";
-        break;
-      case "auth/invalid-email":
-        message = "Invalid email format.";
-        break;
-      case "auth/too-many-requests":
-        message = "Too many attempts. Try again later.";
-        break;
-      case "auth/email-already-in-use":
-        message = "This email is already in use.";
-        break;
-      case "auth/invalid-credential":
-        message = "Wrong email or password.";
-        break;
-      default:
-        message = err.message;
-    }
-  }
-
+      if (err.code) {
+        switch (err.code) {
+          case "auth/user-not-found":
+            message = "No account found with this email.";
+            break;
+          case "auth/wrong-password":
+            message = "Incorrect password.";
+            break;
+          case "auth/invalid-email":
+            message = "Invalid email format.";
+            break;
+          case "auth/too-many-requests":
+            message = "Too many attempts. Try again later.";
+            break;
+          case "auth/email-already-in-use":
+            message = "This email is already in use.";
+            break;
+          case "auth/invalid-credential":
+            message = "Wrong email or password.";
+            break;
+          default:
+            message = err.message;
+        }
+      }
       // Backend errors
       else if (err.response?.data?.message) {
         message = err.response.data.message;
       }
 
       toast.error(message, { id: toastId });
-
-
     } finally {
       setLoading(false);
     }
-    // if (onClose) onClose();
   };
 
 
@@ -103,6 +128,9 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
     let user, token;
 
     try {
+
+      await setPersistence(auth, browserLocalPersistence);
+
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       user = result.user;
@@ -122,6 +150,9 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
       if (error.response?.data?.message === 'User not found in DB') {
         const fullName = user?.displayName || "Google User";
         const email = user?.email;
+
+        const auth = getAuth();
+        await setPersistence(auth, browserLocalPersistence);
 
         //automatically fills in the user data in database, when user signs up through google popup
         const response = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/users/signup", {
@@ -179,7 +210,7 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
         </div>
 
         <p className="text-sm text-gray-600 mb-4">
-          Enter your username and password to sign in to your Square Signs
+          Enter your username and password to sign in to your VietadSigns
           account.
         </p>
 
@@ -243,22 +274,9 @@ const SignInModal = ({ onClose, open, onSwitchToSignup }) => {
               </p>
             )}
           </div>
-
+          
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                type="checkbox"
-                {...register("rememberMe")}
-                className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-700"
-              >
-                Remember me
-              </label>
-            </div>
+            <div className="flex items-center"> </div>
 
             <button
               type="button"
