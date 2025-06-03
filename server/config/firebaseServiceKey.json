@@ -1,13 +1,13 @@
-{
-  "type": "service_account",
-  "project_id": "vietad-ef174",
-  "private_key_id": "d59168914bd57da12e6c4fc29c280cdb20516c51",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCfnGTfc9zbOWpw\nmXXdr/rtPub4slI5NN0bn34WR4rgBlBR6ECBoIJXz35FK26HXoZw+q38faj5KN1W\nsrcaLMIWbmrsPhmzRwdYTrcqCBPToBfyCNQpVbCCWGac+KeC09Ex4kJNHVs25h33\nMdp4/YjQFoDKWlSwGksWGpmqnGHpwRcYdBc2mQhFPoVWsiHwCd1KhNL9bhIMfNbv\nG2iq9VlFFHyXbxGiURmDp07V1lKDbHdmANJ3hDcf1Lm6AEZ55WFht9Is39U8UXr4\nl0GGNID3/Ron5Vde5p9lJE0ILwi9bbnxhSbwfT/w09qdgP9OsNsFswKRJAjnea7O\nvSzlQGbhAgMBAAECggEANcJ9j239A7HxEf/+XS76+5HmRfn6C96sYrNzyplKQ26c\n+xmZMJAZlu4Cf9XDIsFJ0x/8HkFM+q8y7hK/7YcJ0HhcdznreiEAblQFCZky5GLV\n7eXfYBTGoQCZf2GZOk2R9pVY85RhtroHec1G4t2yiTQrKP0H7VDN3aIUBA0sRYkF\nuqlUZM9Zjty0XLrW5vTZRWlblY4lYSVOsVnC13lZH1OkHBM+1ClrsDCZbeGnC1Ns\noWwQOC43p46M5WljzdSLWzKFD8uKD6p6QCgwqBvFRKQZqzg8fLTDOZN5sqZde8ri\n3/c5Bnq7STY4x8ngpuN3A6/G4j6mRgSxXT+TyMnWaQKBgQDQxZ0ReNm+dpmRq3uR\njax0TOpb9HHX7LiAe2VgTDP/mYF//9XwGs3bx5i7b1cexw5Ab0GrlbMUIHQieVl0\nY9IwVAW9rrdRKZKlUEr0ZWBGTvQU3OXgClLHO1W/ckayXfCojcr2fQ2lymGTSsjV\nl2bni76NZTV+GEksZeSJDLRefwKBgQDDt8Vh2IRStiXOs/eAeZve7sZQi2OYU3XB\ngtoZJhahW3Nm64YroDw+b1lEZMSXBWEpMxddkohItvv3iMK7pI5XfXjs32It+9Kk\n0z/h9xjG2Cao8IQ2fYBuZDnoFwIyrK0en7Uq7xzqbX9cSoA2UzPNH0cSFWRXlnGr\npoKTX5dKnwKBgQCx6DS5NusXS6oCYMekeb6EPSdZxS1ee/OeSYlSTp3hKscYdMOz\nIKRcrfKRh4gOSkLy1dx4g9FfTWiqGA8LCCWN2Ywq4ECHgY3eIlY9fkZUo+OMA9JA\n4Ys5DG89/fwQ88ypVmunMVn39kbAZfJPUf33QzbW93BmS/vPQeVGhPUPsQKBgBAg\nXEsro/uMtqDJg2M6ofVEh2KrmZE7j0Ban83irYquFlwsm+mMUmpyklBoXSp0bwUO\nCKbVJBWZvjkvM5xyeqgK1qPt5BEV5s1d+q2LxqbbuJPC/aHfxW1TJNJS0wOJ5tnX\nHv5ipWdLjmr0WIwhXutP4HNE//eXldYm6itqfPTRAoGAaWzyeEAP8VyfJJ5Ig827\nW0YjK6CmIbYRUMeO3/2tepbUpBtxs3v+hP2p0mBpOG/4oSAO3yRh9DOTHeiXkVKC\nVskYG8JWqUxuoi16KWTmtaTG1l6rdjUpdxYfqETJA2v9JLrQhGt0sIDBFpTVsVj3\nb8phFIn5uGeGgHms2XunqlU=\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-fbsvc@vietad-ef174.iam.gserviceaccount.com",
-  "client_id": "115404104866724015972",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40vietad-ef174.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
+// {
+//   "type": "service_account",
+//   "project_id": "vietad-ef174",
+//   "private_key_id": "d59168914bd57da12e6c4fc29c280cdb20516c51",
+//   "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCfnGTfc9zbOWpw\nmXXdr/rtPub4slI5NN0bn34WR4rgBlBR6ECBoIJXz35FK26HXoZw+q38faj5KN1W\nsrcaLMIWbmrsPhmzRwdYTrcqCBPToBfyCNQpVbCCWGac+KeC09Ex4kJNHVs25h33\nMdp4/YjQFoDKWlSwGksWGpmqnGHpwRcYdBc2mQhFPoVWsiHwCd1KhNL9bhIMfNbv\nG2iq9VlFFHyXbxGiURmDp07V1lKDbHdmANJ3hDcf1Lm6AEZ55WFht9Is39U8UXr4\nl0GGNID3/Ron5Vde5p9lJE0ILwi9bbnxhSbwfT/w09qdgP9OsNsFswKRJAjnea7O\nvSzlQGbhAgMBAAECggEANcJ9j239A7HxEf/+XS76+5HmRfn6C96sYrNzyplKQ26c\n+xmZMJAZlu4Cf9XDIsFJ0x/8HkFM+q8y7hK/7YcJ0HhcdznreiEAblQFCZky5GLV\n7eXfYBTGoQCZf2GZOk2R9pVY85RhtroHec1G4t2yiTQrKP0H7VDN3aIUBA0sRYkF\nuqlUZM9Zjty0XLrW5vTZRWlblY4lYSVOsVnC13lZH1OkHBM+1ClrsDCZbeGnC1Ns\noWwQOC43p46M5WljzdSLWzKFD8uKD6p6QCgwqBvFRKQZqzg8fLTDOZN5sqZde8ri\n3/c5Bnq7STY4x8ngpuN3A6/G4j6mRgSxXT+TyMnWaQKBgQDQxZ0ReNm+dpmRq3uR\njax0TOpb9HHX7LiAe2VgTDP/mYF//9XwGs3bx5i7b1cexw5Ab0GrlbMUIHQieVl0\nY9IwVAW9rrdRKZKlUEr0ZWBGTvQU3OXgClLHO1W/ckayXfCojcr2fQ2lymGTSsjV\nl2bni76NZTV+GEksZeSJDLRefwKBgQDDt8Vh2IRStiXOs/eAeZve7sZQi2OYU3XB\ngtoZJhahW3Nm64YroDw+b1lEZMSXBWEpMxddkohItvv3iMK7pI5XfXjs32It+9Kk\n0z/h9xjG2Cao8IQ2fYBuZDnoFwIyrK0en7Uq7xzqbX9cSoA2UzPNH0cSFWRXlnGr\npoKTX5dKnwKBgQCx6DS5NusXS6oCYMekeb6EPSdZxS1ee/OeSYlSTp3hKscYdMOz\nIKRcrfKRh4gOSkLy1dx4g9FfTWiqGA8LCCWN2Ywq4ECHgY3eIlY9fkZUo+OMA9JA\n4Ys5DG89/fwQ88ypVmunMVn39kbAZfJPUf33QzbW93BmS/vPQeVGhPUPsQKBgBAg\nXEsro/uMtqDJg2M6ofVEh2KrmZE7j0Ban83irYquFlwsm+mMUmpyklBoXSp0bwUO\nCKbVJBWZvjkvM5xyeqgK1qPt5BEV5s1d+q2LxqbbuJPC/aHfxW1TJNJS0wOJ5tnX\nHv5ipWdLjmr0WIwhXutP4HNE//eXldYm6itqfPTRAoGAaWzyeEAP8VyfJJ5Ig827\nW0YjK6CmIbYRUMeO3/2tepbUpBtxs3v+hP2p0mBpOG/4oSAO3yRh9DOTHeiXkVKC\nVskYG8JWqUxuoi16KWTmtaTG1l6rdjUpdxYfqETJA2v9JLrQhGt0sIDBFpTVsVj3\nb8phFIn5uGeGgHms2XunqlU=\n-----END PRIVATE KEY-----\n",
+//   "client_email": "firebase-adminsdk-fbsvc@vietad-ef174.iam.gserviceaccount.com",
+//   "client_id": "115404104866724015972",
+//   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+//   "token_uri": "https://oauth2.googleapis.com/token",
+//   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+//   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40vietad-ef174.iam.gserviceaccount.com",
+//   "universe_domain": "googleapis.com"
+// }
