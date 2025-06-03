@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../../assets/logos/logo.png';
 
-const Loading = () => {
+const Loading = memo(() => {
   return (
     <AnimatePresence>
       <motion.div 
@@ -21,6 +21,7 @@ const Loading = () => {
             src={logo}
             alt="Loading..."
             className="w-32 h-32 object-contain"
+            style={{ willChange: 'transform' }}
             animate={{
               scale: [1, 1.1, 1],
               rotate: [0, 5, -5, 0],
@@ -42,6 +43,8 @@ const Loading = () => {
       </motion.div>
     </AnimatePresence>
   );
-};
+});
+
+Loading.displayName = 'Loading';
 
 export default Loading; 
