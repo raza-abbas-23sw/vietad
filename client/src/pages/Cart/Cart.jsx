@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, getCartTotal } = useCart();
+  const { cartState, removeFromCart, updateQuantity } = useCart();
 
-  if (cart.length === 0) {
+  if (cartState.items.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-7xl">
@@ -35,7 +35,7 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              {cart.map((item) => (
+              {cartState.items.map((item) => (
                 <div key={item.id} className="p-6 border-b border-gray-200 last:border-b-0">
                   <div className="flex items-center gap-4">
                     <img
@@ -96,7 +96,7 @@ const Cart = () => {
               <div className="space-y-4">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span>${getCartTotal().toFixed(2)}</span>
+                  <span>${cartState.totalAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping</span>
@@ -105,7 +105,7 @@ const Cart = () => {
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex justify-between text-lg font-bold text-gray-800">
                     <span>Total</span>
-                    <span>${getCartTotal().toFixed(2)}</span>
+                    <span>${cartState.totalAmount.toFixed(2)}</span>
                   </div>
                 </div>
                 <button className="w-full bg-cyan-600 text-white py-3 rounded-md font-semibold hover:bg-cyan-700 transition-colors">
@@ -126,4 +126,4 @@ const Cart = () => {
   );
 };
 
-export default Cart; 
+export default Cart;

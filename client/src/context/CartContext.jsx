@@ -4,7 +4,8 @@ const CartContext = createContext();
 
 const initialState = {
   items: [],
-  totalItems: 0
+  totalItems: 0,
+  totalAmount: 0
 };
 
 const cartReducer = (state, action) => {
@@ -12,15 +13,14 @@ const cartReducer = (state, action) => {
   let updatedItems;
   let newItems;
   let remainingItems;
+  let newTotalAmount;
   
   switch (action.type) {
     case 'ADD_TO_CART':
       existingItem = state.items.find(item => item.id === action.payload.id);
       if (existingItem) {
-        // If item exists, increase quantity if within stock limit
-        // Ensure existing quantity and payload quantity are numbers
         const updatedQuantity = Number(existingItem.quantity) + Number(action.payload.quantity) || 0;
-        const availableStock = Number(action.payload.availableStock) || Infinity; // Treat missing stock as infinite for safety
+        const availableStock = Number(action.payload.availableStock) || Infinity;
 
         if (updatedQuantity <= availableStock) {
           updatedItems = state.items.map(item =>
@@ -28,33 +28,37 @@ const cartReducer = (state, action) => {
               ? { ...item, quantity: updatedQuantity, price: Number(item.price) || 0 }
               : item
           );
+          newTotalAmount = updatedItems.reduce((total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
           return {
             ...state,
             items: updatedItems,
-            totalItems: updatedItems.reduce((total, item) => total + item.quantity, 0)
+            totalItems: updatedItems.reduce((total, item) => total + item.quantity, 0),
+            totalAmount: newTotalAmount
           };
         }
-        return state; // If stock limit reached, return unchanged state
+        return state;
       }
-      // If item doesn't exist, add it with the specified quantity
-      // Ensure price and quantity are numbers
       newItems = [...state.items, { 
         ...action.payload, 
         price: Number(action.payload.price) || 0, 
         quantity: Number(action.payload.quantity) || 0 
       }];
+      newTotalAmount = newItems.reduce((total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
       return {
         ...state,
         items: newItems,
-        totalItems: newItems.reduce((total, item) => total + item.quantity, 0)
+        totalItems: newItems.reduce((total, item) => total + item.quantity, 0),
+        totalAmount: newTotalAmount
       };
 
     case 'REMOVE_FROM_CART':
       remainingItems = state.items.filter(item => item.id !== action.payload);
+      newTotalAmount = remainingItems.reduce((total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
       return {
         ...state,
         items: remainingItems,
-        totalItems: remainingItems.reduce((total, item) => total + item.quantity, 0)
+        totalItems: remainingItems.reduce((total, item) => total + item.quantity, 0),
+        totalAmount: newTotalAmount
       };
 
     case 'UPDATE_QUANTITY':
@@ -62,27 +66,28 @@ const cartReducer = (state, action) => {
         item.id === action.payload.id
           ? {
               ...item,
-              // Ensure updated quantity is a number
               quantity: Math.min(
                 Math.max(1, Number(action.payload.quantity) || 0),
-                Number(item.availableStock) || Infinity // Ensure availableStock is number
+                Number(item.availableStock) || Infinity
               ),
-               // Ensure price remains a number
-               price: Number(item.price) || 0
+              price: Number(item.price) || 0
             }
           : item
       );
+      newTotalAmount = updatedItems.reduce((total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
       return {
         ...state,
         items: updatedItems,
-        totalItems: updatedItems.reduce((total, item) => total + item.quantity, 0)
+        totalItems: updatedItems.reduce((total, item) => total + item.quantity, 0),
+        totalAmount: newTotalAmount
       };
 
     case 'CLEAR_CART':
       return {
         ...state,
         items: [],
-        totalItems: 0
+        totalItems: 0,
+        totalAmount: 0
       };
 
     default:
@@ -93,7 +98,6 @@ const cartReducer = (state, action) => {
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  // Load cart from localStorage on initial render
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
@@ -102,10 +106,9 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
-  // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(state.items));
-  }, [state.items]);
+    localStorage.setItem('cart', JSON.stringify(state));
+  }, [state]);
 
   const addToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
@@ -123,27 +126,14 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'CLEAR_CART' });
   };
 
-  const getCartTotal = () => {
-    return state.items.reduce(
-      (total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 0),
-      0
-    );
-  };
-
-  const getCartCount = () => {
-    return state.totalItems;
-  };
-
   return (
     <CartContext.Provider
       value={{
-        cart: state.items,
+        cartState: state, // This provides the entire cart state as a single object
         addToCart,
         removeFromCart,
         updateQuantity,
-        clearCart,
-        getCartTotal,
-        getCartCount,
+        clearCart
       }}
     >
       {children}
@@ -157,4 +147,4 @@ export const useCart = () => {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;
-}; 
+};
