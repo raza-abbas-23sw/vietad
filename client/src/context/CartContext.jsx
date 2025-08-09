@@ -25,7 +25,7 @@ const cartReducer = (state, action) => {
         if (updatedQuantity <= availableStock) {
           updatedItems = state.items.map(item =>
             item.id === action.payload.id
-              ? { ...item, quantity: updatedQuantity, price: Number(item.price) || 0 }
+              ? { ...item, quantity: updatedQuantity, price: Math.round(Number(item.price) * 100) || 0 }
               : item
           );
           newTotalAmount = updatedItems.reduce((total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
@@ -40,7 +40,7 @@ const cartReducer = (state, action) => {
       }
       newItems = [...state.items, { 
         ...action.payload, 
-        price: Number(action.payload.price) || 0, 
+        price: Math.round(Number(action.payload.price) * 100) || 0, 
         quantity: Number(action.payload.quantity) || 0 
       }];
       newTotalAmount = newItems.reduce((total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
@@ -70,7 +70,7 @@ const cartReducer = (state, action) => {
                 Math.max(1, Number(action.payload.quantity) || 0),
                 Number(item.availableStock) || Infinity
               ),
-              price: Number(item.price) || 0
+              price: Math.round(Number(item.price) * 100) || 0
             }
           : item
       );
