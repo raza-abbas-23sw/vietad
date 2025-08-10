@@ -5,6 +5,36 @@ import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, getCartTotal } = useCart();
+  console.log(cart);
+
+
+  const sendCartToServer = async () => {
+    const unhackableCart = cart.map(item => ({
+      id: item.id,
+      quantity: item.quantity,
+    }));
+    console.log('Sending cart to server:', unhackableCart);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({items: unhackableCart}),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send cart to server');
+      }
+
+      const data = await response.json();
+      console.log('Cart sent successfully:', data);
+      window.location.href = data.url;
+    } catch (error) {
+      console.error('Error sending cart to server:', error);
+    }
+  };
 
   if (cart.length === 0) {
     return (
@@ -108,7 +138,7 @@ const Cart = () => {
                     <span>${getCartTotal().toFixed(2)}</span>
                   </div>
                 </div>
-                <button className="w-full bg-cyan-600 text-white py-3 rounded-md font-semibold hover:bg-cyan-700 transition-colors">
+                <button onClick={sendCartToServer} className="w-full bg-cyan-600 text-white py-3 rounded-md font-semibold hover:bg-cyan-700 transition-colors">
                   Proceed to Checkout
                 </button>
                 <Link
