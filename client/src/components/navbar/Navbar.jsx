@@ -19,9 +19,9 @@ const Navbar = () => {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showSigninModal, setShowSigninModal] = useState(false);
   const { searchQuery, setSearchQuery, handleSearch, searchResults, isSearching } = useContext(AppContext);
-  const { getCartCount } = useCart();
+  const { cartState } = useCart();
   const { wishlist } = useWishlist();
-  const cartCount = getCartCount();
+  const cartCount = cartState.totalItems;
   const wishlistCount = wishlist.length;
 
   const { currentUser, loading, logout } = useAuth();

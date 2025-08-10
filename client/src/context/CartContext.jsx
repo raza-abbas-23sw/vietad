@@ -6,10 +6,12 @@ const initialState = {
   items: [],
   totalItems: 0,
   isLoaded: false // Track if cart has loaded from localStorage
+
 };
 
 const cartReducer = (state, action) => {
   let existingItem;
+
   
   switch (action.type) {
     case 'ADD_TO_CART':
@@ -20,12 +22,15 @@ const cartReducer = (state, action) => {
           const updatedItems = state.items.map(item =>
             item.id === action.payload.id
               ? { ...item, quantity: updatedQuantity }
+
               : item
           );
+          newTotalAmount = updatedItems.reduce((total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
           return {
             ...state,
             items: updatedItems,
             totalItems: state.totalItems + action.payload.quantity
+
           };
         }
         return state;
@@ -68,6 +73,7 @@ const cartReducer = (state, action) => {
         items: loadedItems,
         totalItems: total,
         isLoaded: true
+
       };
 
     case 'UPDATE_QUANTITY':
@@ -94,7 +100,7 @@ const cartReducer = (state, action) => {
         ...state,
         items: updatedItems,
         totalItems: state.totalItems - existingItem.quantity + newQuantity
-      };
+};
 
     case 'CLEAR_CART':
       return {
@@ -106,6 +112,7 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         isLoaded: true
+
       };
 
     default:
@@ -117,6 +124,7 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   // Load cart from localStorage
+
   useEffect(() => {
     try {
       const savedCart = localStorage.getItem('cart');
@@ -139,6 +147,7 @@ export const CartProvider = ({ children }) => {
       localStorage.setItem('cart', JSON.stringify(state.items));
     }
   }, [state.items, state.isLoaded]);
+
 
   const addToCart = (product) => {
     dispatch({ 
@@ -185,6 +194,7 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         clearCart,
         getCartTotal
+
       }}
     >
       {children}
@@ -193,3 +203,4 @@ export const CartProvider = ({ children }) => {
 };
 
 export const useCart = () => useContext(CartContext);
+
