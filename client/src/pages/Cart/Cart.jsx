@@ -7,7 +7,6 @@ const Cart = () => {
   const { cart, removeFromCart, updateQuantity, getCartTotal } = useCart();
   console.log(cart);
 
-
   const sendCartToServer = async () => {
     const unhackableCart = cart.map(item => ({
       id: item.id,
@@ -21,7 +20,7 @@ const Cart = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({items: unhackableCart}),
+        body: JSON.stringify({ items: unhackableCart }),
       });
 
       if (!response.ok) {
@@ -36,8 +35,7 @@ const Cart = () => {
     }
   };
 
-
-  if (cartState.items.length === 0) {
+  if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-7xl">
@@ -57,6 +55,8 @@ const Cart = () => {
     );
   }
 
+  const totalAmount = getCartTotal();
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4 max-w-7xl">
@@ -66,7 +66,7 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              {cartState.items.map((item) => (
+              {cart.map((item) => (
                 <div key={item.id} className="p-6 border-b border-gray-200 last:border-b-0">
                   <div className="flex items-center gap-4">
                     <img
@@ -96,7 +96,7 @@ const Cart = () => {
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             className="px-3 py-1 text-gray-600 hover:bg-gray-100 transition"
-                            disabled={item.quantity >= item.availableStock}
+                            disabled={item.quantity >= (item.availableStock || 10)}
                           >
                             <Plus className="w-4 h-4" />
                           </button>
@@ -127,7 +127,7 @@ const Cart = () => {
               <div className="space-y-4">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span>${cartState.totalAmount.toFixed(2)}</span>
+                  <span>${totalAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping</span>
@@ -136,10 +136,13 @@ const Cart = () => {
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex justify-between text-lg font-bold text-gray-800">
                     <span>Total</span>
-                    <span>${cartState.totalAmount.toFixed(2)}</span>
+                    <span>${totalAmount.toFixed(2)}</span>
                   </div>
                 </div>
-                <button onClick={sendCartToServer} className="w-full bg-cyan-600 text-white py-3 rounded-md font-semibold hover:bg-cyan-700 transition-colors">
+                <button 
+                  onClick={sendCartToServer} 
+                  className="w-full bg-cyan-600 text-white py-3 rounded-md font-semibold hover:bg-cyan-700 transition-colors"
+                >
                   Proceed to Checkout
                 </button>
                 <Link
