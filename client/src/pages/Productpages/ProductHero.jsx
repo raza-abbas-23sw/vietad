@@ -18,7 +18,7 @@ const ProductHero = () => {
 
       <div className="container mx-auto px-4 py-2 relative">
         {/* Breadcrumb */}
-       <div className="bg-transparent text-white shadow-sm sticky top-0 z-50 backdrop-blur-sm bg-opacity-90">
+       <div className="text-white sticky top-0 z-50 ">
   <div className="container mx-auto px-4 max-w-7xl py-4">
     <nav className="flex items-center space-x-2 text-sm">
       <Link 

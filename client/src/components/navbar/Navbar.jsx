@@ -220,13 +220,7 @@ const Navbar = () => {
                 Design Tool
               </Link>
               
-              {/* Mobile Search Button */}
-              <button 
-                className="block md:hidden p-2 text-gray-800 hover:text-cyan-400"
-                onClick={() => {/* Add mobile search modal if needed */}}
-              >
-                <Search className="w-5 h-5" />
-              </button>
+           
               
               {/* Wishlist */}
               <Link to="/wishlist" className="flex gap-1 hover:text-cyan-400 cursor-pointer">
