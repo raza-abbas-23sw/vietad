@@ -115,7 +115,7 @@ const HeroSection = () => {
   const displaySize = formatDisplaySize(currentSize);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-red-50 px-4 sm:px-6 py-2 sm:py-8">
+    <div className="min-h-screen bg-gradient-to-r from-cyan-100 to-red-100 px-4 sm:px-6 py-2 sm:py-8">
       <div className="max-w-7xl mx-auto h-full flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center w-full">
           {/* Left Column - Enhanced Design */}

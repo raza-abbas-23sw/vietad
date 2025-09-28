@@ -23,7 +23,7 @@ const DesignSteps = () => {
   ];
 
   return (
-    <section className="bg-cyan-50 py-16 px-4 text-black sm:px-6 lg:px-8">
+    <section className="bg-gradient-to-r from-cyan-100 to-red-100 py-16 px-4 text-black sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-12">
           Simple Steps to Your Perfect Sign

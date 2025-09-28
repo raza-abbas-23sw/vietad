@@ -1,6 +1,7 @@
 .slide-transition {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 /* Custom animation styles */
 .active {
   opacity: 1 !important;
@@ -17,9 +18,10 @@
     transform: translateY(0);
   }
 }
+
 .get-started-section {
   padding: 80px 24px;
-  background: linear-gradient(145deg, #e6f4f8 0%, #e0f2f1 100%);
+  background: linear-gradient(to right, #cffafe 0%, #fee2e2 100%); /* from-cyan-100 → to-red-100 */
   position: relative;
   overflow: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -48,8 +50,7 @@
 }
 
 .get-started-title span {
-  color: #2c7be5;
-  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+  background: linear-gradient(90deg, #06b6d4 0%, #ef4444 100%); /* cyan-500 → red-500 */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -66,8 +67,9 @@
   left: 0;
   right: 0;
   height: 8px;
-  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+  background: linear-gradient(90deg, #06b6d4 0%, #ef4444 100%); /* cyan-500 → red-500 */
 }
+
 
 /* Feature Cards */
 .feature-card {
@@ -93,7 +95,7 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+    background: linear-gradient(90deg, #06b6d4 0%, #ef4444 100%); /* cyan-500 → red-500 */
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease;
@@ -117,7 +119,7 @@
   justify-content: center;
   margin-bottom: 24px;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: linear-gradient(135deg, #2c7be5 0%, #00c9a7 100%);
+  background: linear-gradient(135deg, #06b6d4 0%, #ef4444 100%); /* cyan-500 → red-500 */
   border-radius: 18px;
   color: white;
   font-size: 32px;

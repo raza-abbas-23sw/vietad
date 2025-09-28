@@ -56,7 +56,7 @@ const ProductDetailPage = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-r from-cyan-100 to-red-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-500 mx-auto mb-4"></div>
           <h3 className="text-lg font-semibold text-gray-700">Loading Product</h3>
@@ -99,9 +99,9 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-white to-gray-50 min-h-screen transition-all duration-300 ease-in-out">
+    <div className="bg-gradient-to-r from-cyan-100 to-red-100 min-h-screen transition-all duration-300 ease-in-out">
       {/* Breadcrumb Navigation */}
-      <div className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50 backdrop-blur-sm bg-opacity-90">
+      <div className=" sticky top-0 z-50  ">
         <div className="container mx-auto px-4 max-w-7xl py-4">
           <nav className="flex items-center space-x-2 text-sm">
             <Link 
@@ -128,7 +128,7 @@ const ProductDetailPage = () => {
       </div>
 
       {/* Product Detail Section */}
-      <div className="container mx-auto px-4 max-w-7xl py-8">
+      <div className="container mx-auto px-4 max-w-7xl py-8 bg-gradient-to-r from-cyan-100 to-red-100">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Product Gallery - Left Column - Sticky */}
           <div className="lg:w-1/2">
@@ -145,13 +145,13 @@ const ProductDetailPage = () => {
           
           {/* Product Info - Right Column */}
           <div className="lg:w-1/2">
-            <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+            <div className="bg-gradient-to-r from-cyan-100 to-red-100 rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
               <ProductInfo product={productData} />
             </div>
 
             {/* Quick Features Preview */}
             {productData.features && productData.features.length > 0 && (
-              <div className="mt-6 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <div className="mt-6 bg-gradient-to-r from-cyan-100 to-red-100 rounded-2xl p-6 shadow-lg border border-gray-100">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">Key Features</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {productData.features.slice(0, 6).map((feature, index) => (
@@ -168,7 +168,7 @@ const ProductDetailPage = () => {
       </div>
 
       {/* Product Tabs */}
-      <div className="border-t border-gray-200 bg-gray-50">
+      <div className="border-t border-gray-200 bg-gradient-to-r from-cyan-100 to-red-100">
         <div className="container mx-auto px-4 max-w-7xl py-12">
           <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8">
             <ProductTabs product={productData} relatedProducts={relatedProducts} />
@@ -178,7 +178,7 @@ const ProductDetailPage = () => {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <div className="border-t border-gray-200 bg-white">
+        <div className="border-t border-gray-200 bg-gradient-to-r from-cyan-100 to-red-100">
           <div className="container mx-auto px-4 max-w-7xl py-12">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-gray-800 mb-4 relative inline-block">
@@ -196,7 +196,7 @@ const ProductDetailPage = () => {
 
       {/* Templates Section */}
       {templates && templates.length > 0 && (
-        <div className="border-t border-gray-200 bg-gradient-to-br from-cyan-50 to-blue-50">
+        <div className="border-t border-gray-200 bg-gradient-to-r from-cyan-100 to-red-100">
           <div className="container mx-auto px-4 max-w-7xl py-16">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-800 mb-4 relative inline-block">
@@ -247,7 +247,7 @@ const ProductDetailPage = () => {
       )}
 
       {/* Reviews Section */}
-      <div className="border-t border-gray-200 bg-white">
+      <div className="border-t border-gray-200 bg-gradient-to-r from-cyan-100 to-red-100">
         <div className="container mx-auto px-4 max-w-7xl py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-gray-800 mb-4 relative inline-block">

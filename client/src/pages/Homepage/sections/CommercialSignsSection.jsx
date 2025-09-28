@@ -1,11 +1,11 @@
 import React from "react";
-import { commercialSignsData } from "../../assets/allData/homePagaData/commercialSignsData";
+import { commercialSignsData } from "../../../assets/allData/homePagaData/commercialSignsData";
 import { Link } from 'react-router-dom';
 
 const CommercialSignsSection = () => {
 
   return (
-    <section className="py-16  bg-gray-50">
+    <section className="py-16  bg-gradient-to-r from-cyan-100 to-red-100">
       <div className="container mx-auto px-6 max-w-7xl ">
         {commercialSignsData.categories.map((category) => (
           <div key={category.id} className="mb-16 last:mb-0">

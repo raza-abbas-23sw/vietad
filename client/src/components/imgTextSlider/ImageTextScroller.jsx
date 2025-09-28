@@ -39,7 +39,7 @@ const ImageTextScroller = ({scrollerData}) => {
   }, []);
 
   return (
-    <div className="relative w-full bg-white">
+    <div className="relative w-full bg-gradient-to-r from-cyan-100 to-red-100">
       {/* Mobile Layout */}
       <div className="md:hidden">
         {scrollerData.map((item, index) => (

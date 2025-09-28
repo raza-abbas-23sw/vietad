@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { productsData } from '../../assets/allData/productPageData/productsData';
-import './home.css';
+import { productsData } from '../../../assets/allData/productPageData/productsData';
+import '../home.css'; // Import custom CSS for additional styling
 
 const TrendySlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -83,7 +83,7 @@ const TrendySlider = () => {
                       visibleCount === 2 ? '380px' : '420px';
 
   return (
-    <section className="py-12 px-4 bg-gradient-to-r from-cyan-50 to-red-50 my-8">
+    <section className="py-12 px-4 bg-gradient-to-r from-cyan-100 to-red-100">
       <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Featured Products</h2>
       
       <div className="relative max-w-6xl mx-auto">

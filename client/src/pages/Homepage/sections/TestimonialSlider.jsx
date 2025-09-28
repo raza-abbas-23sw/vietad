@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FaQuoteLeft, FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { testimonials } from "../../assets/allData/homePagaData/testimonialData";
+import { testimonials } from "../../../assets/allData/homePagaData/testimonialData";
 
 // Import Swiper styles
 import "swiper/css";
@@ -12,7 +12,7 @@ import "swiper/css/navigation";
 
 const TestimonialSlider = () => {
   return (
-    <div className="bg-white py-16 px-4">
+    <div className="bg-gradient-to-r from-cyan-100 to-red-100 py-16 px-4">
       <div className="max-w-7xl rounded-lg mx-auto relative bg-gray-100">
         <Swiper
           modules={[Autoplay, Navigation]}

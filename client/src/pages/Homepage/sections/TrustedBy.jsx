@@ -1,9 +1,9 @@
 import React from 'react';
-import logos from '../../assets/allData/homePagaData/profesionalSectionData';
+import logos from '../../../assets/allData/homePagaData/profesionalSectionData';
 
 const TrustedBy = () => {
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-gradient-to-r from-cyan-100 to-red-100 py-16 sm:py-20">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4">

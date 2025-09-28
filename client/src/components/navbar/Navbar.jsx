@@ -85,7 +85,7 @@ const Navbar = () => {
       <Sidebar open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
       
       {/* Main Navbar */}
-      <div className="w-full shadow-md bg-cyan-50 z-50">
+      <div className="w-full shadow-md bg-gradient-to-r from-cyan-100 to-red-100 z-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4 border-b border-cyan-200">
             <div className="flex gap-1 items-center">

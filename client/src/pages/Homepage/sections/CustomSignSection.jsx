@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DesignPopup from './DesignPopup'; // Make sure this path is correct
-import logoPng from '../../assets/logos/logo.png'; // Corrected import path
+import logoPng from '../../../assets/logos/logo.png'; // Corrected import path
 
 const CustomSignSection = () => {
   const [showDesignPopup, setShowDesignPopup] = useState(false);

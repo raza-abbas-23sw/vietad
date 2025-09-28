@@ -106,9 +106,9 @@ const DropdownContainer = () => {
   }, [navigate, handleCloseDropdown]);
 
   return (
-    <div ref={containerRef} className="relative bg-cyan-50 z-40 font-sans antialiased" >
-      <nav className="bg-cyan-50 sticky top-0 border-gray-200 w-full shadow-sm">
-        <div className="container">
+    <div ref={containerRef} className="relative bg-gradient-to-r from-cyan-100 to-red-100 z-40 font-sans antialiased" >
+      <nav className="bg-gradient-to-r from-cyan-100 to-red-100 sticky top-0 border-gray-200 w-full shadow-sm">
+        <div className="container ">
           <div className="flex items-start justify-start px-4 w-full hide-horizontal-scroll">
             {navData.map((item, index) => (
               <div
@@ -157,7 +157,7 @@ const DropdownContainer = () => {
 
       {activeCategory && (
         <div
-          className="absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-200 animate-in fade-in-50 slide-in-from-top-2 duration-200"
+          className="absolute top-full left-0 w-full bg-cyan-50 shadow-xl border-t border-gray-200 animate-in fade-in-50 slide-in-from-top-2 duration-200"
           onMouseEnter={() => handleMouseEnter(activeIndex)}
           onMouseLeave={handleMouseLeave}
         >
