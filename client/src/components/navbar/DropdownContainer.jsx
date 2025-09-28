@@ -139,7 +139,7 @@ const DropdownContainer = () => {
                   >
                     <div className="flex items-center gap-1 px-3 py-2 rounded-lg transition-all duration-200 group-hover:bg-white group-hover:shadow-sm border border-transparent group-hover:border-gray-200">
                       <span className="font-medium text-gray-700 group-hover:text-gray-900">
-                        {item.title}
+                        {item.title} 
                       </span>
                       {activeIndex === index ? (
                         <ChevronUp className="w-4 h-4 text-gray-500 transition-transform duration-200" />
@@ -164,7 +164,7 @@ const DropdownContainer = () => {
           <div className="container mx-auto px-4 md:px-8 py-6">
             <div className="mb-6">
               <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                {activeCategory.title}
+                {activeCategory.title} 
                 {isClickOpen && (
                   <button
                     onClick={handleCloseDropdown}
@@ -185,10 +185,10 @@ const DropdownContainer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                   {activeCategory.categories.map((cat) => (
                     <div key={cat.title} className="min-w-0">
-                      <div className="font-semibold text-gray-900 mb-3 text-lg border-b border-gray-100 pb-2">
-                        {cat.title}
+                      <div className="font-semibold text-gray-900  text-lg border-b border-gray-100 pb-2">
+                        {cat.title} 
                       </div>
-                      <ul className="space-y-2">
+                      <ul className="space-y-0">
                         {cat.products.map((product) => (
                           <li key={product}>
                             <button
