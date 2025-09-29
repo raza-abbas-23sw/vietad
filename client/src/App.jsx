@@ -11,8 +11,11 @@ import Home from './pages/Homepage/Home';
 import ProductsPage from './pages/Productpages/ProductsPage';
 import ProductDetailPage from './pages/Productpages/ProductDetailPage/ProductDetailPage';
 import Cart from './pages/Cart/Cart';
+import Designtool from './pages/Designtool';
 import Wishlist from './pages/Wishlist/Wishlist';
 import './App.css';
+import Cancel from './pages/Cancel';
+import Success from './pages/success';
 
 function App() {
   const isLoading = useLoading();
@@ -29,8 +32,12 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/products/:product" element={<ProductDetailPage />} />
+                <Route path="/product/:slug" element={<ProductDetailPage />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/success" element={<Success />} />
+              <Route path="/cancel" element={<Cancel />} />
+              <Route path="/design-tool" element={<Designtool />} />
             </Routes>
           </main>
           <Footer />

@@ -1,6 +1,7 @@
 .slide-transition {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 /* Custom animation styles */
 .active {
   opacity: 1 !important;
@@ -17,9 +18,10 @@
     transform: translateY(0);
   }
 }
+
 .get-started-section {
   padding: 80px 24px;
-  background: linear-gradient(145deg, #e6f4f8 0%, #e0f2f1 100%);
+  background: linear-gradient(to right, #cffafe 0%, #fee2e2 100%); /* from-cyan-100 → to-red-100 */
   position: relative;
   overflow: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -48,8 +50,7 @@
 }
 
 .get-started-title span {
-  color: #2c7be5;
-  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+  background: linear-gradient(90deg, #06b6d4 0%, #ef4444 100%); /* cyan-500 → red-500 */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -66,8 +67,9 @@
   left: 0;
   right: 0;
   height: 8px;
-  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+  background: linear-gradient(90deg, #06b6d4 0%, #ef4444 100%); /* cyan-500 → red-500 */
 }
+
 
 /* Feature Cards */
 .feature-card {
@@ -93,7 +95,7 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, #2c7be5 0%, #00c9a7 100%);
+    background: linear-gradient(90deg, #06b6d4 0%, #ef4444 100%); /* cyan-500 → red-500 */
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease;
@@ -117,7 +119,7 @@
   justify-content: center;
   margin-bottom: 24px;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: linear-gradient(135deg, #2c7be5 0%, #00c9a7 100%);
+  background: linear-gradient(135deg, #06b6d4 0%, #ef4444 100%); /* cyan-500 → red-500 */
   border-radius: 18px;
   color: white;
   font-size: 32px;
@@ -209,4 +211,75 @@
 
 .feature-card:hover .feature-icon {
   animation: float 1.5s ease-in-out infinite;
+}
+.product-card {
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transform-style: preserve-3d;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  height: 100%;
+}
+
+/* Center card - bigger, fully visible */
+.product-card.center {
+  transform: translateX(0) scale(1.1) rotateY(0deg);
+  opacity: 1;
+  z-index: 50;
+}
+
+/* Left card - smaller, shifted left */
+.product-card.left {
+  transform: translateX(-60%) scale(0.9) rotateY(20deg);
+  z-index: 30;
+  opacity: 0.85;
+}
+
+/* Right card - smaller, shifted right */
+.product-card.right {
+  transform: translateX(60%) scale(0.9) rotateY(-20deg);
+  z-index: 30;
+  opacity: 0.85;
+}
+
+/* Extra cards (if visibleCount > 3) */
+.product-card.left.far {
+  transform: translateX(-110%) scale(0.8) rotateY(25deg);
+  opacity: 0.5;
+}
+
+.product-card.right.far {
+  transform: translateX(110%) scale(0.8) rotateY(-25deg);
+  opacity: 0.5;
+}
+
+/* Animations */
+.product-card.animating.slide-next {
+  animation: slideNext 0.6s ease forwards;
+}
+
+.product-card.animating.slide-prev {
+  animation: slidePrev 0.6s ease forwards;
+}
+
+@keyframes slideNext {
+  0% {
+    opacity: 0.3;
+    transform: translateX(120%) scale(0.8) rotateY(-30deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1.1) rotateY(0deg);
+  }
+}
+
+@keyframes slidePrev {
+  0% {
+    opacity: 0.3;
+    transform: translateX(-120%) scale(0.8) rotateY(30deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1.1) rotateY(0deg);
+  }
 }

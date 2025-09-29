@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Filter, X } from 'lucide-react';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { productsData } from '../../assets/Products/productsData';
+import { productsData } from '../../assets/allData/productPageData/productsData.js';
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -43,7 +43,7 @@ const Products = () => {
   };
 
   return (
-    <section className="bg-gray-50 py-8">
+    <section className="bg-gradient-to-r from-cyan-100 to-red-100 py-8">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Search and Filter Bar */}
         <div className="mb-6">

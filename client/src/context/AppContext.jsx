@@ -1,19 +1,19 @@
 import React, { createContext, useState, useCallback, useMemo } from 'react';
 import { navData } from '../components/navbar/data/dropdownData';
-import { productsData } from '../assets/Products/productsData';
+import { productsData, templates } from '../assets/allData/productPageData/productsData.js';
 
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([]); // Initialize as empty array
   const [isSearching, setIsSearching] = useState(false);
 
   // Memoize the search function to prevent unnecessary re-renders
   const handleSearch = useCallback((query) => {
-    if (!query.trim()) {
-      setSearchResults([]);
+    if (!query || !query.trim()) {
+      setSearchResults([]); // Ensure it's always an array
       setIsSearching(false);
       return;
     }
@@ -24,51 +24,80 @@ export const AppProvider = ({ children }) => {
       
       // Add a small delay to prevent too frequent updates
       setTimeout(() => {
-        // Search through productsData directly
-        const results = productsData.filter(product =>
-          product.title.toLowerCase().includes(query.toLowerCase()) ||
-          product.description.toLowerCase().includes(query.toLowerCase()) ||
-          product.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+        const lowerQuery = query.toLowerCase().trim();
+        
+        // Search through productsData
+        const productResults = productsData.filter(product =>
+          product.title.toLowerCase().includes(lowerQuery) ||
+          product.description.toLowerCase().includes(lowerQuery) ||
+          product.category.toLowerCase().includes(lowerQuery) ||
+          (product.tags && product.tags.some(tag => tag.toLowerCase().includes(lowerQuery)))
         );
 
-        // Group results by category (optional, but might be useful)
-        const groupedResults = results.reduce((acc, product) => {
-          const categoryName = product.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-          const existingCategory = acc.find(item => item.category === categoryName);
+        // Search through templates
+        const templateResults = (templates || []).filter(template =>
+          template.title.toLowerCase().includes(lowerQuery) ||
+          (template.category && template.category.toLowerCase().includes(lowerQuery))
+        );
 
-          if (existingCategory) {
-            existingCategory.products.push(product);
-          } else {
-            acc.push({ category: categoryName, products: [product] });
-          }
-          return acc;
-        }, []);
+        // Combine and format results - always return an array
+        const results = [];
+        
+        if (productResults.length > 0) {
+          results.push({
+            type: 'products',
+            title: 'Products',
+            items: productResults.map(product => ({
+              id: product.id,
+              name: product.title,
+              category: product.category,
+              slug: product.slug,
+              price: product.price,
+              img: product.img,
+              description: product.description
+            }))
+          });
+        }
 
-        setSearchResults(groupedResults);
+        if (templateResults.length > 0) {
+          results.push({
+            type: 'templates',
+            title: 'Templates',
+            items: templateResults.map(template => ({
+              id: template.id,
+              name: template.title,
+              category: template.category,
+              img: template.img
+            }))
+          });
+        }
+
+        setSearchResults(results || []); // Ensure it's always an array
         setIsSearching(false);
-      }, 300); // 300ms delay
+      }, 300);
     } else {
-      setSearchResults([]);
+      setSearchResults([]); // Ensure it's always an array
       setIsSearching(false);
     }
-  }, []); // Add productsData to the dependency array if it can change
+  }, [productsData, templates]); // Add dependencies
 
   // Memoize the context value to prevent unnecessary re-renders
   const contextValue = useMemo(() => ({
     user,
     setUser,
     navData,
-    productsData, // Add productsData here
+    productsData,
+    templates,
     searchQuery,
     setSearchQuery,
-    searchResults,
+    searchResults: searchResults || [], // Ensure it's always an array
     isSearching,
     handleSearch
-  }), [user, navData, productsData, searchQuery, searchResults, isSearching, handleSearch]);
+  }), [user, navData, productsData, templates, searchQuery, searchResults, isSearching, handleSearch]);
 
   return (
     <AppContext.Provider value={contextValue}>
       {children}
     </AppContext.Provider>
   );
-}; 
+};

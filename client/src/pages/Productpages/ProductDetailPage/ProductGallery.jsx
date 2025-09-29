@@ -16,7 +16,7 @@ const ProductGallery = ({ images, title }) => {
 
   return (
     <div>
-      <div className="bg-gray-100 rounded-lg overflow-hidden mb-4">
+      <div className="bg-gradient-to-r from-cyan-100 to-red-100 rounded-lg overflow-hidden mb-4">
         <img 
           src={images[selectedImage]} 
           alt={`${title} - Image ${selectedImage + 1}`}

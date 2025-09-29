@@ -4,7 +4,8 @@ const WishlistContext = createContext();
 
 const initialState = {
   items: [],
-  totalItems: 0
+  totalItems: 0,
+  isLoaded: false // Track if wishlist has loaded from storage
 };
 
 const wishlistReducer = (state, action) => {
@@ -36,27 +37,60 @@ const wishlistReducer = (state, action) => {
         totalItems: 0
       };
 
+    case 'LOAD_WISHLIST':
+      if (!Array.isArray(action.payload)) return state;
+      
+      return {
+        ...state,
+        items: action.payload,
+        totalItems: action.payload.length,
+        isLoaded: true
+      };
+
+    case 'SET_LOADED':
+      return {
+        ...state,
+        isLoaded: true
+      };
+
     default:
       return state;
   }
 };
 
-export const WishlistProvider = ({ children }) => {
+export const WishlistProvider = ({ children, storageType = 'sessionStorage' }) => {
   const [state, dispatch] = useReducer(wishlistReducer, initialState);
 
-  // Load wishlist from localStorage on initial render
-  useEffect(() => {
-    const savedWishlist = localStorage.getItem('wishlist');
-    if (savedWishlist) {
-      const parsedWishlist = JSON.parse(savedWishlist);
-      dispatch({ type: 'LOAD_WISHLIST', payload: parsedWishlist });
-    }
-  }, []);
+  // Get the appropriate storage based on type
+  const storage = storageType === 'localStorage' ? localStorage : sessionStorage;
 
-  // Save wishlist to localStorage whenever it changes
+  // Load wishlist from storage on initial render
   useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(state.items));
-  }, [state.items]);
+    try {
+      const savedWishlist = storage.getItem('wishlist');
+      if (savedWishlist) {
+        const parsedWishlist = JSON.parse(savedWishlist);
+        dispatch({ type: 'LOAD_WISHLIST', payload: parsedWishlist });
+      } else {
+        dispatch({ type: 'SET_LOADED' });
+      }
+    } catch (error) {
+      console.error('Failed to load wishlist from storage:', error);
+      storage.removeItem('wishlist');
+      dispatch({ type: 'SET_LOADED' });
+    }
+  }, [storage]);
+
+  // Save wishlist to storage whenever it changes (only after initial load)
+  useEffect(() => {
+    if (state.isLoaded) {
+      try {
+        storage.setItem('wishlist', JSON.stringify(state.items));
+      } catch (error) {
+        console.error('Failed to save wishlist to storage:', error);
+      }
+    }
+  }, [state.items, state.isLoaded, storage]);
 
   const addToWishlist = (product) => {
     dispatch({ type: 'ADD_TO_WISHLIST', payload: product });
@@ -74,6 +108,10 @@ export const WishlistProvider = ({ children }) => {
     return state.totalItems;
   };
 
+  const isInWishlist = (productId) => {
+    return state.items.some(item => item.id === productId);
+  };
+
   return (
     <WishlistContext.Provider
       value={{
@@ -82,6 +120,8 @@ export const WishlistProvider = ({ children }) => {
         removeFromWishlist,
         clearWishlist,
         getWishlistCount,
+        isInWishlist,
+        isWishlistLoaded: state.isLoaded
       }}
     >
       {children}
@@ -95,4 +135,4 @@ export const useWishlist = () => {
     throw new Error('useWishlist must be used within a WishlistProvider');
   }
   return context;
-}; 
+};

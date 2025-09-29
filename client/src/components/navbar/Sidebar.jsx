@@ -46,12 +46,12 @@ const Sidebar = ({ open, onClose }) => {
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black bg-opacity-40 z-50 transition-opacity duration-300 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-transparent  z-50 transition-opacity duration-300 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={onClose}
       />
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-72 bg-white shadow-lg z-50 transform transition-transform duration-300 ${open ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 h-full w-72 bg-white shadow-lg z-100 transform transition-transform duration-300 ${open ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <button
           className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-red-500 focus:outline-none"

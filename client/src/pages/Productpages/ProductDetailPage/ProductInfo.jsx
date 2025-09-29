@@ -66,7 +66,7 @@ const ProductInfo = ({ product }) => {
   const drilledHolesOptions = ['None', 'Top Left & Right', 'All Four Corners'];
 
   return (
-    <div className="space-y-6">
+    <div className=" bg-gradient-to-r from-cyan-100 to-red-100 space-y-6">
       {product.tags && product.tags.length > 0 && (
         <div className="mb-2">
           {product.tags.map((tag, index) => (
@@ -104,7 +104,7 @@ const ProductInfo = ({ product }) => {
       <p className="text-gray-600 mb-8">{product.description}</p>
       
       {/* Options Section */}
-      <div className="bg-gray-100 p-6 rounded-lg space-y-6">
+      <div className="bg-gradient-to-r from-cyan-100 to-red-100 p-6 rounded-lg space-y-6">
         {/* Size Selection with Unit Toggle */}
         <div>
           <div className="flex justify-between items-center mb-3">

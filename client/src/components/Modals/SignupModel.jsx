@@ -149,7 +149,7 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
       {/* Modal */}
       <div className="fixed inset-0  bg-opacity-10 flex items-center justify-center p-4 z-50">
         <Toaster />
-        <div className="bg-gray-100 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto border-l-4 border-green-400">
+        <div className="bg-gray-100 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto border-l-4 border-cyan-400">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">Create Your Account</h2>
             <button
@@ -294,7 +294,7 @@ const SignupModal = ({ onClose, open, onSwitchToSignin }) => {
 
             <button
               type="submit"
-              className="cursor-pointer w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded"
+              className="cursor-pointer w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2 px-4 rounded"
             >
               Register
             </button>

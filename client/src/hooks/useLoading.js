@@ -9,7 +9,7 @@ export const useLoading = () => {
     setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000); // Show loading for at least 1 second
+    }, 500); // Show loading for at least 1 second
 
     return () => clearTimeout(timer);
   }, [location.pathname]);

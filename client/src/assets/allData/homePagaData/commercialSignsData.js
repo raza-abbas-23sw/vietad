@@ -1,15 +1,15 @@
-import aluminumImg from "../../commercialSignsSection/aluminum-signs.jpg";
-import yardSignsImg from "../../commercialSignsSection/yard-signs-main.jpg";
-import foamBoardSignsImg from "../../commercialSignsSection/foam-board-signs.jpg";
-import trackDecalsImg from "../../commercialSignsSection/truck-decals.jpg";
-import tabletopRetractableBannersImg from "../../commercialSignsSection/table-top-banner-stands.jpg";
-import acrylicSignsImg from "../../commercialSignsSection/acrylic-signs.jpg";
-import vinylBannersImg from "../../commercialSignsSection/vinyl-banner.jpg";
-import retractableBannersImg from "../../commercialSignsSection/retractable-banners.jpg";
-import metalPhotoPrintsImg from "../../commercialSignsSection/metal-photo-prints.jpg";
-import acrylicPhotoPrintsImg from "../../commercialSignsSection/acrylic-photo-prints.jpg";
-import pvcSignsImg from "../../commercialSignsSection/pvc-signs.jpg";
-import wallDecalsImg from "../../commercialSignsSection/wall-decals.jpg";
+import aluminumImg from "../../allMedia/homePage/commercialSignsSection/aluminum-signs.jpg";
+import yardSignsImg from "../../allMedia/homePage/commercialSignsSection/yard-signs-main.jpg";
+import foamBoardSignsImg from "../../allMedia/homePage/commercialSignsSection/foam-board-signs.jpg";
+import trackDecalsImg from "../../allMedia/homePage/commercialSignsSection/truck-decals.jpg";
+import tabletopRetractableBannersImg from "../../allMedia/homePage/commercialSignsSection/table-top-banner-stands.jpg";
+import acrylicSignsImg from "../../allMedia/homePage/commercialSignsSection/acrylic-signs.jpg";
+import vinylBannersImg from "../../allMedia/homePage/commercialSignsSection/vinyl-banner.jpg";
+import retractableBannersImg from "../../allMedia/homePage/commercialSignsSection/retractable-banners.jpg";
+import metalPhotoPrintsImg from "../../allMedia/homePage/commercialSignsSection/metal-photo-prints.jpg";
+import acrylicPhotoPrintsImg from "../../allMedia/homePage/commercialSignsSection/acrylic-photo-prints.jpg";
+import pvcSignsImg from "../../allMedia/homePage/commercialSignsSection/pvc-signs.jpg";
+import wallDecalsImg from "../../allMedia/homePage/commercialSignsSection/wall-decals.jpg";
 export const commercialSignsData = {
   categories: [
     {
