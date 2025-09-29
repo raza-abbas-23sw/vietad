@@ -257,7 +257,7 @@ const Navbar = () => {
                   onMouseEnter={() => setAccountDropdownOpen(true)}
                   onMouseLeave={() => setAccountDropdownOpen(false)}
                 >
-                  <div className="flex gap-1 items-center hover:text-cyan-400 cursor-pointer">
+                  <div className=" flex gap-1 items-center hover:text-cyan-400 cursor-pointer">
                     <User className="w-5 h-5" />
                     <div className="hidden lg:block">
                       {currentUser ? currentUser.fullName || `My Profile` : `My Account`}
@@ -266,7 +266,7 @@ const Navbar = () => {
                   </div>
 
                   {accountDropdownOpen && (
-                    <div className="absolute right-0 top-full text-start w-48 bg-white rounded shadow-lg z-50">
+                    <div className=" bg-gradient-to-r from-cyan-100 to-red-100 absolute right-0 top-full text-start w-48 bg-white rounded-lg shadow-lg z-50">
                       {currentUser ? (
                         <>
                           <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100 cursor-pointer">

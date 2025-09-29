@@ -16,17 +16,17 @@ const ProductGallery = ({ images, title }) => {
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-cyan-100 to-red-100 rounded-lg overflow-hidden mb-4">
+      <div className="rounded-lg overflow-hidden  p-4">
         <img 
           src={images[selectedImage]} 
           alt={`${title} - Image ${selectedImage + 1}`}
-          className="w-full h-[400px] object-contain transition-opacity duration-300"
+          className="w-full h-[400px] object-contain transition-opacity duration-300 "
         />
       </div>
       
       {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="flex gap-2 overflow-x-auto pl-4 pb-2">
           {images.map((image, index) => (
             <button
               key={index}

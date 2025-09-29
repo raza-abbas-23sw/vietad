@@ -2,12 +2,12 @@ import React from 'react';
 
 const Designtool = () => {
   return (
-    <div className="min-h-screen bg-cyan-50 from-cyan-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-r from-cyan-100 to-red-200 flex items-center justify-center p-4">
       <div className="text-center max-w-2xl mx-auto">
         {/* Animated Icon/Illustration */}
         <div className="mb-8">
           <div className="relative inline-block">
-            <div className="w-24 h-24 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-red-400 rounded-2xl flex items-center justify-center shadow-lg">
               <svg 
                 className="w-12 h-12 text-white" 
                 fill="none" 
@@ -24,7 +24,7 @@ const Designtool = () => {
             </div>
             <div className="absolute -top-2 -right-2">
               <span className="relative flex h-6 w-6">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gradient-to-r from-cyan-400 to-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-6 w-6 bg-cyan-500"></span>
               </span>
             </div>
@@ -37,10 +37,10 @@ const Designtool = () => {
         </h1>
         
         <div className="relative inline-block mb-6">
-          <span className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+          <span className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-cyan-400 to-red-400 bg-clip-text text-transparent">
             Coming Soon
           </span>
-          <div className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full"></div>
+          <div className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-red-400 rounded-full"></div>
         </div>
 
         <p className="text-gray-600 text-lg mb-8 leading-relaxed">
@@ -56,7 +56,7 @@ const Designtool = () => {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
-              className="bg-gradient-to-r from-cyan-500 to-blue-600 h-2 rounded-full transition-all duration-300"
+              className="bg-gradient-to-r from-cyan-400 to-red-400 h-2 rounded-full transition-all duration-300"
               style={{ width: '75%' }}
             ></div>
           </div>
@@ -101,7 +101,7 @@ const Designtool = () => {
             Want to be the first to know when we launch?
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-medium hover:from-cyan-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border border-cyan-300">
+            <button className="px-6 py-3 bg-gradient-to-r from-cyan-400 to-red-400 text-white rounded-full font-medium hover:from-cyan-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border border-cyan-300">
               Notify Me
             </button>
             <button className="px-6 py-3 border border-cyan-300 text-cyan-700 rounded-full font-medium hover:bg-cyan-50 transition-all duration-200">
@@ -114,7 +114,6 @@ const Designtool = () => {
         <div className="mt-12 pt-6 border-t border-cyan-200">
           <p className="text-cyan-600 text-sm flex items-center justify-center gap-2">
             <span>Stay tuned for something amazing!</span>
-            <span className="text-lg">✨</span>
           </p>
         </div>
       </div>

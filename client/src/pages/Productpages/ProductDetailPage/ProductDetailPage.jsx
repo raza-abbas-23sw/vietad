@@ -148,7 +148,6 @@ const ProductDetailPage = () => {
             <div className="bg-gradient-to-r from-cyan-100 to-red-100 rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
               <ProductInfo product={productData} />
             </div>
-
             {/* Quick Features Preview */}
             {productData.features && productData.features.length > 0 && (
               <div className="mt-6 bg-gradient-to-r from-cyan-100 to-red-100 rounded-2xl p-6 shadow-lg border border-gray-100">
@@ -201,7 +200,7 @@ const ProductDetailPage = () => {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-800 mb-4 relative inline-block">
                 Popular Templates
-                <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-cyan-500 rounded-full"></span>
+                <span className="absolute top-10 left-1/2 transform -translate-x-1/2 w-30 h-1 bg-cyan-500 rounded-full"></span>
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 Get started quickly with our professionally designed templates
@@ -252,7 +251,7 @@ const ProductDetailPage = () => {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-gray-800 mb-4 relative inline-block">
               Customer Reviews
-              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-cyan-500 rounded-full"></span>
+              <span className="absolute top-10 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-cyan-500 rounded-full"></span>
             </h2>
             <p className="text-gray-600">See what our customers are saying about this product</p>
           </div>
@@ -268,8 +267,8 @@ const ProductDetailPage = () => {
 
       {/* Call to Action */}
       <div className="border-t border-gray-200 bg-gradient-to-r from-cyan-500 to-blue-500">
-        <div className="container mx-auto px-4 max-w-7xl py-12 text-center">
-          <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+        <div className="container  px-4 max-w-7xl py-12 text-center">
+          <h3 className="text-2xl lg:text-3xl font-bold text-white">
             Ready to Create Something Amazing?
           </h3>
           <p className="text-cyan-100 mb-6 max-w-2xl mx-auto">

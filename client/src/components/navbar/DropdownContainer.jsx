@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useRef, useEffect, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Menu, X } from 'lucide-react';
 import DropdownBar from './DropdownBar';
 import { AppContext } from '../../context/AppContext';
 import './drop.css';
@@ -9,6 +9,7 @@ const DropdownContainer = () => {
   const { navData } = useContext(AppContext);
   const [activeIndex, setActiveIndex] = useState(null);
   const [isClickOpen, setIsClickOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownTimeoutRef = useRef(null);
   const containerRef = useRef(null);
   const navigate = useNavigate();
@@ -25,14 +26,14 @@ const DropdownContainer = () => {
   }, []);
 
   const handleMouseEnter = useCallback((index) => {
-    if (!isClickOpen) {
+    if (!isClickOpen && window.innerWidth >= 768) {
       clearHoverTimeout();
       setActiveIndex(index);
     }
   }, [clearHoverTimeout, isClickOpen]);
 
   const handleMouseLeave = useCallback(() => {
-    if (!isClickOpen) {
+    if (!isClickOpen && window.innerWidth >= 768) {
       clearHoverTimeout();
       dropdownTimeoutRef.current = setTimeout(() => {
         setActiveIndex(null);
@@ -45,35 +46,58 @@ const DropdownContainer = () => {
       // For "All Products", navigate directly
       setActiveIndex(null);
       setIsClickOpen(false);
+      setIsMobileMenuOpen(false);
       navigate('/products');
     } else {
-      setIsClickOpen(true);
-      setActiveIndex(prev => {
-        if (prev === index) {
-          setIsClickOpen(false);
-          return null;
-        }
-        return index;
-      });
+      if (window.innerWidth < 768) {
+        // Mobile behavior - toggle the dropdown
+        setIsClickOpen(true);
+        setActiveIndex(prev => {
+          if (prev === index) {
+            setIsClickOpen(false);
+            return null;
+          }
+          return index;
+        });
+      } else {
+        // Desktop behavior
+        setIsClickOpen(true);
+        setActiveIndex(prev => {
+          if (prev === index) {
+            setIsClickOpen(false);
+            return null;
+          }
+          return index;
+        });
+      }
     }
   }, [navigate]);
 
   const handleProductClick = useCallback((category, product) => {
-    const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
-    const productSlug = product.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/products/${categorySlug}/${productSlug}`);
+    // Navigate to main products page with product as parameter
+    navigate(`/products?product=${encodeURIComponent(product)}`);
     setActiveIndex(null);
     setIsClickOpen(false);
+    setIsMobileMenuOpen(false);
   }, [navigate]);
 
   const handleViewAll = useCallback((category) => {
+    // Navigate to products page with category filter
     const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/products/${categorySlug}`);
+    navigate(`/products?category=${categorySlug}`);
     setActiveIndex(null);
     setIsClickOpen(false);
+    setIsMobileMenuOpen(false);
   }, [navigate]);
 
   const handleCloseDropdown = useCallback(() => {
+    setActiveIndex(null);
+    setIsClickOpen(false);
+    setIsMobileMenuOpen(false);
+  }, []);
+
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(prev => !prev);
     setActiveIndex(null);
     setIsClickOpen(false);
   }, []);
@@ -91,12 +115,23 @@ const DropdownContainer = () => {
       }
     };
 
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      } else {
+        setActiveIndex(null);
+        setIsClickOpen(false);
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleEscapeKey);
+    window.addEventListener('resize', handleResize);
     
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
+      window.removeEventListener('resize', handleResize);
     };
   }, [handleCloseDropdown]);
 
@@ -106,14 +141,33 @@ const DropdownContainer = () => {
   }, [navigate, handleCloseDropdown]);
 
   return (
-    <div ref={containerRef} className="relative bg-gradient-to-r from-cyan-100 to-red-100 z-40 font-sans antialiased" >
+    <div ref={containerRef} className="relative bg-gradient-to-r from-cyan-100 to-red-100 z-40 font-sans antialiased">
       <nav className="bg-gradient-to-r from-cyan-100 to-red-100 sticky top-0 border-gray-200 w-full shadow-sm">
-        <div className="container ">
-          <div className="flex items-start justify-start px-4 w-full hide-horizontal-scroll">
+        <div className="container">
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center justify-between px-4 py-3">
+            <button
+              onClick={toggleMobileMenu}
+              className="p-2 rounded-lg bg-white shadow-sm border border-gray-200"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-5 h-5 text-gray-700" />
+              ) : (
+                <Menu className="w-5 h-5 text-gray-700" />
+              )}
+            </button>
+            <span className="text-sm font-medium text-gray-700">Categories</span>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-start justify-start px-4 w-full hide-horizontal-scroll">
             {navData.map((item, index) => (
               <div
                 key={`nav-${item.title}`}
                 className="relative py-3 flex-shrink-0"
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
               >
                 {index === 0 ? (
                   <Link
@@ -152,10 +206,104 @@ const DropdownContainer = () => {
               </div>
             ))}
           </div>
+
+          {/* Mobile Navigation */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+              <div className="px-4 py-2 space-y-1 max-h-[70vh] overflow-y-auto">
+                {navData.map((item, index) => (
+                  <div key={`mobile-nav-${item.title}`} className="border-b border-gray-100 last:border-b-0">
+                    {index === 0 ? (
+                      <Link
+                        to="/products"
+                        className="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium"
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          handleBarClick(index);
+                        }}
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      <button
+                        className="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium flex items-center justify-between"
+                        onClick={() => handleBarClick(index)}
+                      >
+                        <span>{item.title}</span>
+                        <ChevronDown className={`w-4 h-4 transition-transform ${activeIndex === index ? 'rotate-180' : ''}`} />
+                      </button>
+                    )}
+                    
+                    {/* Mobile Dropdown Content */}
+                    {activeIndex === index && activeCategory && (
+                      <div className="ml-4 pl-4 border-l-2 border-cyan-200 bg-gray-50 rounded-r-lg my-2">
+                        <div className="py-3">
+                          <p className="text-sm text-gray-600 mb-3 px-2">
+                            {activeCategory.description}
+                          </p>
+                          
+                          {activeCategory.categories && activeCategory.categories.length > 0 ? (
+                            <div className="space-y-4">
+                              {activeCategory.categories.map((cat) => (
+                                <div key={cat.title} className="min-w-0">
+                                  <div className="font-semibold text-gray-900 text-sm border-b border-gray-200 pb-1 px-2">
+                                    {cat.title}
+                                  </div>
+                                  <ul className="space-y-1 mt-1">
+                                    {cat.products.map((product) => (
+                                      <li key={product}>
+                                        <button
+                                          onClick={() => handleProductClick(cat.title, product)}
+                                          className="w-full text-left text-gray-700 hover:text-cyan-600 transition-colors duration-200 py-2 px-3 rounded-md hover:bg-white text-sm font-medium"
+                                        >
+                                          {product}
+                                        </button>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          ) : activeCategory.items && activeCategory.items.length > 0 ? (
+                            <ul className="space-y-1">
+                              {activeCategory.items.map((product) => (
+                                <li key={product}>
+                                  <button
+                                    onClick={() => handleProductClick(activeCategory.title, product)}
+                                    className="w-full text-left text-gray-700 hover:text-cyan-600 transition-colors duration-200 py-2 px-3 rounded-md hover:bg-white text-sm font-medium"
+                                  >
+                                    {product}
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <div className="text-center text-gray-500 py-4 px-2">
+                              <div className="text-sm font-medium">No products found</div>
+                            </div>
+                          )}
+
+                          <div className="mt-4 pt-3 border-t border-gray-200">
+                            <button 
+                              className="text-cyan-600 hover:text-cyan-700 font-semibold text-sm transition-colors duration-200 w-full text-left py-2 px-2"
+                              onClick={() => handleViewAll(activeCategory.title)}
+                            >
+                              View all {activeCategory.title.toLowerCase()}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
-      {activeCategory && (
+      {/* Desktop Dropdown */}
+      {activeCategory && window.innerWidth >= 768 && (
         <div
           className="absolute top-full left-0 w-full bg-cyan-50 shadow-xl border-t border-gray-200 animate-in fade-in-50 slide-in-from-top-2 duration-200"
           onMouseEnter={() => handleMouseEnter(activeIndex)}
@@ -185,7 +333,7 @@ const DropdownContainer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                   {activeCategory.categories.map((cat) => (
                     <div key={cat.title} className="min-w-0">
-                      <div className="font-semibold text-gray-900  text-lg border-b border-gray-100 pb-2">
+                      <div className="font-semibold text-gray-900 text-lg border-b border-gray-100 pb-2">
                         {cat.title} 
                       </div>
                       <ul className="space-y-0">

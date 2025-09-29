@@ -205,7 +205,7 @@ const Cart = () => {
   const totalAmount = getCartTotal();
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gradient-to-r from-cyan-100 to-red-200 py-12">
       <div className="container mx-auto px-4 max-w-7xl">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">Shopping Cart</h1>
         

@@ -66,7 +66,7 @@ const ProductInfo = ({ product }) => {
   const drilledHolesOptions = ['None', 'Top Left & Right', 'All Four Corners'];
 
   return (
-    <div className=" bg-gradient-to-r from-cyan-100 to-red-100 space-y-6">
+    <div className="bg-gradient-to-r from-cyan-100 to-red-100 space-y-6 py-4 px-2 rounded-lg">
       {product.tags && product.tags.length > 0 && (
         <div className="mb-2">
           {product.tags.map((tag, index) => (
