@@ -18,7 +18,7 @@ const HeroSection = () => {
     title: "Premium Custom Sign",
     category: "custom-signs",
     description: "Create your perfect custom sign with premium materials and professional printing quality.",
-    img: "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg",
+    img: "https://smodprint.com/wp-content/uploads/2018/09/Large-Format-Flex-Banner-Print.jpg",
     price: 5.99,
     features: [
       "Premium quality materials",
