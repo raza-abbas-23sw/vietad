@@ -152,87 +152,7 @@ export const productsData = [
     ],
     gallery: [tabletopRetractableBannersImg, vinylBannersImg]
   },
-  {
-    id: 202,
-    title: "Acrylic Signs",
-    category: "acrylic-signs",
-    slug: "acrylic-signs",
-    description:
-      "Create a custom sign on state-of-the-art acrylic materials perfect for branding or personal use in indoor and outdoor settings.",
-    tags: [],
-    img: acrylicSignsImg,
-    price: 189,
-    originalPrice: 219.99,
-    pricePerEach: 37.8,
-    originalPricePerEach: 43.99,
-    rating: 4.6,
-    ratingCount: 14,
-    features: [
-      "Crystal clear appearance",
-      "Durable acrylic",
-      "Indoor/Outdoor use",
-      "UV-resistant",
-      "Custom shapes",
-      "Mounting options",
-      "Fade-resistant",
-      "High-end look"
-    ],
-    gallery: [acrylicSignsImg, acrylicPhotoPrintsImg]
-  },
-  {
-    id: 203,
-    title: "Vinyl Banners",
-    category: "vinyl-banners",
-    slug: "vinyl-banners",
-    description:
-      "Capture attention with bold graphics. Design and order custom products in various dimensions. Ensure impeccable quality and striking appeal.",
-    tags: [],
-    img: vinylBannersImg,
-    price: 109,
-    originalPrice: 129.95,
-    pricePerEach: 21.8,
-    originalPricePerEach: 25.99,
-    rating: 4.4,
-    ratingCount: 13,
-    features: [
-      "Bold graphics",
-      "Various dimensions",
-      "Weatherproof",
-      "Grommet options",
-      "Full-color print",
-      "Heavy-duty material",
-      "Roll-up option",
-      "Reusable"
-    ],
-    gallery: [vinylBannersImg, tabletopRetractableBannersImg]
-  },
-  {
-    id: 204,
-    title: "Retractable Banners",
-    category: "retractable-banners",
-    slug: "retractable-banners",
-    description:
-      "Design custom signs online for promotions by modifying our thematic templates and get people excited about any special occasion.",
-    tags: ["Best Seller"],
-    img: retractableBannersImg,
-    price: 159,
-    originalPrice: 189.99,
-    pricePerEach: 31.8,
-    originalPricePerEach: 37.99,
-    rating: 4.9,
-    ratingCount: 20,
-    features: [
-      "Quick setup",
-      "Reusable",
-      "Vibrant print",
-      "Durable base",
-      "Carrying case included",
-      "Full-color print",
-      "Ideal for events",
-      "Professional look"
-    ],
-    gallery: [retractableBannersImg, vinylBannersImg]
-  },
+ 
   {
     id: 301,
     title: "Metal Photo Prints",
@@ -287,33 +207,7 @@ export const productsData = [
     ],
     gallery: [acrylicPhotoPrintsImg, metalPhotoPrintsImg]
   },
-  {
-    id: 303,
-    title: "PVC Signs",
-    category: "pvc-signs",
-    slug: "pvc-signs",
-    description:
-      "Create personalized signs to turn heads with cool styles and high-resolution graphics great for branding as well as personal use.",
-    tags: ["Best Seller"],
-    img: pvcSignsImg,
-    price: 89,
-    originalPrice: 109.99,
-    pricePerEach: 17.8,
-    originalPricePerEach: 21.99,
-    rating: 4.5,
-    ratingCount: 12,
-    features: [
-      "Rigid PVC material",
-      "Smooth finish",
-      "Full-color print",
-      "Weather-resistant",
-      "Easy to mount",
-      "Great for business",
-      "Lightweight",
-      "Durable"
-    ],
-    gallery: [pvcSignsImg, wallDecalsImg]
-  },
+ 
   {
     id: 304,
     title: "Wall Decals",
@@ -362,10 +256,4 @@ export const templates = [
     img: "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg",
     category: "food"
   },
-  {
-    id: 4,
-    title: "Car Icon With Maintenance",
-    img: "https://images.pexels.com/photos/3807386/pexels-photo-3807386.jpeg",
-    category: "automotive"
-  }
 ];

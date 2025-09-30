@@ -193,14 +193,7 @@ const Navbar = () => {
                       ))}
                       
                       {/* View All Results */}
-                      <div 
-                        className="p-3 text-center bg-cyan-50 hover:bg-cyan-100 cursor-pointer"
-                        onClick={executeSearch}
-                      >
-                        <span className="text-sm font-medium text-cyan-600">
-                          View all results for "{searchQuery}"
-                        </span>
-                      </div>
+                     
                     </>
                   ) : (
                     <div className="p-4 text-center text-gray-500">
