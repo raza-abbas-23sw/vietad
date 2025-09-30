@@ -37,9 +37,9 @@ const Sidebar = ({ open, onClose }) => {
     }
   };
 
-  // Function to generate product category link
-  const getCategoryLink = (categoryTitle) => {
-    return `/products/${categoryTitle.toLowerCase().replace(/\s+/g, '-')}`;
+  // Function to generate product category link - always redirect to /products
+  const getCategoryLink = () => {
+    return `/products`;
   };
 
   return (
@@ -105,7 +105,7 @@ const Sidebar = ({ open, onClose }) => {
                           </button>
                         ) : (
                           <Link
-                            to={getCategoryLink(item.title)}
+                            to={getCategoryLink()}
                             className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-cyan-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors"
                             onClick={onClose}
                           >
@@ -141,8 +141,8 @@ const Sidebar = ({ open, onClose }) => {
                   ))}
                   {selectedCategory.items?.map((item, idx) => (
                     <li key={idx}>
-                      <Link // Changed from a to Link
-                        to={`/products/${selectedCategory.title.toLowerCase().replace(/\s+/g, '-')}/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                      <Link
+                        to={getCategoryLink()}
                         className="block text-gray-700 text-base py-2 px-2 rounded hover:bg-gray-100"
                         onClick={onClose}
                       >
@@ -164,8 +164,8 @@ const Sidebar = ({ open, onClose }) => {
                 <ul className="space-y-1">
                   {selectedSubcategory.products?.map((product, idx) => (
                     <li key={idx}>
-                      <Link // Changed from a to Link
-                        to={`/products/${selectedCategory.title.toLowerCase().replace(/\s+/g, '-')}/${product.toLowerCase().replace(/\s+/g, '-')}`}
+                      <Link
+                        to={getCategoryLink()}
                         className="block text-gray-700 text-sm py-1.5 px-2 rounded hover:bg-gray-100"
                         onClick={onClose}
                       >

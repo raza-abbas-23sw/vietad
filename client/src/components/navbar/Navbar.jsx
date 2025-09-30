@@ -266,7 +266,7 @@ const Navbar = () => {
                   </div>
 
                   {accountDropdownOpen && (
-                    <div className=" bg-gradient-to-r from-cyan-100 to-red-100 absolute right-0 top-full text-start w-48 bg-white rounded-lg shadow-lg z-50">
+                    <div className=" bg-gradient-to-r from-cyan-100 to-red-100 absolute right-0 top-full text-start w-48 bg-white rounded-lg shadow-lg z-51">
                       {currentUser ? (
                         <>
                           <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100 cursor-pointer">

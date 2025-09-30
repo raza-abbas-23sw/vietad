@@ -25,13 +25,7 @@ const DropdownContainer = () => {
     }
   }, []);
 
-  const handleMouseEnter = useCallback((index) => {
-    if (!isClickOpen && window.innerWidth >= 768) {
-      clearHoverTimeout();
-      setActiveIndex(index);
-    }
-  }, [clearHoverTimeout, isClickOpen]);
-
+ 
   const handleMouseLeave = useCallback(() => {
     if (!isClickOpen && window.innerWidth >= 768) {
       clearHoverTimeout();
@@ -141,7 +135,7 @@ const DropdownContainer = () => {
   }, [navigate, handleCloseDropdown]);
 
   return (
-    <div ref={containerRef} className="relative bg-gradient-to-r from-cyan-100 to-red-100 z-40 font-sans antialiased">
+    <div ref={containerRef} className="relative bg-gradient-to-r from-cyan-100 to-red-200 z-49 font-sans antialiased">
       <nav className="bg-gradient-to-r from-cyan-100 to-red-100 sticky top-0 border-gray-200 w-full shadow-sm">
         <div className="container">
           {/* Mobile Menu Button */}
@@ -166,7 +160,6 @@ const DropdownContainer = () => {
               <div
                 key={`nav-${item.title}`}
                 className="relative py-3 flex-shrink-0"
-                onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
               >
                 {index === 0 ? (
