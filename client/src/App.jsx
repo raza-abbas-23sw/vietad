@@ -31,8 +31,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<ProductsPage />} />
+              {/* Keep both routes for product detail for compatibility */}
               <Route path="/products/:product" element={<ProductDetailPage />} />
-                <Route path="/product/:slug" element={<ProductDetailPage />} />
+              <Route path="/product/:slug" element={<ProductDetailPage />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/success" element={<Success />} />

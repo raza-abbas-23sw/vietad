@@ -1,12 +1,11 @@
 import { useState, useCallback, useMemo, useRef, useEffect, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp, Menu, X } from 'lucide-react';
-import DropdownBar from './DropdownBar';
 import { AppContext } from '../../context/AppContext';
 import './drop.css';
 
 const DropdownContainer = () => {
-  const { navData } = useContext(AppContext);
+  const { navData, productsData, getProductByName } = useContext(AppContext);
   const [activeIndex, setActiveIndex] = useState(null);
   const [isClickOpen, setIsClickOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,14 +23,33 @@ const DropdownContainer = () => {
       'Decals & Magnets',
       'Office Signs',
       'Outdoor Signs'
-      // Add or remove categories as needed
     ];
     return navData.filter(item => categoriesToShow.includes(item.title));
   }, [navData]);
 
+  // Filter products to only show those that exist in productsData
+  const filteredNavData = useMemo(() => {
+    return visibleNavData.map(category => {
+      if (!category.categories) return category;
+      
+      return {
+        ...category,
+        categories: category.categories.map(subCategory => ({
+          ...subCategory,
+          products: subCategory.products.filter(productName => {
+            const product = getProductByName(productName);
+            return product !== undefined;
+          })
+        })).filter(subCategory => subCategory.products.length > 0)
+      };
+    }).filter(category => 
+      !category.categories || category.categories.length > 0
+    );
+  }, [visibleNavData, getProductByName]);
+
   const activeCategory = useMemo(() => (
-    activeIndex !== null ? visibleNavData[activeIndex] : null
-  ), [activeIndex, visibleNavData]);
+    activeIndex !== null ? filteredNavData[activeIndex] : null
+  ), [activeIndex, filteredNavData]);
 
   const clearHoverTimeout = useCallback(() => {
     if (dropdownTimeoutRef.current) {
@@ -45,7 +63,6 @@ const DropdownContainer = () => {
     if (activeCategory && window.innerWidth >= 768) {
       setIsDropdownVisible(true);
     } else {
-      // Delay hiding to allow exit animation
       const timer = setTimeout(() => setIsDropdownVisible(false), 200);
       return () => clearTimeout(timer);
     }
@@ -89,12 +106,21 @@ const DropdownContainer = () => {
     }
   }, [navigate]);
 
-  const handleProductClick = useCallback((category, product) => {
-    navigate(`/products?product=${encodeURIComponent(product)}`);
+  // Enhanced product click handler
+  const handleProductClick = useCallback((category, productName) => {
+    const product = getProductByName(productName);
+    
+    if (product && product.slug) {
+      navigate(`/product/${product.slug}`);
+    } else {
+      // Fallback to products page with search
+      navigate(`/products?search=${encodeURIComponent(productName)}`);
+    }
+    
     setActiveIndex(null);
     setIsClickOpen(false);
     setIsMobileMenuOpen(false);
-  }, [navigate]);
+  }, [navigate, getProductByName]);
 
   const handleViewAll = useCallback((category) => {
     const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
@@ -177,12 +203,12 @@ const DropdownContainer = () => {
               </div>
             </button>
             <span className="text-sm font-medium text-gray-700 transition-colors duration-200">Categories</span>
-            <div className="w-9"></div> {/* Spacer for centering */}
+            <div className="w-9"></div>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-start justify-start px-4 w-full hide-horizontal-scroll">
-            {visibleNavData.map((item, index) => (
+            {filteredNavData.map((item, index) => (
               <div
                 key={`nav-${item.title}`}
                 className="relative py-3 flex-shrink-0"
@@ -235,7 +261,7 @@ const DropdownContainer = () => {
             isMobileMenuOpen ? 'max-h-[70vh] opacity-100' : 'max-h-0 opacity-0'
           }`}>
             <div className="px-4 py-2 space-y-1 overflow-y-auto" style={{ maxHeight: '70vh' }}>
-              {visibleNavData.map((item, index) => (
+              {filteredNavData.map((item, index) => (
                 <div key={`mobile-nav-${item.title}`} className="border-b border-gray-100 last:border-b-0">
                   {index === 0 ? (
                     <Link
@@ -260,8 +286,8 @@ const DropdownContainer = () => {
                     </button>
                   )}
                   
-                  {/* Mobile Dropdown Content with Slide Animation */}
-                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  {/* Mobile Dropdown Content */}
+                  <div className={`overflow-hidden transition-all duration-300 ease-in-out bg-gradient-to-r from-cyan-100 to-red-200  ${
                     activeIndex === index && activeCategory 
                       ? 'max-h-[1000px] opacity-100 my-2' 
                       : 'max-h-0 opacity-0 my-0'
@@ -303,26 +329,9 @@ const DropdownContainer = () => {
                                 </div>
                               ))}
                             </div>
-                          ) : activeCategory.items && activeCategory.items.length > 0 ? (
-                            <ul className="space-y-1">
-                              {activeCategory.items.map((product, idx) => (
-                                <li 
-                                  key={product}
-                                  className="animate-fade-in"
-                                  style={{ animationDelay: `${idx * 30}ms` }}
-                                >
-                                  <button
-                                    onClick={() => handleProductClick(activeCategory.title, product)}
-                                    className="w-full text-left text-gray-700 hover:text-cyan-600 transition-all duration-200 py-2 px-3 rounded-md hover:bg-white hover:shadow-sm hover:translate-x-1 text-sm font-medium"
-                                  >
-                                    {product}
-                                  </button>
-                                </li>
-                              ))}
-                            </ul>
                           ) : (
                             <div className="text-center text-gray-500 py-4 px-2 animate-fade-in">
-                              <div className="text-sm font-medium">No products found</div>
+                              <div className="text-sm font-medium">No products available</div>
                             </div>
                           )}
 
@@ -346,7 +355,7 @@ const DropdownContainer = () => {
         </div>
       </nav>
 
-      {/* Desktop Dropdown with Enhanced Transitions */}
+      {/* Desktop Dropdown */}
       {isDropdownVisible && (
         <div
           className={`absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-200 transition-all duration-300 ease-out ${
@@ -398,35 +407,12 @@ const DropdownContainer = () => {
                               <button
                                 onClick={() => handleProductClick(cat.title, product)}
                                 className="w-full text-left text-gray-700 hover:text-cyan-600 transition-all duration-200 py-1 px-2 rounded-md hover:bg-cyan-50 hover:shadow-sm hover:translate-x-1 text-sm font-medium"
-                                role="button"
-                                tabIndex={0}
-                                onKeyDown={(e) => e.key === 'Enter' && handleProductClick(cat.title, product)}
                               >
                                 {product}
                               </button>
                             </li>
                           ))}
                         </ul>
-                      </div>
-                    ))}
-                  </div>
-                ) : activeCategory.items && activeCategory.items.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {activeCategory.items.map((product, idx) => (
-                      <div 
-                        key={product}
-                        className="animate-slide-up"
-                        style={{ animationDelay: `${idx * 30}ms` }}
-                      >
-                        <button
-                          onClick={() => handleProductClick(activeCategory.title, product)}
-                          className="w-full text-left text-gray-700 hover:text-cyan-600 transition-all duration-200 py-2 px-3 rounded-md hover:bg-cyan-50 hover:shadow-md hover:scale-105 text-sm font-medium border border-transparent hover:border-cyan-200"
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) => e.key === 'Enter' && handleProductClick(activeCategory.title, product)}
-                        >
-                          {product}
-                        </button>
                       </div>
                     ))}
                   </div>

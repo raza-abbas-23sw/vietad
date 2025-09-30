@@ -19,7 +19,8 @@ const HeroSection = () => {
     category: "custom-signs",
     description: "Create your perfect custom sign with premium materials and professional printing quality.",
     img: "https://smodprint.com/wp-content/uploads/2018/09/Large-Format-Flex-Banner-Print.jpg",
-    price: 5.99,
+    basePrice: 25, // Base price for setup and minimum size
+    pricePerSqIn: 0.15, // Price per square inch for smaller signs
     features: [
       "Premium quality materials",
       "Weather-resistant",
@@ -76,13 +77,40 @@ const HeroSection = () => {
         }
       : standardSizes.find(s => s.id === selectedStandardSize);
     
-    // Convert to inches for consistent pricing
+    // Always calculate area in square inches for consistent pricing
     const widthInInches = convertToInches(selectedSize.width, sizeUnit);
     const heightInInches = convertToInches(selectedSize.height, sizeUnit);
     
-    const area = widthInInches * heightInInches;
-    const price = (area * product.price * quantity).toFixed(2);
-    return price;
+    const areaInSqInches = widthInInches * heightInInches;
+    
+    // More realistic pricing calculation:
+    // - Base price covers setup and minimum costs
+    // - Price per square inch decreases slightly for larger sizes (economies of scale)
+    
+    let price;
+    
+    if (areaInSqInches <= 144) { // Up to 1 sq ft (12x12)
+      price = product.basePrice + (areaInSqInches * product.pricePerSqIn);
+    } else if (areaInSqInches <= 576) { // Up to 4 sq ft (24x24)
+      price = product.basePrice + (areaInSqInches * product.pricePerSqIn * 0.9);
+    } else if (areaInSqInches <= 1296) { // Up to 9 sq ft (36x36)
+      price = product.basePrice + (areaInSqInches * product.pricePerSqIn * 0.85);
+    } else { // Larger than 9 sq ft
+      price = product.basePrice + (areaInSqInches * product.pricePerSqIn * 0.8);
+    }
+    
+    // Minimum price guarantee
+    price = Math.max(price, product.basePrice);
+    
+    // Apply quantity discount
+    let totalPrice = price * quantity;
+    if (quantity >= 10) {
+      totalPrice *= 0.9; // 10% discount for 10+ items
+    } else if (quantity >= 5) {
+      totalPrice *= 0.95; // 5% discount for 5+ items
+    }
+    
+    return totalPrice.toFixed(2);
   };
 
   const navigateToProducts = () => {
@@ -113,6 +141,20 @@ const HeroSection = () => {
   };
 
   const displaySize = formatDisplaySize(currentSize);
+
+  // Get area in proper units for display
+  const getDisplayArea = () => {
+    const widthInInches = convertToInches(currentSize.width, sizeUnit);
+    const heightInInches = convertToInches(currentSize.height, sizeUnit);
+    const areaInSqInches = widthInInches * heightInInches;
+    
+    if (sizeUnit === 'feet') {
+      const areaInSqFeet = areaInSqInches / 144;
+      return areaInSqFeet.toFixed(1) + ' sq ft';
+    } else {
+      return areaInSqInches.toFixed(0) + ' sq in';
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-cyan-100 to-red-100 px-4 sm:px-6 py-2 sm:py-8">
@@ -329,7 +371,12 @@ const HeroSection = () => {
                   <div className="text-right">
                     <span className="text-2xl font-bold text-gray-900">${calculatePrice()}</span>
                     <div className="text-xs text-gray-500 mt-1">
-                      {quantity} sign(s) • {displaySize.width}×{displaySize.height} {sizeUnit}
+                      {quantity} sign(s) • {displaySize.width}×{displaySize.height} {sizeUnit} • {getDisplayArea()}
+                      {quantity >= 5 && (
+                        <div className="text-green-600 font-medium mt-1">
+                          {quantity >= 10 ? '10%' : '5%'} quantity discount applied
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -16,7 +16,7 @@ const categoryIcons = {
 };
 
 const Sidebar = ({ open, onClose }) => {
-  const { navData } = useContext(AppContext);
+  const { navData, getProductByName } = useContext(AppContext);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
 
@@ -37,145 +37,240 @@ const Sidebar = ({ open, onClose }) => {
     }
   };
 
-  // Function to generate product category link - always redirect to /products
-  const getCategoryLink = () => {
-    return `/products`;
+  // Function to handle product click and navigate to product detail
+  const handleProductClick = (productName) => {
+    const product = getProductByName(productName);
+    
+    if (product && product.slug) {
+      // Navigate to product detail page
+      window.location.href = `/product/${product.slug}`;
+    } else {
+      // Fallback to products page with search
+      window.location.href = `/products?search=${encodeURIComponent(productName)}`;
+    }
+    
+    onClose(); // Close sidebar after navigation
+  };
+
+  // Function to generate category link
+  const getCategoryLink = (categoryTitle) => {
+    const categorySlug = categoryTitle.toLowerCase().replace(/\s+/g, '-');
+    return `/products?category=${categorySlug}`;
+  };
+
+  // Filter products to only show those that exist in productsData
+  const getFilteredProducts = (products) => {
+    if (!products) return [];
+    return products.filter(productName => {
+      const product = getProductByName(productName);
+      return product !== undefined;
+    });
+  };
+
+  // Filter subcategories to only show those with existing products
+  const getFilteredSubcategories = (subcategories) => {
+    if (!subcategories) return [];
+    return subcategories.map(subcategory => ({
+      ...subcategory,
+      products: getFilteredProducts(subcategory.products)
+    })).filter(subcategory => subcategory.products.length > 0);
+  };
+
+  // Filter categories to only show those with existing products
+  const getFilteredCategories = (categories) => {
+    if (!categories) return [];
+    return categories.map(category => ({
+      ...category,
+      products: getFilteredProducts(category.products)
+    })).filter(category => category.products.length > 0);
   };
 
   return (
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-transparent  z-50 transition-opacity duration-300 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-transparent bg-backdrop bg-opacity-50 z-50 transition-opacity duration-300 ${
+          open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
         onClick={onClose}
       />
+      
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-72 bg-white shadow-lg z-100 transform transition-transform duration-300 ${open ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 h-full w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+          open ? 'translate-x-0' : '-translate-x-full'
+        }`}
       >
-        <button
-          className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-red-500 focus:outline-none"
-          onClick={onClose}
-          aria-label="Close sidebar"
-        >
-          &times;
-        </button>
+        {/* Header */}
+        <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-4 text-white">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold">Product Categories</h2>
+            <button
+              className="p-1 rounded-full hover:bg-white hover:bg-opacity-20 transition-colors duration-200"
+              onClick={onClose}
+              aria-label="Close sidebar"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
         {/* Scrollable container */}
         <div className="h-full flex flex-col">
-          <div className="p-6 pt-14 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <div className="flex-1 overflow-y-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {/* Hide scrollbar for WebKit browsers */}
             <style dangerouslySetInnerHTML={{ __html: `::-webkit-scrollbar { display: none; }` }} />
             
-            {!selectedCategory ? (
-              <nav>
-                <h2 className="text-xl font-bold mb-6">Product Categories</h2>
-                <ul className="space-y-4">
-                  {/* Explicitly handle the first item as a direct link to products page */}
-                  {navData.length > 0 && (
-                    <li key={navData[0].title}>
-                      <Link
-                        to="/products"
-                        className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-cyan-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors"
-                        onClick={onClose} // Close sidebar on click
-                      >
-                        {/* You might want to use a specific icon for All Products if available, otherwise Layers is fine */}
-                        <Layers className="w-6 h-6 text-cyan-500" />
-                        {navData[0].title} {/* Use the actual title from navData */}
-                      </Link>
-                    </li>
-                  )}
-
-                  {/* Iterate over the rest of navData items for other categories */}
-                  {navData.slice(1).map((item) => {
-                    const Icon = categoryIcons[item.title] || Layers;
-                    const hasNested = (item.categories && item.categories.length > 0) || (item.items && item.items.length > 0);
-                    
-                    return (
-                      <li key={item.title}>
-                        {hasNested ? (
-                          <button
-                            className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-cyan-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors justify-between"
-                            onClick={() => handleCategoryClick(item)}
-                          >
-                            <span className="flex items-center gap-3">
-                              <Icon className="w-6 h-6 text-cyan-500" />
-                              {item.title}
-                            </span>
-                            <ChevronRight className="w-5 h-5 text-gray-400" />
-                          </button>
-                        ) : (
-                          <Link
-                            to={getCategoryLink()}
-                            className="flex items-center gap-3 w-full text-left text-lg font-semibold text-gray-800 hover:text-cyan-600 py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors"
-                            onClick={onClose}
-                          >
-                            <Icon className="w-6 h-6 text-cyan-500" />
-                            {item.title}
-                          </Link>
-                        )}
+            <div className="p-4">
+              {!selectedCategory ? (
+                <nav>
+                  <ul className="space-y-2">
+                    {/* All Products Link */}
+                    {navData.length > 0 && (
+                      <li key={navData[0].title}>
+                        <Link
+                          to="/products"
+                          className="flex items-center gap-3 w-full text-left text-base font-semibold text-gray-800 hover:text-cyan-600 py-3 px-3 rounded-lg hover:bg-cyan-50 transition-all duration-200 border border-transparent hover:border-cyan-200"
+                          onClick={onClose}
+                        >
+                          <Layers className="w-5 h-5 text-cyan-500" />
+                          {navData[0].title}
+                        </Link>
                       </li>
-                    );
-                  })}
-                </ul>
-              </nav>
-            ) : !selectedSubcategory ? (
-              <div>
-                <button
-                  className="flex items-center gap-2 mb-4 text-gray-600 hover:text-cyan-600 text-base font-medium"
-                  onClick={handleBack}
-                >
-                  <ArrowLeft className="w-5 h-5" /> Back
-                </button>
-                <h3 className="text-lg font-bold mb-4">{selectedCategory.title}</h3>
-                <ul className="space-y-2">
-                  {selectedCategory.categories?.map((subcategory) => (
-                    <li key={subcategory.title}>
-                      <button
-                        className="flex items-center justify-between w-full text-left text-gray-700 text-base py-2 px-2 rounded hover:bg-gray-100"
-                        onClick={() => handleSubcategoryClick(subcategory)}
-                      >
-                        <span>{subcategory.title}</span>
-                        <ChevronRight className="w-5 h-5 text-gray-400" />
-                      </button>
-                    </li>
-                  ))}
-                  {selectedCategory.items?.map((item, idx) => (
-                    <li key={idx}>
-                      <Link
-                        to={getCategoryLink()}
-                        className="block text-gray-700 text-base py-2 px-2 rounded hover:bg-gray-100"
-                        onClick={onClose}
-                      >
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <div>
-                <button
-                  className="flex items-center gap-2 mb-4 text-gray-600 hover:text-cyan-600 text-base font-medium"
-                  onClick={handleBack}
-                >
-                  <ArrowLeft className="w-5 h-5" /> Back
-                </button>
-                <h3 className="text-lg font-bold mb-2">{selectedSubcategory.title}</h3>
-                <ul className="space-y-1">
-                  {selectedSubcategory.products?.map((product, idx) => (
-                    <li key={idx}>
-                      <Link
-                        to={getCategoryLink()}
-                        className="block text-gray-700 text-sm py-1.5 px-2 rounded hover:bg-gray-100"
-                        onClick={onClose}
-                      >
-                        {product}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+                    )}
+
+                    {/* Other Categories */}
+                    {navData.slice(1).map((item) => {
+                      const Icon = categoryIcons[item.title] || Layers;
+                      const hasNested = (item.categories && item.categories.length > 0) || (item.items && item.items.length > 0);
+                      const filteredSubcategories = getFilteredSubcategories(item.categories);
+                      const hasValidProducts = filteredSubcategories.length > 0 || getFilteredProducts(item.items).length > 0;
+                      
+                      if (!hasValidProducts) return null;
+                      
+                      return (
+                        <li key={item.title}>
+                          {hasNested ? (
+                            <button
+                              className="flex items-center gap-3 w-full text-left text-base font-semibold text-gray-800 hover:text-cyan-600 py-3 px-3 rounded-lg hover:bg-cyan-50 transition-all duration-200 border border-transparent hover:border-cyan-200 justify-between group"
+                              onClick={() => handleCategoryClick(item)}
+                            >
+                              <span className="flex items-center gap-3">
+                                <Icon className="w-5 h-5 text-cyan-500 group-hover:scale-110 transition-transform duration-200" />
+                                {item.title}
+                              </span>
+                              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-cyan-500 group-hover:translate-x-1 transition-all duration-200" />
+                            </button>
+                          ) : (
+                            <Link
+                              to={getCategoryLink(item.title)}
+                              className="flex items-center gap-3 w-full text-left text-base font-semibold text-gray-800 hover:text-cyan-600 py-3 px-3 rounded-lg hover:bg-cyan-50 transition-all duration-200 border border-transparent hover:border-cyan-200"
+                              onClick={onClose}
+                            >
+                              <Icon className="w-5 h-5 text-cyan-500" />
+                              {item.title}
+                            </Link>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+              ) : !selectedSubcategory ? (
+                <div>
+                  {/* Back Button */}
+                  <button
+                    className="flex items-center gap-2 mb-4 text-cyan-600 hover:text-cyan-700 text-sm font-medium py-2 px-3 rounded-lg hover:bg-cyan-50 transition-colors duration-200 w-full text-left group"
+                    onClick={handleBack}
+                  >
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
+                    Back to Categories
+                  </button>
+
+                  {/* Category Title */}
+                  <div className="flex items-center gap-3 mb-4 p-3 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-lg border border-cyan-200">
+                    {(() => {
+                      const Icon = categoryIcons[selectedCategory.title] || Layers;
+                      return <Icon className="w-6 h-6 text-cyan-500" />;
+                    })()}
+                    <h3 className="text-lg font-bold text-gray-800">{selectedCategory.title}</h3>
+                  </div>
+
+                  {/* Subcategories */}
+                  <ul className="space-y-1">
+                    {getFilteredSubcategories(selectedCategory.categories).map((subcategory) => (
+                      <li key={subcategory.title}>
+                        <button
+                          className="flex items-center justify-between w-full text-left text-gray-700 text-sm py-2.5 px-3 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-all duration-200 border border-transparent hover:border-cyan-200 group"
+                          onClick={() => handleSubcategoryClick(subcategory)}
+                        >
+                          <span className="font-medium">{subcategory.title}</span>
+                          <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-cyan-500 group-hover:translate-x-1 transition-all duration-200" />
+                        </button>
+                      </li>
+                    ))}
+                    
+                    {/* Direct items in category */}
+                    {getFilteredProducts(selectedCategory.items).map((item, idx) => (
+                      <li key={idx}>
+                        <button
+                          onClick={() => handleProductClick(item)}
+                          className="block w-full text-left text-gray-700 text-sm py-2.5 px-3 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-all duration-200 border border-transparent hover:border-cyan-200"
+                        >
+                          {item}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <div>
+                  {/* Back Button */}
+                  <button
+                    className="flex items-center gap-2 mb-4 text-cyan-600 hover:text-cyan-700 text-sm font-medium py-2 px-3 rounded-lg hover:bg-cyan-50 transition-colors duration-200 w-full text-left group"
+                    onClick={handleBack}
+                  >
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
+                    Back to {selectedCategory.title}
+                  </button>
+
+                  {/* Subcategory Title */}
+                  <div className="mb-4 p-3 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-lg border border-cyan-200">
+                    <h3 className="text-lg font-bold text-gray-800">{selectedSubcategory.title}</h3>
+                  </div>
+
+                  {/* Products */}
+                  <ul className="space-y-1">
+                    {getFilteredProducts(selectedSubcategory.products).map((product, idx) => (
+                      <li key={idx}>
+                        <button
+                          onClick={() => handleProductClick(product)}
+                          className="block w-full text-left text-gray-700 text-sm py-2.5 px-3 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-all duration-200 border border-transparent hover:border-cyan-200 hover:translate-x-1"
+                        >
+                          {product}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="p-4 border-t border-gray-200 bg-gray-50">
+            <div className="text-center">
+              <p className="text-sm text-gray-600">Need help? Contact us</p>
+              <Link 
+                to="/contact" 
+                className="inline-block mt-2 text-cyan-600 hover:text-cyan-700 text-sm font-medium"
+                onClick={onClose}
+              >
+                Get Support →
+              </Link>
+            </div>
           </div>
         </div>
       </div>
