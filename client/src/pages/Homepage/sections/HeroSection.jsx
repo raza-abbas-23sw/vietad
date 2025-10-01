@@ -200,7 +200,7 @@ const HeroSection = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button 
-                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 transition-all duration-300 text-white px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
+                className="bg-gradient-to-r cursor-pointer from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 transition-all duration-300 text-white px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
                 onClick={navigateToProducts}
               >
                 Explore Products
@@ -210,7 +210,7 @@ const HeroSection = () => {
               </button>
               
               <button 
-                className="border-2 border-gray-300 hover:border-gray-400 bg-white/80 hover:bg-white transition-all duration-300 text-gray-700 px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-3 transform hover:-translate-y-1"
+                className="border-2 border-gray-300 cursor-pointer hover:border-gray-400 bg-white/80 hover:bg-white transition-all duration-300 text-gray-700 px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-3 transform hover:-translate-y-1"
                 onClick={() => setShowDesignPopup(true)}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
@@ -264,7 +264,7 @@ const HeroSection = () => {
                   >
                     Inches
                   </button>
-                  <button
+                  {/* <button
                     className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all ${
                       sizeUnit === 'feet' 
                         ? 'bg-white text-cyan-600 shadow-sm' 
@@ -273,7 +273,7 @@ const HeroSection = () => {
                     onClick={() => setSizeUnit('feet')}
                   >
                     Feet
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -302,9 +302,9 @@ const HeroSection = () => {
                     id="customSize"
                     checked={isCustomSize}
                     onChange={toggleCustomSize}
-                    className="h-4 w-4 text-cyan-500 rounded border-gray-300 focus:ring-cyan-500"
+                    className="h-4 w-4 text-cyan-500 cursor-pointer rounded border-gray-300 focus:ring-cyan-500"
                   />
-                  <label htmlFor="customSize" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                  <label htmlFor="customSize" className="text-sm cursor-pointer font-medium text-gray-700 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                     </svg>
@@ -348,14 +348,14 @@ const HeroSection = () => {
                   <span className="text-sm font-medium text-gray-700">Quantity</span>
                   <div className="flex items-center gap-4">
                     <button 
-                      className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100 text-lg font-bold transition-colors"
+                      className="w-8 h-8 rounded-full cursor-pointer border-2 border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100 text-lg font-bold transition-colors"
                       onClick={handleDecrement}
                     >
                       -
                     </button>
                     <span className="font-bold text-gray-900 min-w-[30px] text-center text-lg">{quantity}</span>
                     <button 
-                      className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100 text-lg font-bold transition-colors"
+                      className="w-8 h-8 rounded-full border-2 cursor-pointer border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100 text-lg font-bold transition-colors"
                       onClick={handleIncrement}
                     >
                       +
@@ -382,7 +382,7 @@ const HeroSection = () => {
                 </div>
                 
                 <button 
-                  className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="w-full bg-gradient-to-r cursor-pointer from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                   onClick={() => setShowDesignPopup(true)}
                 >
                   <div className="flex items-center justify-center gap-3">
