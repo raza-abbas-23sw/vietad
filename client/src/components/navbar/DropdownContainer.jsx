@@ -217,13 +217,13 @@ const DropdownContainer = () => {
                 {index === 0 ? (
                   <Link
                     to="/products"
-                    className={`whitespace-nowrap focus:outline-none block group transition-all duration-200 ${
+                    className={`whitespace-nowrap  focus:outline-none block group transition-all duration-200 ${
                       activeIndex === index ? 'border-t-2 border-cyan-600' : ''
                     }`}
                     onClick={() => handleBarClick(index)}
                   >
-                    <div className="flex items-center gap-1 px-3 py-2 rounded-lg transition-all duration-200 group-hover:bg-white/50 group-hover:shadow-md group-hover:scale-105">
-                      <span className="font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-200">
+                    <div className="flex items-center  gap-1 px-3 py-2 rounded-lg transition-all duration-200 group-hover:bg-white/50 group-hover:shadow-md group-hover:scale-105">
+                      <span className="font-medium text-gray-700  group-hover:text-gray-900 transition-colors duration-200">
                         {item.title}
                       </span>
                     </div>
@@ -241,7 +241,7 @@ const DropdownContainer = () => {
                         ? 'bg-white shadow-md border-cyan-200' 
                         : 'border-transparent group-hover:bg-white/50 group-hover:shadow-sm group-hover:border-gray-200'
                     }`}>
-                      <span className="font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-200">
+                      <span className="font-medium cursor-pointer text-gray-700 group-hover:text-gray-900 transition-colors duration-200">
                         {item.title} 
                       </span>
                       <ChevronDown className={`w-4 h-4 text-gray-400 transition-all duration-300 ${

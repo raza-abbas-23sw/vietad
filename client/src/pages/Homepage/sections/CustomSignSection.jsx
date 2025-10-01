@@ -5,6 +5,21 @@ import logoPng from '../../../assets/logos/logo.png'; // Corrected import path
 const CustomSignSection = () => {
   const [showDesignPopup, setShowDesignPopup] = useState(false);
 
+  // Default values for the design popup
+  const defaultProduct = {
+    name: "Custom Sign",
+    price: 0.5, // default price per unit area
+    type: "custom"
+  };
+
+  const defaultSize = {
+    width: 12,
+    height: 12
+  };
+
+  const defaultQuantity = 1;
+  const defaultSizeUnit = "inches";
+
   return (
     <div className="w-full bg-gradient-to-r from-cyan-100 to-red-100 py-12 px-4 border-t border-b border-gray-200">
       <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
@@ -47,7 +62,7 @@ const CustomSignSection = () => {
           <div className="w-full md:w-auto">
             <button
               onClick={() => setShowDesignPopup(true)}
-              className="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md"
+              className="w-full md:w-auto bg-red-600 cursor-pointer hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md"
             >
               Design Your Sign Now
             </button>
@@ -55,9 +70,15 @@ const CustomSignSection = () => {
         </div>
       </div>
 
-      {/* Design Popup - Same as in HeroSection */}
+      {/* Design Popup with all required props */}
       {showDesignPopup && (
-        <DesignPopup onClose={() => setShowDesignPopup(false)} />
+        <DesignPopup 
+          onClose={() => setShowDesignPopup(false)}
+          product={defaultProduct}
+          size={defaultSize}
+          quantity={defaultQuantity}
+          sizeUnit={defaultSizeUnit}
+        />
       )}
     </div>
   );

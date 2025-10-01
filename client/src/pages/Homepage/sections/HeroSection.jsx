@@ -235,7 +235,7 @@ const HeroSection = () => {
                       className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-600 to-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-600 to-red-600 text-white px-2 py-2 rounded-full text-xs  shadow-lg">
                     {displaySize.width}×{displaySize.height} {sizeUnit}
                   </div>
                 </div>
